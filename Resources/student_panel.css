@@ -1,0 +1,235 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0a0253;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* NAVIGATION BAR */
+nav {
+    height: 5vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 2px solid rgb(25, 0, 255);
+    position: fixed;
+    background-color: #020118;
+    z-index: 999;
+}
+
+.logo {
+    color: #00dd95;
+    font-size: 30px;
+    width: 5%;
+    text-decoration: none;
+    margin-left: 6%;
+    font-weight: 800;
+    position: relative;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    cursor: pointer;
+}
+
+nav ul {
+    width: 12%;
+    height: inherit;
+    display: flex;
+    margin-right: 20%;
+    justify-content: space-around;
+}
+
+nav ul li {
+    display: inline;
+    align-content: center;
+    margin: 0 2px;
+}
+
+nav ul li i {
+    color: aliceblue;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(245, 245, 248);
+    font-size: 14px;
+    font-weight: 800;
+    transition: 0.3s ease;
+    padding: 4px 10px;
+    border-radius: 3px;
+}
+
+.checkbtn {
+    font-size: 30px;
+    color: beige;
+    float: right;
+    line-height: 80px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
+nav .programs, .fees, .admision, .services {
+    background-color: #08022c;
+}
+
+nav .programs:hover, .fees:hover, .admision:hover, .services:hover, .contact:hover {
+    background-color: #ffffff;
+    -webkit-text-fill-color: #08022c;
+    transition: 0.3s;
+}
+
+nav a.programs {
+    background: #ffffff;
+    color: #08022c;
+}
+
+@media (max-width: 952px) {
+    .logo {
+        font-size: 35px;
+        padding: 0 100px;
+    }
+
+    nav ul li {
+        font-size: 16px;
+    }
+
+    .checkbtn {
+        display: block;
+    }
+
+    nav ul {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #040127e7;
+        top: 80px;
+        left: -100%;
+        text-align: center;
+        transition: all 0.5s;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+    }
+
+    #check:checked ~ ul {
+        left: 0;
+    }
+}
+
+@media only screen and (min-width: 953px) and (max-width: 1077px) {
+    nav ul li a {
+        padding: 15px 20px;
+    }
+
+    .logo {
+        font-size: 30px;
+        padding-left: 0;
+    }
+}
+
+/*third part*/
+.third_part {
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.third_part .container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.third_part .nav-bar {
+    width: fit-content;
+    height: 100%;
+    background-color: #003d3d;
+    border-right: 2px solid #08022c;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+}
+
+.sidebar.collapsed {
+    width: 4.5%;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.sidebar-header {
+    padding-right: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.menu-toggle {
+    font-size: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #ecf0f1;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.nav-list li {
+    color: #ecf0f1;
+    padding: 15px 20px;
+    cursor: pointer;
+    display: flex;
+}
+
+.nav-list.bottom {
+    align-content: end;
+}
+
+.nav-list li i {
+    margin-right: 5%;
+    font-size: 17px;
+}
+
+.nav-list li .nav-text {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.sidebar.collapsed .nav-text {
+    display: none;
+}
+
+.sidebar:hover .nav-text {
+    display: inline-block;
+}
+
+.third_part .content {
+    flex: 1;
+    padding: 0; /* Remove padding to make iframe full size */
+    display: flex; /* Ensure the iframe takes full space */
+}
+
+.third_part iframe {
+    flex: 1;
+    width: 100%;
+    height: 95%;
+    margin-top: auto;
+    border: none;
+}

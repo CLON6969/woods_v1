@@ -1,0 +1,233 @@
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body{
+    background-image:linear-gradient( rgba(0, 0, 50, 0.308), rgba(0, 0, 50, 0.295)), url('wall\ papers/53.jpg');
+    background-position: center;
+    background-size: cover;
+}
+#title{
+    color:  hsl(120, 92%, 36%);
+    font-weight: 500;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+   
+   
+}
+
+.login_box{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    align-content: center;
+}
+
+.form_box{
+    width: 30%;
+    position: relative;
+    margin: auto;
+    background: #04012754;
+    padding: 50px 60px 70px;
+    text-align: center;
+    border-radius: 30px;
+    border: 0.1px solid #0d737aa1;
+   
+}
+.form_box h1{
+    font-size: 30px;
+    margin-bottom: 60px ;
+    color: rgb(61, 102, 216);
+    position: relative;
+
+}
+
+.form_box h1::after{
+    content: '';
+    width: 3rem;
+    height: 4px;
+    border-radius: 3px;
+    background: #03a5bb;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.form_box P{
+    color:  #d7d5e9e7;
+    font-size: 18xspx;
+    padding-right: 4px;
+
+}
+
+.form_box p a{
+
+    text-decoration: none;
+    color: #1df5ca;
+    padding-left: 4px;
+}
+
+
+/*this section is for the input fields*/
+.input_filed{
+    background: #eaeaea;
+    margin: 15px 0;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+}
+
+ 
+input{
+    width:100% ;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    border-radius: 30px;
+    padding:18px 15px;
+}
+
+
+.input_filed i{
+    margin-left: 15px ;
+    color: black;
+}
+
+.input_group{
+    height: 230px;
+}
+::placeholder{
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.623);
+}
+
+
+
+/*this is the button section for both loging and applying*/
+
+.btn_filed{
+    width: 100%;
+    display: flex;
+    padding-top: 30px;
+    align-items: center;
+text-align: center;
+justify-content: center;
+justify-items: center;
+align-content: center;
+   
+}
+
+
+
+.btn_filed button{
+flex-basis: 48%;
+background: #1ba000;
+color: #eaeaea;
+height: 40px;
+border-radius:20px ;
+border: 0;
+outline: 0;
+cursor: pointer;
+transition: background 1s;
+font-size: 15px;
+font-weight: 800;
+
+}
+
+.btn_filed button:hover{
+   
+    border:2px solid #08ffce ;
+    transition: ease-out;
+    }
+
+
+/*this is the remember me styling*/
+.remember{
+    display: inline-flex;
+    font-size: 18px;
+    float: left;  
+}
+
+.remember .remember_input{
+    width: 11%;
+}
+
+.remember p{
+display: inline-flex;
+width: 115px;
+margin-left: 5px;
+}
+
+/*this is the forgot-passwrd positioning*/
+
+.forgot-password{
+    margin-top: 1rem;
+}
+
+/*this is the footer positioning*/
+footer{
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+
+
+    
+/* Responsive styles */
+@media only screen and (max-width: 359px) {
+
+    .form_box{
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        align-content: center;
+
+    }
+
+    footer p{
+        width: 100%;
+        font-size: 13px;
+    }
+    
+        
+}
+
+@media only screen and (min-width: 360px) and (max-width: 479px) {
+    .form_box{
+        width:90%;
+    }
+     
+    
+
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .form_box{
+        width:65%;
+    }
+     
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+    .form_box{
+        width:55%;
+    } 
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+    .form_box{
+        width:45%;
+    }
+}
+
+@media only screen and (min-width: 1280px) and (max-width: 1384px) {
+
+    .form_box{
+        width:45%;
+    }
+
+}
+  

@@ -1,0 +1,572 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+body {
+    height: min-content;
+    background-color: #0a0253;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+
+
+.section1 .top{
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.section1 .top .left{
+width: 29.8%;
+height: 100%;
+background-color: #020118;
+border-top: 2px solid rgb(25, 0, 255);
+border-left: 2px solid rgb(25, 0, 255);
+border-right: 2px solid rgb(25, 0, 255);
+}
+
+/* this deals with the top part of the left(profile-display)*/
+
+.section1 .top .left .inside_left1{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.section1 .top .left .inside_left1_child1{
+    width: 30%;
+    height: 86%;
+    margin: 2% 0 0 4%;
+    border-radius: 10%;
+    background-color: #d0cfe0;
+    align-content: center;
+    text-align: center; 
+    }
+
+.section1 .top .left .inside_left1_child1 i{
+font-size: 60px;
+font-weight: 800;
+}
+
+
+.section1 .top .left .inside_left1_child2{
+        width: 70%;
+        height: 100%;
+        margin: 0 0 0 4%;
+        list-style:none ;
+        justify-content: space-evenly;
+    }
+
+    .section1 .top .left .inside_left1_child2 li{
+        margin: 6%;
+    }
+
+
+    .section1 .top .left .inside_left1_child2 .inside{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .section1 .top .left .inside_left1_child2 .name{
+        width: fit-content;
+        color: #ffffff;
+        font-size: 17px;
+        font-weight: 800;
+        text-align: center;
+    }
+
+    .section1 .top .left .inside_left1_child2 .birth{
+        width: fit-content;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+
+    }
+
+    .section1 .top .left .inside_left1_child2 .program{
+        width: fit-content;
+        padding: 4px;
+        color: #ffffff;
+        background-color: #676775;
+        border-radius: 3px;
+        font-size: 16px;
+        font-weight: 800;
+        text-align: center;
+    }
+
+    .section1 .top .left .inside_left1_child2 i{
+        color: #02a834;
+        margin-left: 5%;
+        font-size: 30px;
+        font-weight: 800;
+        text-align: center;
+      }
+
+    /* this deals with the the courses view(courses-display)*/
+
+   
+
+    .section1 .top .left  .inside_left2 {
+        width: 100%;
+        height: 20%;
+        margin: 12% 0 0 0;   
+    }
+
+    .section1 .top .left  .inside_left2 .tittle{
+        width: 55%;
+        height: 30%;
+        color: #ffffff;
+        float:left;
+        font-size: 16px;
+        font-weight: 900;
+        text-align: end;
+    }
+
+    .section1 .top .left  .inside_left2  .inside_left2_child1{
+        width: 90%;
+        height: fit-content;
+        margin:auto;
+        display: flex;
+        flex-wrap:wrap;
+        list-style: none;
+        justify-content: space-between;
+    }
+
+    .section1 .top .left  .inside_left2  .inside_left2_child1 li{
+        display: inline-block;
+        width: calc(35% - 8px); /* Adjust the width as needed */
+        margin: 2% 0 0 2%;
+        color: #ffffffe0;
+        background-color: #676775;
+        border-radius: 3px;
+        font-size: 16px;
+        font-weight: 600;
+        align-content: center;
+        text-align: center;
+    }
+
+    .section1 .top .left  .inside_left2  .inside_left2_child1 .active{
+        background: #02a834;
+        border: 2px solid rgb(5, 71, 14);
+    }
+
+       /* this deals with the the general and finincial view(general and finincial-display)*/
+
+    .section1 .top .left  .inside_left3,.section1 .top .left  .inside_left4 {
+        width: 100%;
+        height: 18%;
+        margin: 9% 0 0 0;   
+    }
+
+    
+    .section1 .top .left  .inside_left3 .tittle,.section1 .top .left  .inside_left4 .tittle{
+        width: 32%;
+        height: 30%;
+        color: #ffffff;
+        float:left;
+        font-size: 16px;
+        font-weight: 900;
+        text-align: end;
+    }
+
+    .section1 .top .left .inside_left3 .inside_left3_child1,.section1 .top .left .inside_left4 .inside_left4_child1{
+        width: 90%;
+        height: fit-content;
+        margin:auto;
+        display: flex;
+        flex-wrap:wrap;
+        list-style: none;
+        justify-content: space-between;
+    }
+
+    .inside_left3_child1 li{
+        width: fit-content;
+        margin: auto;
+        margin: 1% 1% 0 0;
+        padding: 2%;
+        color: #ffffff;
+        background-color: #4d4d4d44;
+        text-align: center;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        font-size: 14px;
+        
+    }
+
+.inside_left4_child1 li  {
+        display: inline-block;
+        width: calc(35% - 8px); /* Adjust the width as needed */
+        margin: 2% 0 0 2%;
+        color: #ffffff;
+        background-color: #676775;
+        border-radius: 3px;
+        font-size: 16px;
+        font-weight: 600;
+        align-content: center;
+        text-align: center;
+
+        
+    }
+
+    .inside_left4_child1 li  {
+        text-align: center;
+    }
+    
+
+
+    .inside_left3_child1 .financial{
+        width: 62%;
+        display:flex ;
+        flex-direction: row;
+        align-content: center;
+        justify-content: space-between;
+    }
+    
+    
+    .inside_left3_child1  .amount1, .inside_left3_child1 .financial li{
+        color: rgb(0, 255, 21);
+        background-color:transparent;
+        font-size: 15px;
+        font-weight: 500;
+        text-align: end;
+    
+    }
+
+
+.inside_left4_child1 .list_back  {
+    width:63.2%;
+    background-color:transparent;
+    text-align: end;
+    font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.section1 .top .right{
+    width: 69.8%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #02011800;
+}
+
+.section1 .top .right .box1{
+    width: 100%;
+    height: 35.33vh;
+    background-color: #020118;
+border-bottom: 2px solid rgb(25, 0, 255);
+border-left: 2px solid rgb(25, 0, 255);
+text-align: center;
+color: #ffffff;
+
+/* this is what is inside  the right box1 */
+h1{
+width: fit-content;
+padding: 0 10% 0 10%;
+background-color: #4d4d4db9;
+margin: auto;
+}
+
+ul{
+    width: 95%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+   justify-content: center;
+
+   /* this is what is inside  the ul */
+
+
+   
+.financial2{
+    width: 100%;
+    display:flex ;
+    flex-direction: row;
+    margin-top: 1%;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.name2{
+  width: 34%;
+  cursor: pointer;
+  background-color: #4d4d4d98;
+  text-align: center;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.name2:hover {
+    background-color: #6b6767;
+    border:1px solid #02a834;
+}
+
+.progress{
+    width: 50%;
+    border: 2px solid #9ca59f;
+    background-color: #02a834;
+}
+
+.percentage{
+    width: 14%;
+    color: #02a834;
+}
+
+
+
+
+}
+
+
+
+}
+
+
+
+.section1 .top .right .box2{
+    height: 28vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+   
+    
+}
+
+
+.section1 .top .right .box2 .child1_box2{
+    width: 49.6%;
+    background-color: #020118;
+    border: 2px solid rgb(25, 0, 255);
+    text-align: center;
+    color: #ffffff;
+
+/* this is what is inside  the opening_closing */
+   span{
+    width: fit-content;
+    padding: 0 20% 0 20%;
+    background-color: #4d4d4db9;
+   }
+   
+   ul{
+    width: 95%;
+    height: fit-content;
+    margin:auto;
+    display: flex;
+    flex-wrap:wrap;
+    list-style: none;
+    justify-content: space-between;
+   }
+
+   
+li{
+    display: inline-block;
+    width: calc(40% - 10px); /* Adjust the width as needed */
+    margin: 2.3% 0 0 2%;
+    color: #ffffff;
+    background-color: #676775;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 600;
+    align-content: center;
+    text-align: center;
+}
+
+.last_line{
+    margin: 2% 0 2.7% 2%;
+}
+
+.split{
+    display: flex;
+    justify-content: space-between;
+    background: none;
+    
+ /* this is what is inside  the split */
+
+.available,.allowed{
+width: 40%;
+height: 100%;
+margin: auto;
+border-radius: 3px;
+}
+
+.available{
+    background: #02a834;
+    border: 2px solid rgb(5, 71, 14);
+}
+
+.allowed{
+    background: #55555546;
+    color:  rgba(250, 247, 247, 0.527);
+    border: 2px solid rgba(250, 247, 247, 0.274);
+}
+
+}
+
+}
+
+
+
+
+.section1 .top .right .box2 .child2_box2{
+
+    width: 49.6%;
+    background-color: #020118;
+    border: 2px solid rgb(25, 0, 255);
+    text-align: center;
+    color: #ffffff;
+
+
+
+    span{
+        width: fit-content;
+        padding: 0 20% 0 20%;
+        background-color: #4d4d4db9;
+       }
+
+      .event_box{
+        width: 80%;
+        height: 23vh;
+        margin: auto;
+        margin-top: 2%;
+        align-content: center;
+        background: #5251513b;
+      }
+    
+}
+
+
+
+
+/* this is what is  the box3*/
+
+.section1 .top .right .box3{
+    width: 100%;
+    height: 35.33vh;
+    display: flex;
+    flex-direction: row;
+    background-color: #020118;
+    border-top: 2px solid rgb(25, 0, 255);
+    border-left: 2px solid rgb(25, 0, 255);
+    border-right: 2px solid rgb(25, 0, 255);
+
+
+/* this is what is inside the box3*/
+
+.calendar {
+    border-radius: 8px;
+    width: 67.92%; /* Set width to 67.92% */
+    height: 31vh; /* Updated height */
+    display: flex;
+    flex-direction: column;
+}
+
+.month {
+    color: #ffffff;
+    font-size: 20px; /* Font size for the month */
+    text-align: center;
+    margin-bottom: 5px; /* Reduced margin */
+    padding: 2px 0; /* Added padding for better spacing */
+}
+
+.weekdays {
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px; /* Font size for weekdays */
+}
+
+.days {
+    color: #ffffff;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1.5px;
+    flex-grow: 1; /* Allow days to grow and fill available space */
+    flex-basis: 0;
+}
+
+.day {
+    color: #ffffff;
+    background-color: #4d4d4d23;
+    text-align: center;
+    padding: 8px; /* Adjusted padding */
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-size: 14px; /* Font size for days */
+}
+
+.day:hover {
+    background-color: #595959;
+}
+
+.current-day {
+    background-color: #ffffff;
+    color: #333;
+    border: 2px solid #05aa20;
+}
+
+
+
+
+
+.opening_closing{
+    width:40%;
+    height: 35vh;
+    color: #ffffff;
+    text-align: center;
+
+
+/* this is what is inside  the opening_closing */
+
+
+
+.opening{
+    height: 45%;
+    padding: 20px;
+}
+
+.closing{
+        height: 45%;
+        padding: 20px;
+        align-content: end;
+}
+
+.date{
+    width: fit-content;
+    color: #ffffff9f;
+    background-color: #6767754b;
+    margin: auto;
+    margin-top: 5%;
+    padding: 0 20Px 0 20px;
+    border-radius: 4px;
+
+}
+
+
+
+
+}
+
+}

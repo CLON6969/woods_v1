@@ -1,0 +1,304 @@
+/* =============================================================================
+   Color Palette
+   =============================================================================
+   --primary-dark: #010d15;
+   --primary-accent: #09c561;
+   --neutral: #60676c;
+   --background: #1a1a1a;
+   --text-light: #ffffff;
+   --text-secondary: #b0b0b0;
+   --border-color: #2e2e2e;
+   ============================================================================= */
+
+/* Root Variables for Easy Maintenance */
+:root {
+    --primary-dark:#010d15;
+    --primary-accent: #09c561;
+    --neutral: #60676c;
+    --background: #052339;
+    --text-light: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: #2e2e2e;
+}
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container for the Editing Section */
+.edditing_part {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* General Section Styling */
+.edditing_section,
+.edditing_section1,
+.edditing_section2,
+.edditing_section3,
+.heading_section,
+.form-container,
+.edditing_section4 {
+    background-color: var(--background);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Headings */
+h2,
+h3 {
+    color: var(--primary-accent);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input Fields */
+.input_field {
+    display: flex;
+    flex-direction: column;
+}
+
+.input_field label {
+    color: var(--primary-accent);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.input_field input[type="text"],
+.input_field textarea,
+.input_field select,
+.input_field input[type="file"] {
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--background);
+    color: var(--text-light);
+    transition: border-color 0.3s ease;
+}
+
+
+.input_field input[type="text"]:hover,
+.input_field textarea:hover,
+.input_field select:hover,
+.input_field input[type="file"]:hover{
+    border:1px solid var(--primary-accent);
+}
+
+
+
+.input_field input[type="text"]:focus,
+.input_field textarea:focus,
+.input_field select:focus {
+    border-color: var(--primary-accent);
+    outline: none;
+  
+}
+
+/* Textarea Styling */
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Buttons */
+button.btntxt,
+button.btntxt3 {
+    background-color: var(--primary-accent);
+    color: var(--primary-dark);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.btntxt:hover,
+button.btntxt3:hover {
+    color: #ffffff;
+    background-color: #07a14d; /* Slightly darker shade */
+    border: 1px solid #ffffff;
+    transform: translateY(-2px);
+}
+
+button.btntxt:active,
+button.btntxt3:active {
+    transform: translateY(0);
+}
+
+/* Container for Buttons */
+.container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table th,
+table td {
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+table th {
+    background-color: var(--primary-accent);
+    color: var(--primary-dark);
+}
+
+.image_container{
+width: 13rem;
+height: 10rem;
+padding: 10px 10px;
+}
+
+table td img {
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .edditing_part {
+        width: 95%;
+    }
+
+    table th,
+    table td {
+        padding: 10px;
+    }
+
+    button.btntxt,
+    button.btntxt3 {
+        width: 100%;
+    }
+
+    .container {
+        justify-content: center;
+    }
+}
+
+/* Specific Section Styling */
+
+/* Heading Section */
+.heading_section {
+    border: 1px solid red;/* Inherits general section styles */
+}
+
+/* Editing Sections */
+.edditing_section,
+.edditing_section1,
+.edditing_section2,
+.edditing_section3,
+.edditing_section4 {
+   border: 1px solid re; /* Additional specific styles can be added here if needed */
+}
+
+/* Slideshow Editing */
+.form-container h2 {
+    margin-bottom: 10px;
+}
+
+#editFields {
+    margin-top: 20px;
+}
+
+.item-list {
+    margin-top: 10px;
+}
+
+.item-list label {
+    margin-top: 10px;
+}
+
+.item-list input[type="text"] {
+    margin-bottom: 10px;
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+/* Smooth Transitions for Dynamic Elements */
+#editFields,
+#addItemsContainer {
+    transition: all 0.3s ease;
+}
+
+#editFields.show,
+#addItemsContainer.show {
+    display: block;
+}
+
+
+/* this is for the updating  progress bar */
+#progress-bar-container {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+#progress-bar {
+    height: 5px;
+    width: 0%;
+    background-color: var(--primary-accent);
+    transition: width 0.5s;
+}
+
+
+.alert-success {
+    color: var(--text-light);
+    background-color: var(--primary-accent);
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+

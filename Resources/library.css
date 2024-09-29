@@ -1,0 +1,779 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body{
+    background: #0F6F36;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: fixed;
+
+}
+
+.first_1_child_part_container{
+    display: flex;
+    flex-direction: row;
+    height: 5.5vh;
+    justify-content: space-between;
+    width: 100%;
+    background: #030d33 ;
+    z-index: 999;
+}
+
+.first_1_child_part_container label a{
+    color: hsl(120, 92%, 36%);
+    margin-left: 15px;
+    padding-left:1%;
+    font-size:30px ;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.first_1_child_part_container .menu1{
+    width:47%;
+}
+
+
+
+.first_1_child_part_container .first_right_elements{
+    width: 93%;
+    justify-content: space-between; 
+}
+
+.first_1_child_part_container ul{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    list-style-type: none;
+}
+
+
+
+.first_1_child_part_container .home_list,  .services_list {
+    margin: 10px 0px 5px 0;
+}
+
+
+.first_1_child_part_container li a{
+    color: #00F0FF;
+    text-decoration: none;
+    font-size: 18px ;
+    font-weight: 800;
+    border-radius: 4px;
+}
+
+.first_1_child_part_container li a:hover{
+    transition: 0.3;
+    color: #00F0FF;
+    border: 1px solid #00F0FF;
+    
+}
+
+.first_1_child_part_container .dropdown{
+    color: #00F0FF;
+    border-radius: 8px;
+    background:   #030D33;
+    padding: 0.1%; 
+    font-size: 1.2rem; 
+    font-weight: 900;
+    text-decoration: none; 
+}
+
+.first_1_child_part_container .dropdown li a:hover{
+    transition: 0.3;
+    color: #00F0FF;
+    background-color: #030D33;
+    border: 1px solid #00F0FF;
+    
+}
+
+/* this is the dropdown menu  for the servicesstyling*/
+
+
+
+
+.dropdown{
+    display: none;
+    transition: 0.3s;
+}
+
+
+.menu1 .first_right_elements li:hover .dropdown{
+    display: block;
+    position: absolute;
+    right: 1%;
+    top:42% ;
+    line-height: 2rem;
+
+    
+}
+
+
+
+.services_list:hover{
+    color: #00F0FF;
+    
+}
+
+.first_right_elements  .services i{
+    font-size: 14px;
+}
+
+
+
+.dropdown ul a{
+    font-size: 16px;
+    font-size: 400;
+    text-align: center;
+    color: #00F0FF;
+
+}
+.dropdown ul{
+    display: block;
+    font-size: 12px;
+    text-align: center;
+
+}
+
+
+/* this is the secondpart of the navigation bar*/
+
+.first_2_child_part_container{
+    display: flex;
+    flex-direction: row;
+    height: 5.5vh;
+    justify-content: space-between;
+    box-shadow: 2px 2px 10px #160458c9;
+    width: 100%;
+    background: #0F6F36 ;
+    z-index: 1;
+}
+
+
+.first_2_child_part_container ul{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    list-style-type: none;
+}
+
+
+
+.first_2_child_part_container .left_elements li{
+    margin: 10px 15px 5px 10px;
+}
+
+.first_2_child_part_container .left_elements {
+    padding-left: 40px;
+}
+
+.first_2_child_part_container li a{
+    color: #00F0FF;
+    text-decoration: none;
+    font-size: 18px ;
+    font-weight: 800;
+    border-radius: 4px;
+}
+
+.first_2_child_part_container li a:hover{
+    transition: 0.2s;
+    color:#00F0FF;
+    border: 0.1px solid #00F0FF;
+    
+}
+
+.first_2_child_part_container .right_elements{
+    margin: 6px 5px 2px 22px;
+    justify-content: space-between; 
+}
+
+.menu{
+    margin-right: 18rem;
+}
+
+
+
+/* this is the home section styling*/
+#home .hours{
+    color: #00F0FF;
+    margin-left: 60rem;
+    float:right;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+
+  }
+
+#home{
+height:120vh;
+width: 100%;
+padding-top: 12vh;
+background-color: #030D33;
+display: flex;
+flex-direction: column;
+align-items:center;
+line-height: 5vw;
+background-image:linear-gradient(rgba(3, 13, 53, 0.384),rgb(3, 13, 53)), url('wall\ papers/16.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+
+}
+
+#home h1{
+    color:hsl(120, 92%, 36%);
+    letter-spacing: 2px;
+    font: italic 3.5rem  "Fira Sans ", serif ;
+    font-weight: 600;
+}
+#home p{
+    color: #00F0FF;
+     font-size: 18px;
+     font-weight: 600;
+    letter-spacing: 4px;
+    font-family:monospace;
+}
+
+#home .first_part{
+    
+    align-items: center;
+    justify-content: space-between;
+    justify-content: center;
+    text-align: center;
+    line-height: 3.5rem;
+    padding-right: 7rem;
+    width: 100%;
+    
+}
+
+#home .first_part .first_btns a{
+    color:#ffffff;
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0 0 0 6vw;
+    padding: 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    background: #0f6f35;
+    
+}
+
+#home .first_part .first_btns a:hover{
+    transition: 0.3s;
+    color:#00F0FF;
+    background:#030D33;
+    border: 1px solid #00F0FF;
+    
+}
+
+
+#home .first_1_child_part{
+    margin: 0;
+    margin-left: 4%;
+    margin-bottom: 4%;
+    padding-bottom: 4%;
+    width: 100%;
+}
+
+
+#home .first_1_child_part input{
+    outline: none;
+    color: #030D33;
+    font-size: 14px;
+    font-weight: 800;   
+    padding: 8px;
+    padding-right: 10px;
+    border-radius: 8px;
+    width: 60%;
+    text-align: center;
+    box-shadow: 0 6px 12px #030D33;
+
+}
+
+#home .first_1_child_part i{
+    text-align: center;
+}
+
+#home .first_1_child_part button{
+    border: 0;
+    color:#030D33 ;
+    letter-spacing: 1px;
+    font-size: 14.5px;
+    font-weight: 800;
+    padding: 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    background: #00F0FF;
+}
+
+
+/* this is the drop down login button styling*/
+#home .second_btns{
+font-weight: 800;
+width:10%;
+margin-left: 35rem;
+border-radius: 8px;
+}
+
+
+.second_btns a{
+    color: #030D33;
+    width: 100%;
+    border-radius: 8px;
+    background:  #00F0FF;
+    font-size: 1.2rem; 
+    font-weight: 900;
+    text-decoration: none; 
+}
+/* this deals with the padding adjustments of the login & staff buttons
+on the last login*/
+.second_btns  .login i{
+    font-size: 16px;
+    font-weight: 900;
+    margin-left: 4%;
+   color:  #030D33 ;
+   background-color:#00F0FF;
+}
+
+.second_btns  .login{
+    padding: 8% 17%;
+}
+
+.second_btns .staff{
+    padding: 8% 29.7%; 
+    font-size: 1.2rem; 
+    font-weight: 900;
+}
+
+.second_btns .student{
+    padding: 8% 20%; 
+    font-size: 1.2rem; 
+    font-weight: 900; 
+}
+
+
+/* this deals with the drop down of the first login button */
+
+#home .second_btns .dropdown1 a:hover{
+    color:  #00F0FF;
+    background-color:  #030d33;
+    border: 0.1px solid #00F0FF;
+    }
+
+#home .second_btns li{
+    width:100%;
+    list-style-type: none;
+    border-radius: 8px;
+}
+
+#home .second_btns li:hover{
+    color: #030D33;
+}
+
+.dropdown1{
+    display: none;
+    transition: 0.3s;
+}
+
+#home .second_btns li:hover .dropdown1{
+    display: block;
+    position: relative;
+    top: 78%;
+    background-color:#030d3300;
+}
+
+.dropdown1 ul a{
+    font-size: 12px;
+    font-size: 400;
+    text-align: center;
+
+}
+
+.dropdown1 ul{
+    display: block;
+    font-size: 12px;
+    text-align: center;
+
+}
+
+/* this is the first section*/
+#first_section{
+height: 20vh;
+width: 100%;
+justify-content: center;
+align-items: center;
+text-align: start;
+
+}
+
+#first_section .contents{
+    width: 50%;
+    margin-left: 27%;
+    margin-top: 30px;
+}
+
+#first_section .contents h1{
+color: #030D33;
+font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
+font-weight: 400;
+}
+#first_section .contents h4{
+    color: #030D33;
+    font-family: serif;
+    font-size: 18px;
+
+}
+
+/* this is the slide show of the the pictures*/
+
+
+.slider_frame{
+    overflow: hidden;
+    height: 26vh;
+    width: 400px;
+    margin-top: 20px;
+    
+}
+
+
+@-webkit-keyframes slide_animation{
+    0%{left:0px;}
+    25%{left:800px;}
+    50%{left:1200px;}
+    75%{left:800px;}
+    100%{left:0px;}
+}
+
+.slide_images{
+    width: 3000px;
+    height: 16vh;
+    margin: 0 0 0 -1200px;
+    position:relative;
+    -webkit-animation-name: slide_animation;
+    -webkit-animation-duration: 20s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction:alternate;
+    -webkit-animation-play-state:running;
+    
+}
+
+.image_contssiner{
+    height: 26vh;
+    width: 400PX;
+    position: relative;
+    float: left;
+    z-index: -1;
+}
+
+
+
+.image_contssiner img{
+    height:180px; 
+    width: 400PX;
+}
+
+.slides_container{
+    display: flex;
+    flex-direction: row;
+    padding: 40px 40px;
+    
+}
+
+/* this is the secontd section's sttyling */
+
+#second_section{
+    height: 60vh;
+    width: 100%;
+    margin-top: 38vh;
+    
+}
+
+#second_section .writen_text_container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(370px, 1fr));
+    height: 122vh;
+    padding-bottom: 80px;
+}
+
+
+/* this ressizes the text divs*/ 
+#second_section .writen_text_container .writen_text1{
+    justify-content: center;
+    align-items: center;
+    text-align: start;
+    margin-left:2.9rem;
+    height: 100px;
+    
+}
+
+
+#second_section .writen_text_container .writen_text2{
+width: 60%;
+height: 450px;
+margin-top: 70px;
+margin-left: 25%;
+margin-left: 25%;
+background-image:linear-gradient(rgba(3, 13, 53, 0.233),rgba(3, 13, 53, 0.705)), url('wall\ papers/99.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+}
+
+#second_section .writen_text_container .writen_text3{
+    justify-content: center;
+    align-items: center;
+    text-align: start;
+    height: 100px;
+    margin-top: 70px;
+}
+
+    #second_section .writen_text_container .writen_text4{
+        width: 60%;
+        height: 450px;
+        margin-top: 170px;
+        margin-left: 25%;
+        margin-left: 25%;
+        background-image:linear-gradient(rgba(3, 13, 53, 0.233),rgba(3, 13, 53, 0.705)),url('wall\ papers/102.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    #second_section .writen_text_container .writen_text5{
+        width: 80%;
+        height: 32.7%;
+        margin-top: 35px;
+        padding-top: 18px;
+        margin-left: 25%;
+        }
+
+        .writen_text5 a{
+            color: #00F0FF;
+            font-weight: 900;
+            margin: 0 0 0 0.1%;
+            border-radius: 8px;
+            background: #030D33;
+            font-size: 1.2rem;  
+            text-decoration: none;
+            width: 100%;
+            line-height: 2.87rem;  
+        }
+/* this deals with the padding adjustments of the login & staff buttons
+on the last login*/
+
+        .writen_text5 .login i{
+            font-size: 16px;
+            font-weight: 900;
+            margin-left: 4%;
+           color:  #00F0FF;
+           background-color: #030D33;
+        }
+
+        .writen_text5 .login{
+            padding: 8% 15%;
+        }
+
+
+        .writen_text5 .staff{
+            padding: 8% 28%;  
+        }
+
+        .writen_text5 .student{
+            padding: 8% 19%;
+        }
+/* this deals with the drop down of the second login button */
+
+
+        .writen_text5 .list_inside_write_text5{
+            list-style-type: none;
+            width: 60%;
+        }
+        .writen_text5 .dropdown2 li{
+            list-style-type: none;
+            width: 100%;
+        }
+
+        .writen_text5 li:hover{
+          color: #030D33; 
+        }
+
+        .dropdown2{
+            display: none;
+            transition: 0.3s;
+        }  
+
+        .writen_text5 li:hover .dropdown2{
+            display: block;
+            position: relative;
+            background-color:#030d3300;
+        }
+
+        .writen_text5 .dropdown2 a:hover{
+            color: #00F0FF;
+            background-color: #030d33;
+            border: 2px solid #00F0FF;
+            }
+
+
+
+
+
+    #second_section .writen_text_container .writen_text6{
+            width: 60%;
+            height: 450px;
+            margin-top: 100px;
+            margin-left: 25%;
+            margin-left: 25%;
+            background-image:linear-gradient(rgba(3, 13, 53, 0.233),rgba(3, 13, 53, 0.705)), url('wall\ papers/104.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            }
+
+
+
+/* this deals with the text tempering */
+#second_section .writen_text_container .writen_text1 h1, .writen_text3 h1{
+    color: #030D33;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
+    font-weight: 400;
+    }
+
+    #second_section .writen_text_container .writen_text1 h4, .writen_text3 h4{
+        color: rgb(3, 13, 51);
+        font-family: serif;
+        font-size: 18px;
+    
+    }
+
+    #second_section .writen_text_container .writen_text2 h1{
+        color: #ffffff;
+        justify-content: end;
+        font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif ;
+        font-weight: 400;
+        margin-top:300px; 
+    }
+
+
+    #second_section .writen_text_container .writen_text2 h4{
+        color: #ffffff;
+        font-family: serif;
+        font-size: 18px;
+        
+    }
+    
+    /* this deals with the sizing of the inside_writen_text  div */
+
+    .inside_writen_text2, .inside_writen_text3{
+        margin:10px 10px;
+    }
+
+
+        /* this deals with the position of the inside_writen_text3  div */
+    .writen_text4, .writen_text6{
+align-content: end;
+    }
+    /* this deals with the coloring of the inside_writen_text3  div */
+
+       .inside_writen_text3 h1{
+        -webkit-text-fill-color: #ffffff;
+    }
+
+    
+    .inside_writen_text3 h4{
+        -webkit-text-fill-color: #ffffff;
+    }
+
+
+        /* this is the third part    background-color: #033323;*/
+
+#third_section{
+height: 60vh;
+margin-top: 68vh;
+background-image:linear-gradient(rgba(3, 13, 53, 0.438),rgba(3, 13, 53, 0.336)), url('wall\ papers/100.jpg');
+background-size: cover;
+background-position: center;
+justify-content: center;
+justify-items: center;
+align-content: center;
+align-items: center;
+text-align: center;
+
+}
+
+#third_section .content_container{
+    display: flex;
+    flex-direction: row;
+    height: 60vh;
+    justify-content: space-evenly ;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;   
+}
+
+
+#third_section  li{
+    color: #00F0FF;
+    list-style-type: none;
+    line-height: 25px;
+}
+
+#third_section  li a{
+    color: #00F0FF;
+    text-decoration: none;
+    line-height: 30px;
+}
+
+
+#third_section .tittles {
+    text-align: start;
+    margin-bottom: 30px;
+}
+
+
+
+#third_section .content_container .box_container1, #third_section .content_container .box_container2, #third_section .content_container .box_container3, #third_section .content_container .box_container4{
+    height: 45vh;
+    width: 11rem;
+    background-color:#030d3398;
+    color: #00F0FF;
+    text-align: center;
+}
+
+#third_section .box_container2,#third_section   .box_container4{
+margin-top: 100px;
+}
+
+#third_section .box_container1,#third_section   .box_container3{
+margin-bottom: 100px;
+padding-bottom: 100px;
+}
+
+footer{
+    height: 5vh;
+    background-color:#030D33 ;
+    
+}
+
+footer p{
+    color: #00F0FF;
+    text-align: center;
+    list-style-type: none;
+    padding-top: 8px;
+}
+
+footer p a{
+    color: #00F0FF;
+    text-align: center;
+    list-style-type: none;
+    padding-top: 8px;
+}
+
