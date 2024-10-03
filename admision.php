@@ -324,7 +324,7 @@ if ($result->num_rows > 0) {
         echo '<div class="third_part_1_child2">';
             echo '<div class="insidethird_part_1_child_1_1">';
 
-            echo '<img src="' . htmlspecialchars($row['picture']) . '" alt="an image of a digital flower" class="box1">'; 
+            echo '<img src="' . htmlspecialchars($row['picture']) . '" alt="an image" class="box1">'; 
             
             echo '<div class="overlay"></div>';
             echo '</div>';
