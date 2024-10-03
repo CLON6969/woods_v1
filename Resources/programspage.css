@@ -27,11 +27,11 @@ nav{
     box-shadow: 2px 2px 10px #16045826;
     position: fixed;
     width: 100%;
-    background-color: #003d3d;
+    background-color: #0d9d50;
     z-index: 999;
 }
 label .logo{
-    color: #00dd95;
+    color: #ffffff;
     font-size:40px ;
     width: 5%;
     text-decoration: none;
@@ -243,7 +243,7 @@ label .logo{
 
 
 .first_part .text-overlay .text-overlay_child1 div h1 {
-    background: linear-gradient(90deg, #003d3d, #ffffff, #003d3d, #ffffff);
+    background: linear-gradient(90deg, #0d9d50, #ffffff, #0d9d50, #ffffff);
     background-size: 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -270,7 +270,7 @@ label .logo{
 
 .first_part .text-overlay .text-overlay_child1 .color-flow-icon {
     font-size: 50px;
-    background: linear-gradient(90deg, #003d3d, #ffffff, #003d3d, #ffffff);
+    background: linear-gradient(90deg, #0d9d50, #ffffff, #0d9d50, #ffffff);
     background-size: 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -295,7 +295,7 @@ label .logo{
     font-size: 1rem;  
     text-decoration: none;
     padding: 10px 20px;
-    background-color: #003d3d;
+    background-color: #0d9d50;
     color:  #ffffff;
     margin: 6px  0 0 10px;
     border-radius: 3px;
@@ -304,7 +304,7 @@ label .logo{
 }
 
 .first_part .text-overlay .text-overlay_child1 .program_button:hover{
-    color:  #003d3d;
+    color:  #0d9d50;
     background-color: #f5f4f2;
     transition: 0.5s;
 }
@@ -346,7 +346,7 @@ color: #ffffff;
  .apply_button{
     font-family:Impact, Haettenschweiler, 'ArialNarrow Bold';
     color: #ffffff;
-    background:#003d3d;
+    background:#0d9d50;
     margin:3rem 0 2rem 0;
     text-decoration: none;
     font-size: 25px;
@@ -517,7 +517,7 @@ text-align:center;
     width: fit-content;
     height: fit-content;
     color: #ffffff;
-    background:#62676b;
+    background:#0f5793;
     text-decoration: none;
     margin: 0 0 2rem 0;
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
@@ -710,7 +710,7 @@ background:linear-gradient(rgb(8, 2, 44),rgb(8, 2, 44));
     
     footer{
         height: 5vh;
-        background-color:#003d3d ;
+        background-color:#0d9d50;
         
     }
     

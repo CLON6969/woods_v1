@@ -27,11 +27,11 @@ nav{
     box-shadow: 2px 2px 10px #16045826;
     position: fixed;
     width: 100%;
-    background-color: #003d3d;
+    background-color: #0d9d50;
     z-index: 999;
 }
 label .logo{
-    color: #00dd95;
+    color: #ffffff;
     font-size:40px ;
     width: 5%;
     text-decoration: none;
@@ -296,7 +296,7 @@ label .logo{
 .apply_button_container .apply_button{
     font-family:Impact, Haettenschweiler, 'ArialNarrow Bold';
     color: #ffffff;
-    background:#003d3d;
+    background:#0d9d50;
     text-decoration: none;
     font-size: 25px;
     font-weight: 500;
@@ -428,7 +428,7 @@ color: #000000;
     .third_part_1_child1 .apply_btn:hover{
 
         color: #ffffff;
-        background:#003d3d;
+        background:#0d9d50;
         border: 3px solid #ffffff;
         } 
 
@@ -543,7 +543,7 @@ margin: 0 0 1.5% 0;
 .fourth_part  .apply_btn{
     font-family:Impact, Haettenschweiler, 'ArialNarrow Bold';
     color: #ffffff;
-    background:#003d3d;
+    background:#0d9d50;
     text-decoration: none;
     font-size: 25px;
     font-weight: 500;
@@ -699,7 +699,7 @@ margin: 0 0 1.5% 0;
         
         footer{
             height: 5vh;
-            background-color:#003d3d ;
+            background-color:#0d9d50;
             
         }
         

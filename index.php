@@ -360,7 +360,7 @@ if ($result->num_rows > 0) {
    <div class="image_frame">
     <!-- Background image for the entire frame -->
     <div class="background-overlay">
-        <img src="Resources/wall papers/96.jpg" alt="Background Image">
+        <img src="<?php echo $background_picture2; ?>" alt="Background Image">
     </div>
 
     <!-- Individual clickable elements on top of the background image -->
@@ -393,8 +393,8 @@ if ($result->num_rows > 0) {
    <div class="btn">
        
        <div class="second_btns">
-           <ul>
-                 <li>
+           <ul class="top_top_container">
+                 <li class="top_top_container" >
 
                    <a href="#" class="blue"><?php echo $button1; ?><i class="fa-solid fa-circle-chevron-down"></i></a>
 
