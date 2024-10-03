@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2024 at 03:04 AM
+-- Generation Time: Oct 03, 2024 at 10:12 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -46,7 +46,7 @@ CREATE TABLE `accademic_table` (
 --
 
 INSERT INTO `accademic_table` (`accademic_table_id`, `heading1`, `heading2`, `heading3`, `first_heading_date`, `first_date`, `second_heading_date`, `second_date`, `buttun`, `buttun_url`, `background_picture`) VALUES
-(1, 'Academic Calendar', 'We’re Ready When You Are', 'Classes start every 8 weeks.', 'OPENING', '2024-10-24', 'CLOSING', '2024-12-19', 'APPLY', 'student_registration.php', 'Resources/wall papers/226.jpg');
+(1, 'Academic Calendar', 'We’re Ready When You Are', 'Classes start every 8 weeks.', 'OPENING', '2024-10-24', 'CLOSING', '2024-12-19', 'APPLY', 'student_registration.php', 'Resources/wall papers/230.jpg');
 
 -- --------------------------------------------------------
 
@@ -87,7 +87,7 @@ CREATE TABLE `admision` (
 --
 
 INSERT INTO `admision` (`admision_id`, `heading1`, `heading2`, `heading2_content`, `heading3`, `heading3_content`, `heading4`, `heading4_content`, `heading5`, `heading6`, `heading6_content`, `heading6_sub_content`, `heading7`, `tittle`, `tittle1`, `tittle2`, `tittle3`, `button1`, `button1_url`, `button2`, `button2_url`, `button3`, `button3_url`, `background_picture1`, `background_picture2`) VALUES
-(1, 'Applying to woods university is easy.', 'Complete an online application.', 'Whether you’re a first-year, transfer, or returning student, there is no fee to apply.', 'Send your official transcripts.', 'After you submit your application, you’ll also need to send us a copy of your transcripts or GED. While we prefer transcripts to be sent electronically, we also accept official documents via postal mail', 'Stay in touch', 'We’ll give you a call, shoot you a text or reach out via email if we’re missing any information. And along the way, if you have any questions, you can always get in touch at 0976206889 or getenrolled@woods.edu.', 'Getting into woods university', 'Reviewing the basic requirements.', 'We look at more than just test scores and GPAs.\r\nAs a test-optional college, we don’t require SAT or ACT scores for admissions. Additionally, we know COVID-19 has impacted students in a variety of ways. Baker College uses a comprehensive application review, meaning we look at you as a whole person with more to offer than a grade point average.', 'Students who have earned a high school diploma or its equivalent, such as a General Education Development (GED) certificate, are eligible to apply.', 'Need more info? We’re here to help?', 'ADMISSION', 'step 1', 'step 2', 'step 3', 'APPLY', 'student_registration.php', 'APPLY', 'student_registration.php', 'Learn More', '#', 'Resources/wall papers/225.jpg', 'Resources/wall papers/224.jpg');
+(1, 'Applying to woods university is easy.', 'Complete an online application.', 'Whether you’re a first-year, transfer, or returning student, there is no fee to apply.', 'Send your official transcripts.', 'After you submit your application, you’ll also need to send us a copy of your transcripts or GED. While we prefer transcripts to be sent electronically, we also accept official documents via postal mail', 'Stay in touch', 'We’ll give you a call, shoot you a text or reach out via email if we’re missing any information. And along the way, if you have any questions, you can always get in touch at 0976206889 or getenrolled@woods.edu.', 'Getting into woods university', 'Reviewing the basic requirements.', 'We look at more than just test scores and GPAs.\r\nAs a test-optional college, we don’t require SAT or ACT scores for admissions. Additionally, we know COVID-19 has impacted students in a variety of ways. Baker College uses a comprehensive application review, meaning we look at you as a whole person with more to offer than a grade point average.', 'Students who have earned a high school diploma or its equivalent, such as a General Education Development (GED) certificate, are eligible to apply.', 'Need more info? We’re here to help?', 'ADMISSION', 'step 1', 'step 2', 'step 3', 'APPLY', 'student_registration.php', 'APPLY', 'student_registration.php', 'Learn More', '#', 'Resources/wall papers/224.jpg', 'Resources/wall papers/224.jpg');
 
 -- --------------------------------------------------------
 
@@ -133,12 +133,12 @@ CREATE TABLE `admision3` (
 --
 
 INSERT INTO `admision3` (`admision3_id`, `picture`, `heading`, `heading_content`, `buttun`, `buttun_url`) VALUES
-(1, 'Resources/wall papers/221.jpg', 'Adult Learners', 'Even if you have a busy schedule, our flexible hours and convenient online learning options make it easy to achieve your goals.', 'Learn More ', '#'),
-(2, 'Resources/wall papers/227.jpg', 'Transfer Students', 'When you transfer to Baker College, we’ll make sure you get maximum credit for the coursework you’ve already completed.', 'Learn More ', '#'),
-(3, 'Resources/wall papers/228.jpg', 'Options for Everyone\r\n', 'High School Students Small class sizes make it easy to make friends and find study groups. Plus, our student housing options keep you close to helpful resources on campus.', 'Learn More ', '#'),
-(4, 'Resources/wall papers/228.jpg', 'Graduate Students', 'We have a wide variety of master’s and doctoral programs that can help you build the knowledge and skills you need to take your career to the next level.', 'Learn More ', '#'),
-(5, 'Resources/wall papers/228.jpg', 'Military Members & Families', 'Whether you’re on active duty or making the transition to civilian life, we can help you get a top-quality education at a price you can afford.', 'Learn More ', '#'),
-(6, 'Resources/wall papers/228.jpg', 'International Students', 'We’re proud to have a diverse and inclusive campus where students from all over the world can come and join the BakerProud community.', 'Learn More ', '#');
+(1, 'Resources/wall papers/225.jpg', 'Adult Learners', 'Even if you have a busy schedule, our flexible hours and convenient online learning options make it easy to achieve your goals.', 'Learn More ', '#'),
+(2, 'Resources/wall papers/241.jpg', 'Transfer Students', 'When you transfer to Baker College, we’ll make sure you get maximum credit for the coursework you’ve already completed.', 'Learn More ', '#'),
+(3, 'Resources/wall papers/242.jpg', 'Options for Everyone', 'High School Students Small class sizes make it easy to make friends and find study groups. Plus, our student housing options keep you close to helpful resources on campus.', 'Learn More ', '#'),
+(4, 'Resources/wall papers/90.jpg', 'Graduate Students', 'We have a wide variety of master’s and doctoral programs that can help you build the knowledge and skills you need to take your career to the next level.', 'Learn More ', '#'),
+(5, 'Resources/wall papers/214.jpg', 'Military Members & Families', 'Whether you’re on active duty or making the transition to civilian life, we can help you get a top-quality education at a price you can afford.', 'Learn More ', '#'),
+(6, 'Resources/wall papers/229.jpg', 'International Students', 'We’re proud to have a diverse and inclusive campus where students from all over the world can come and join the BakerProud community.', 'Learn More ', '#');
 
 -- --------------------------------------------------------
 
@@ -1285,7 +1285,7 @@ CREATE TABLE `cumpus_housing` (
 --
 
 INSERT INTO `cumpus_housing` (`cumpus_housing_id`, `tittle`, `heading1`, `heading1_content`, `heading2`, `heading2_content`, `heading3`, `heading3_content`, `heading4`, `heading4_content`, `heading5`, `background_pic`) VALUES
-(1, 'cumpus & housing', 'Make yourself at home. No commuting required.', 'Living in student housing can make your college experience even better. With easy access to your classes and on campus activities, you’ll be able to meet new people and form friendships all in a supportive, community-oriented atmosphere', 'Type of housing available', 'Student housing at woods university vary by campus. Accommodations include spacioussuites, apartments, or townhouses. Some facilities are located on campus and others arelocated within the community. Enjoy increased independence and responsibility in acomfortable, safe living environment.', 'Housing cost per semester', 'The current per student rate for all housing options is $2,300 per semester.\r\n\r\nReturning Residence Hall students-A non-refundable $100 pre-payment is required for each semester a student returns to housing due when the Residence Hall Application is submitted. The $100.00 pre-payment is applied toward housing costs each semester it is paid.', 'Student eligibility', 'Students eligible to live in Residence Halls are required to be registered as full-time students. Priority is given to students enrolled in on-campus programs. Returning students have the first opportunity for room selection for the following academic year. All students must be under 25 years old to be eligible for housing', 'Here’s what you should bring to campus', 'Resources/wall papers/22.jpg');
+(1, 'cumpus & housing', 'Make yourself at home. No commuting required.', 'Living in student housing can make your college experience even better. With easy access to your classes and on campus activities, you’ll be able to meet new people and form friendships all in a supportive, community-oriented atmosphere', 'Type of housing available', 'Student housing at woods university vary by campus. Accommodations include spacioussuites, apartments, or townhouses. Some facilities are located on campus and others arelocated within the community. Enjoy increased independence and responsibility in acomfortable, safe living environment.', 'Housing cost per semester', 'The current per student rate for all housing options is $2,300 per semester.\r\n\r\nReturning Residence Hall students-A non-refundable $100 pre-payment is required for each semester a student returns to housing due when the Residence Hall Application is submitted. The $100.00 pre-payment is applied toward housing costs each semester it is paid.', 'Student eligibility', 'Students eligible to live in Residence Halls are required to be registered as full-time students. Priority is given to students enrolled in on-campus programs. Returning students have the first opportunity for room selection for the following academic year. All students must be under 25 years old to be eligible for housing', 'Here’s what you should bring to campus', 'Resources/wall papers/163.jpg');
 
 -- --------------------------------------------------------
 
@@ -1384,10 +1384,10 @@ CREATE TABLE `cumpus_housing_slides_images` (
 --
 
 INSERT INTO `cumpus_housing_slides_images` (`cumpus_housing_slides_images_id`, `link_name`, `link_url`, `picture1`, `picture2`, `picture3`) VALUES
-(1, 'Classes', '#', 'Resources/wall papers/22.jpg', 'Resources/wall papers/22.jpg', 'Resources/wall papers/22.jpg'),
-(2, 'Housing', '#', 'Resources/wall papers/22.jpg', 'Resources/wall papers/22.jpg', 'Resources/wall papers/22.jpg'),
-(3, '  Canteen', '#', 'Resources/wall papers/22.jpg', 'Resources/wall papers/22.jpg', 'Resources/wall papers/22.jpg'),
-(4, 'Library', '#', 'Resources/wall papers/22.jpg', 'Resources/wall papers/22.jpg', 'Resources/wall papers/22.jpg');
+(1, 'Classes', '#', 'Resources/wall papers/164.jpg', 'Resources/wall papers/238.jpg', 'Resources/wall papers/241.jpg'),
+(2, 'Housing', '#', 'Resources/wall papers/156.jpg', 'Resources/wall papers/244.jpg', 'Resources/wall papers/245.jpg'),
+(3, '  Canteen', '#', 'Resources/wall papers/198.jpg', 'Resources/wall papers/158.jpg', 'Resources/wall papers/220.jpg'),
+(4, 'Library', '#', 'Resources/wall papers/157.jpg', 'Resources/wall papers/109.jpg', 'Resources/wall papers/107.jpg');
 
 -- --------------------------------------------------------
 
@@ -1464,7 +1464,7 @@ CREATE TABLE `fees_and_finicial_aid_admin` (
 --
 
 INSERT INTO `fees_and_finicial_aid_admin` (`fees_and_finicial_aid_admin_id`, `heading1`, `heading1_content`, `heading2`, `tittle`, `buttun1`, `buttun1_url`, `background_pic`) VALUES
-(1, 'Quality education should be accessible. We can help.', 'College is an investment in your future. Whether you are looking to take the first steps in your career path as a first-time student, looking to transfer from another institution, need technical training, or an advanced degree, Baker College is committed to making your investment affordable. As a nonprofit institution, we invest in our students, not shareholders.\r\n\r\nThrough the combination of scholarships, grants, and financial aid, your admission advisor can help you. You will quickly realize that Baker College can offer some of the lowest tuition of any private college in Michigan, often with more financial help than most community colleges and public universities.', 'Applying to woods university is easy.', 'FEES AND FININCIAL AID', 'APPLY', 'student_registration.php', 'Resources/wall papers/154.jpg');
+(1, 'Quality education should be accessible. We can help.', 'College is an investment in your future. Whether you are looking to take the first steps in your career path as a first-time student, looking to transfer from another institution, need technical training, or an advanced degree, Baker College is committed to making your investment affordable. As a nonprofit institution, we invest in our students, not shareholders.\r\n\r\nThrough the combination of scholarships, grants, and financial aid, your admission advisor can help you. You will quickly realize that Baker College can offer some of the lowest tuition of any private college in Michigan, often with more financial help than most community colleges and public universities.', 'Applying to woods university is easy.', 'FEES AND FININCIAL AID', 'APPLY', 'student_registration.php', 'Resources/wall papers/237.jpg');
 
 -- --------------------------------------------------------
 
@@ -1544,7 +1544,7 @@ INSERT INTO `home_nav` (`home_nav_id`, `name`, `name_url`) VALUES
 --
 
 CREATE TABLE `home_page` (
-  `programpage_id` bigint(20) UNSIGNED NOT NULL,
+  `home_page_id` bigint(20) UNSIGNED NOT NULL,
   `tittle` varchar(255) DEFAULT NULL,
   `tittle_content` text DEFAULT NULL,
   `heading1` varchar(255) DEFAULT NULL,
@@ -1571,8 +1571,8 @@ CREATE TABLE `home_page` (
 -- Dumping data for table `home_page`
 --
 
-INSERT INTO `home_page` (`programpage_id`, `tittle`, `tittle_content`, `heading1`, `heading1_content`, `heading2`, `heading2_content`, `heading3`, `heading3_content`, `heading3_sub_content`, `heading4`, `button1`, `button2`, `button2_url`, `button3`, `button3_url`, `button4`, `button4_url`, `background_picture1`, `picture1`, `background_picture2`) VALUES
-(1, 'WOODS UNIVERSITY', 'Master essential skills that improve your carear via interactive learning.', 'ABOUT WOODS UNIVERSITY', 'Developing passion for learning. You will never cease to grow and woods has a role in both advancing research and educating the next generation of leaders to succeed in and shape the digital economy.', 'WOODS UNIVERSITY', 'Developing passion for learning. You will never cease to grow and woods has a role in both advancing research and educating the next generation of leaders to succeed in and shape the digital economy. Developing passion for learning. You will never cease to grow and woods has a role in both advancing research and educating the next generation of leaders to succeed in and shape the digital economy. Developing passion for learning. You will never cease to grow and woods has a role in both advancing research and educating the next generation of leaders to succeed in and shape the digital economy.', 'ABOUT WOODS UNIVERSITY', 'pearson hanyinde dolor sit amet consectetur adipisicing elit. Porro, quidem. Provident maxime expedita distinctio ab. Sapiente, nihil assumenda rerum veniam tempora consequuntur deleniti unde alias ducimus. Ratione assumenda minima quos!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro, quidem. Provident maxime expedita distinctio ab. Sapiente, nihil assumenda rerum veniam tempora consequuntur dele', 'From amateur to professional in carear skills', 'Certifications Available', 'Login', 'Staff', 'staff_loginpage.php', 'Student', 'student_loginpage.php', 'APPLY', 'student_registration.php', 'Resources/wall papers/154.jpg', 'Resources/wall papers/100.jpg', 'Resources/wall papers/100.jpg');
+INSERT INTO `home_page` (`home_page_id`, `tittle`, `tittle_content`, `heading1`, `heading1_content`, `heading2`, `heading2_content`, `heading3`, `heading3_content`, `heading3_sub_content`, `heading4`, `button1`, `button2`, `button2_url`, `button3`, `button3_url`, `button4`, `button4_url`, `background_picture1`, `picture1`, `background_picture2`) VALUES
+(1, 'WOODS UNIVERSITY', 'Master essential skills that improve your carear via interactive learning.', 'ABOUT WOODS UNIVERSITY', 'Developing passion for learning. You will never cease to grow and woods has a role in both advancing research and educating the next generation of leaders to succeed in and shape the digital economy.', 'WOODS UNIVERSITY', 'Developing passion for learning. You will never cease to grow and woods has a role in both advancing research and educating the next generation of leaders to succeed in and shape the digital economy. Developing passion for learning. You will never cease to grow and woods has a role in both advancing research and educating the next generation of leaders to succeed in and shape the digital economy. Developing passion for learning. You will never cease to grow and woods has a role in both advancing research and educating the next generation of leaders to succeed in and shape the digital economy.', 'ABOUT WOODS UNIVERSITY', 'pearson hanyinde dolor sit amet consectetur adipisicing elit. Porro, quidem. Provident maxime expedita distinctio ab. Sapiente, nihil assumenda rerum veniam tempora consequuntur deleniti unde alias ducimus. Ratione assumenda minima quos!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro, quidem. Provident maxime expedita distinctio ab. Sapiente, nihil assumenda rerum veniam tempora consequuntur dele', 'From amateur to professional in carear skills', 'Certifications Available', 'Login', 'Staff', 'staff_loginpage.php', 'Student', 'student_loginpage.php', 'APPLY', 'student_registration.php', 'Resources/wall papers/166.5.jpg', 'Resources/wall papers/221.jpg', 'Resources/wall papers/221.jpg');
 
 -- --------------------------------------------------------
 
@@ -1615,10 +1615,10 @@ CREATE TABLE `home_page3` (
 --
 
 INSERT INTO `home_page3` (`home_page3_id`, `button`, `button_url`, `Picture`) VALUES
-(1, 'Classes', '#', 'Resources/wall papers/154.jpg'),
-(2, 'Housing', '#', 'Resources/wall papers/154.jpg'),
-(3, 'Canteen', '#', 'Resources/wall papers/154.jpg'),
-(4, 'LIbrary', '#', 'Resources/wall papers/154.jpg');
+(1, 'Classes', '#', 'Resources/wall papers/243.jpg'),
+(2, 'Housing', '#', 'Resources/wall papers/156.jpg'),
+(3, 'Canteen', '#', 'Resources/wall papers/158.jpg'),
+(4, 'LIbrary', '#', 'Resources/wall papers/157.jpg');
 
 -- --------------------------------------------------------
 
@@ -1674,7 +1674,7 @@ CREATE TABLE `programpage` (
 --
 
 INSERT INTO `programpage` (`programpage_id`, `heading1`, `heading2`, `heading2_content1`, `heading2_content2`, `heading2_content3`, `content`, `bottom_content`, `tittle`, `button`, `button_url`, `button2`, `button2_url`, `background_picture1`, `background_picture2`, `picture3`) VALUES
-(1, 'Certifications Available', 'Mood of study', 'Full-time', 'Distance', 'Online\r\n', 'Developing passion for learning. You will never cease to grow and woods has a role in both advancing research and educating the next generation of leaders to succeed in and shape the digital economy. Developing passion for learning. You will never cease to grow and woods has a role in both advancing research and educating the next generation of leaders to succeed in and shape the digital economy.', 'pearson hanyinde dolor sit amet consectetur adipisicing elit. Porro, quidem. Provident maxime expedita distinctio ab. Sapiente, nihil assumenda rerum veniam tempora consequuntur deleniti unde alias ducimus. Ratione assumenda minima quos!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro, quidem. Provident maxime expedita distinctio ab. Sapiente, nihil assumenda rerum veniam tempora consequuntur dele', 'View Programs\r\n', 'Programes', 'program_list.php', 'Apply', 'student_registration.php', 'Resources/wall papers/154.jpg', 'Resources/wall papers/152.jpg', 'Resources/wall papers/100.jpg');
+(1, 'Certifications Available', 'Mood of study', 'Full-time', 'Distance', 'Online\r\n', 'Developing passion for learning. You will never cease to grow and woods has a role in both advancing research and educating the next generation of leaders to succeed in and shape the digital economy. Developing passion for learning. You will never cease to grow and woods has a role in both advancing research and educating the next generation of leaders to succeed in and shape the digital economy.', 'pearson hanyinde dolor sit amet consectetur adipisicing elit. Porro, quidem. Provident maxime expedita distinctio ab. Sapiente, nihil assumenda rerum veniam tempora consequuntur deleniti unde alias ducimus. Ratione assumenda minima quos!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro, quidem. Provident maxime expedita distinctio ab. Sapiente, nihil assumenda rerum veniam tempora consequuntur dele', 'View Programs\r\n', 'Programes', 'program_list.php', 'Apply', 'student_registration.php', 'Resources/wall papers/166.5.jpg', 'Resources/wall papers/232.jpg', 'Resources/wall papers/78.jpg');
 
 -- --------------------------------------------------------
 
@@ -3066,7 +3066,7 @@ ALTER TABLE `home_nav`
 -- Indexes for table `home_page`
 --
 ALTER TABLE `home_page`
-  ADD PRIMARY KEY (`programpage_id`);
+  ADD PRIMARY KEY (`home_page_id`);
 
 --
 -- Indexes for table `home_page2`
@@ -3266,7 +3266,7 @@ ALTER TABLE `cumpus_housing_nav_links`
 -- AUTO_INCREMENT for table `cumpus_housing_slides_images`
 --
 ALTER TABLE `cumpus_housing_slides_images`
-  MODIFY `cumpus_housing_slides_images_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cumpus_housing_slides_images_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -3308,7 +3308,7 @@ ALTER TABLE `home_nav`
 -- AUTO_INCREMENT for table `home_page`
 --
 ALTER TABLE `home_page`
-  MODIFY `programpage_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `home_page_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `home_page2`

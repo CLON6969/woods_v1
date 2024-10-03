@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
     $tittle = $row['tittle'];
     $heading_1 = $row['heading1'];
     $heading1_content = $row['heading1_content'];
-    $heading_2 = $row['heading2'];
+    $heading2 = $row['heading2'];
     $buttun1 = $row['buttun1'];
     $buttun1_url = $row['buttun1_url'];
     $background_pic = $row['background_pic'];
@@ -38,7 +38,7 @@ if ($result->num_rows > 0) {
     $tittle = "Default tittle";
     $heading_1 = "Default Heading 1";
     $heading1_content = "Default heading1 content";
-    $heading_2 = "Default heading 2.";
+    $heading2 = "Default heading 2.";
     $buttun1 = "Default buttun1 ";
     $buttun1_url = "Default buttun1 url";
     $background_pic = "Default background picture";
@@ -54,9 +54,9 @@ $accademic_table_result = $conn->query($accademic_table_query );
 
 if ($accademic_table_result ->num_rows > 0) {
     $row = $accademic_table_result ->fetch_assoc();
-    $heading__1 = $row['heading1'];
-    $heading__2 = $row['heading2'];
-    $heading__3 = $row['heading3'];
+    $heading1 = $row['heading1'];
+    $heading2 = $row['heading2'];
+    $heading3 = $row['heading3'];
     $first_heading_date = $row['first_heading_date'];
     $first_date = $row['first_date'];
     $second_heading_date = $row['second_heading_date'];
@@ -67,7 +67,7 @@ if ($accademic_table_result ->num_rows > 0) {
 
 } else {
     // Default values if no data is found
-    $heading__1 = "Default Heading 1";
+    $heading1 = "Default Heading 1";
     $heading2 = "Default heading 2.";
     $heading3 = "Default Heading 3";
     $first_heading_date = "Default first heading date";
@@ -220,7 +220,7 @@ if ($result->num_rows > 0) {
 <section class="second_part">
 
     <div class="text">
-   <h1><?php echo $heading1; ?></h1>
+   <h1><?php echo $heading_1; ?></h1>
    
     <p class="pharagraph1"> <?php echo $heading1_content; ?> </p>
 

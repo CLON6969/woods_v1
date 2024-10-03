@@ -74,28 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Handle the background picture of tittle update
-    $target_dir = "Resources/wall papers/";
 
-    if (isset($_POST['updatebackground']) && !empty($_FILES['background_pic']['name'])) {
-        $target_dir = "Resources/wall papers/";
-        $background_pic = $target_dir . basename($_FILES["background_pic"]["name"]);
-
-        if (move_uploaded_file($_FILES["background_pic"]["tmp_name"], $background_pic)) {
-            $update_background_pic_query = "UPDATE fees_and_finicial_aid_admin SET background_pic='$background_pic' WHERE fees_and_financial_aid_admin_id = 1";
-
-            if ($conn->query($update_background_pic_query) === TRUE) {
-                $messages[] = "Background picture updated successfully.";
-            } else {
-                $messages[] = "Error updating background picture: " . $conn->error;
-            }
-        } else {
-            $messages[] = "Error uploading background picture.";
-        }
-    }
-
-
-    $_SESSION['message'] = implode("<br>", $messages);
 
 
 }
@@ -112,7 +91,7 @@ if (isset($_POST['updatebackground']) && !empty($_FILES['background_pic']['name'
     
     if (move_uploaded_file($_FILES["background_pic"]["tmp_name"], $background_pic)) {
         // Update query
-        $update_background_pic_query = "UPDATE fees_and_finicial_aid_admin SET background_picture='$background_pic' WHERE fees_and_finicial_aid_admin_id = 1";
+        $update_background_pic_query = "UPDATE fees_and_finicial_aid_admin SET background_pic='$background_pic' WHERE fees_and_finicial_aid_admin_id = 1";
         
         if ($conn->query($update_background_pic_query) === TRUE) {
             $messages[] = "Background picture updated successfully.";
