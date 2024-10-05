@@ -89,6 +89,9 @@ $result = $conn->query($allprograms);
                 </li>
             </ul>
 
+<section class="edditing_part">
+<div class="edditing_section">
+
             <ul class="program-list program">
                 <?php
                 if ($result->num_rows > 0) {
@@ -197,6 +200,8 @@ $result = $conn->query($allprograms);
                 ?>
             </ul>
 
+</div>
+</section>
         </section>
 
     </main>

@@ -114,9 +114,9 @@ if ($student_result->num_rows > 0) {
         <div class="inside_left4">
             <span class="tittle"> General <i class="fa-regular fa-bookmark"></i></span>
             <ul class="inside_left4_child1">
-            <li>Email: </li>      <li class="list_back">ammimba6969magarasgdh@gmail.com </li>
-            <li>Phone: </li>   <li class="list_back"> +260976206889</li>
-            <li>student id: </li>      <li class="list_back"> 3333666666666</li>            
+            <li>Email: </li>      <li class="list_back"><?php echo $student['email']; ?></li>
+            <li>Phone: </li>   <li class="list_back"<?php echo $student['phone_number']; ?>> +260976206889</li>
+            <li>student id: </li>      <li class="list_back"><?php echo $student['student_id']; ?></li>            
             <li>Day of report: </li>   <li class="list_back"> 12 january 2024</li>
                
                 

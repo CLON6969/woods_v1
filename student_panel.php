@@ -19,24 +19,51 @@
 <body>
 <section class="third_part">
     <div class="container">
+        
+        <!-- Original Sidebar -->
         <div class="nav-bar sidebar collapsed">
             <div class="sidebar-header">
                 <button id="menuToggle" class="menu-toggle"><i class="fas fa-bars"></i></button>
             </div>
             
             <ul class="nav-list">
-                <li onclick="loadPage('darshboard.php')"><i class="fas fa-tachometer-alt"></i> <span class="nav-text">Dashboard</span></li>
-                <li onclick="loadPage('allprograms.php')"><i class="fas fa-layer-group"></i> <span class="nav-text">Courses</span></li>                    
+                <li onclick="loadPage('staff_darshboard.php')"><i class="fas fa-tachometer-alt"></i> <span class="nav-text">Dashboard</span></li>
+
+                <li onclick="loadPage('allprograms.php')"><i class="fas fa-layer-group"></i> <span class="nav-text">Courses</span></li>  
+
                 <li onclick="loadPage('allprograms.php')"><i class="fas fa-edit"></i> <span class="nav-text">Assignments</span></li>
+
                 <li onclick="loadPage('allprograms.php')"><i class="fas fa-book-open"></i> <span class="nav-text">CA</span></li>
+
                 <li onclick="loadPage('allprograms.php')"><i class="fas fa-calendar-alt"></i> <span class="nav-text">Time tables</span></li>
-                <li onclick="loadPage('allprograms.php')" class="logout"><i class="fa-solid fa-wallet"></i> <span class="nav-text">Financial Statements</span></li>
-                <li onclick="loadPage('allprograms.php')" class="logout"><i class="fas fa-address-card"></i> <span class="nav-text">Profile</span></li>
+
+                <li onclick="loadPage('staff_darshboard.php')" class="logout"><i class="fa-solid fa-wallet"></i> <span class="nav-text">Financial Statements</span></li>
+                
+                <li onclick="loadPage('staff_darshboard.php')" class="logout"><i class="fas fa-address-card"></i> <span class="nav-text">Profile</span></li>
             </ul>
 
             <ul class="nav-list bottom">
                 <li onclick="loadPage('allprograms.php')"><i class="fas fa-cogs"></i> <span class="nav-text">Settings</span></li>
                  <li onclick="location.href='logout.php'" class="logout"><i class="fas fa-sign-out-alt"></i> <span class="nav-text">Logout</span></li>
+            </ul>
+        </div>
+        
+        <!-- New Fully Expanded Sidebar -->
+        <div class="nav-bar second-sidebar">
+        <ul class="nav-list">
+                <li onclick="loadPage('darshboard.php')"><i class="fas fa-tachometer-alt"></i> <span class="nav-text">Dashboard</span></li>
+
+                <li onclick="loadPage('home_page_admin.php')"><i class="fas fa-layer-group"></i> <span class="nav-text">home page</span></li>     
+
+                <li onclick="loadPage('programpage_admin.php')"><i class="fas fa-book-open"></i> <span class="nav-text">Programpage</span></li>
+
+                <li onclick="loadPage('admision_admin.php')"><i class="fas fa-calendar-alt"></i> <span class="nav-text">Admission</span></li>
+
+                <li onclick="loadPage('Fees_and_finicial_aid_admin.php')" class="logout"><i class="fa-solid fa-wallet"></i> <span class="nav-text">Fees & finicial aid</span></li>
+
+                <li onclick="loadPage('cumpus_&_housing_admin.php')" class="logout"><i class="fa-solid fa-person-shelter"></i> <span class="nav-text">cumpus & housing</span></li>
+
+                <li onclick="loadPage('footer_admin.php')"><i class="fas fa-edit"></i> <span class="nav-text">footer</span></li>
             </ul>
         </div>
 

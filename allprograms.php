@@ -86,6 +86,12 @@ $result = $conn->query($allprograms);
                     <div class="study_mood1">Mode of Study</div>
                 </li>
             </ul>
+            
+<section class="edditing_part">
+
+<div class="edditing_section">
+
+
 
             <ul class="program-list program">
                 <?php
@@ -195,6 +201,8 @@ $result = $conn->query($allprograms);
                 ?>
             </ul>
 
+            </div>
+            </section>
         </section>
 
     </main>

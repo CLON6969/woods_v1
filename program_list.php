@@ -38,19 +38,20 @@
 </nav>
 
 
+
 <section class="third_part">
     <div class="container">
         <div class="nav-bar">
             <ul>
-                <li onclick="loadPage('allprograms.php')">All programs</li>
-                <li onclick="loadPage('certificateprograms.php')">Certificate programs</li>
-                <li onclick="loadPage('deplomaprograms.php')">Deploma programs</li>
-                <li onclick="loadPage('degreeprograms.php')">Degree programs</li>
-                <li onclick="loadPage('mastersprograms.php')">Masters programs</li>
-                <li onclick="loadPage('phdprograms.php')">Phd programs</li>
-                <li onclick="loadPage('onlineprograms.php')">Online programs</li>
 
-                <li onclick="loadPage('upcomingprograms.php')">Upcoming</li>
+                <div class="search-bar">
+                    <form action="your_search_action.php" method="get">
+                        <input type="text" class="search-input" placeholder="Search..." name="search">
+                        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+
+
             </ul>
         </div>
         <div class="content">

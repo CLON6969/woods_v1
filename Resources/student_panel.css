@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #0a0253;
+    background-color: #010d15;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -17,14 +17,13 @@ nav {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-left: 2px solid rgb(25, 0, 255);
     position: fixed;
-    background-color: #020118;
+    background-color: #010d15;
     z-index: 999;
 }
 
 .logo {
-    color: #00dd95;
+    color: #0d9d50;
     font-size: 30px;
     width: 5%;
     text-decoration: none;
@@ -151,10 +150,11 @@ nav a.programs {
     width: 100%;
 }
 
-.third_part .nav-bar {
+/* Original Sidebar */
+.third_part .nav-bar.sidebar {
     width: fit-content;
     height: 100%;
-    background-color: #003d3d;
+    background-color: #031a2a;
     border-right: 2px solid #08022c;
     display: flex;
     flex-direction: column;
@@ -232,4 +232,13 @@ nav a.programs {
     height: 95%;
     margin-top: auto;
     border: none;
+    background-color: #010d15;
+}
+
+.second-sidebar{
+    border-right: 1px solid #40494f;
+}
+
+.fa-address-card{
+    color: #0d9d50;
 }
