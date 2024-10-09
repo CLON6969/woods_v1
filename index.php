@@ -113,13 +113,6 @@ if ($result->num_rows > 0) {
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--bootstrap css links-->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="css/inuse.min.css">
-
-
-     <!--bootstrap js links-->
-     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 
 
 
@@ -277,7 +270,7 @@ if ($result->num_rows > 0) {
        
    <div class="btn">
 
-<div>
+<div class="yellow_container">
    <a href="<?php echo $button4_url; ?>" class="yellow"><?php echo $button4; ?></a>
 </div>
 

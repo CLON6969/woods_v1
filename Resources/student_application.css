@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background: #010d15; /* Dark background for a modern feel */
+    font-family: Arial, sans-serif;     
+}
+
+label{color: aliceblue;}
+
+/* Container for the Editing Section */
+.edditing_part {
+    width: 100%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* General Section Styling */
+.edditing_section{
+    background-color: #052339;
+    border: 1px solid #2e2e2e;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.containerrr {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+}
