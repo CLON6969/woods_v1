@@ -8,6 +8,13 @@ body{
     font-family: Arial, sans-serif;     
 }
 
+h3{
+    color: aliceblue;
+    text-transform: uppercase;
+    font-weight: 800;
+    text-align: center;
+}
+
 label{color: aliceblue;}
 
 /* Container for the Editing Section */

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2024 at 10:12 AM
+-- Generation Time: Oct 13, 2024 at 07:16 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -47,6 +47,23 @@ CREATE TABLE `accademic_table` (
 
 INSERT INTO `accademic_table` (`accademic_table_id`, `heading1`, `heading2`, `heading3`, `first_heading_date`, `first_date`, `second_heading_date`, `second_date`, `buttun`, `buttun_url`, `background_picture`) VALUES
 (1, 'Academic Calendar', 'We’re Ready When You Are', 'Classes start every 8 weeks.', 'OPENING', '2024-10-24', 'CLOSING', '2024-12-19', 'APPLY', 'student_registration.php', 'Resources/wall papers/230.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `address_table`
+--
+
+CREATE TABLE `address_table` (
+  `address_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `nationality` varchar(50) NOT NULL,
+  `national_id_number` varchar(15) NOT NULL,
+  `zipcode` varchar(10) DEFAULT NULL,
+  `address_line1` varchar(255) NOT NULL,
+  `address_line2` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1419,6 +1436,23 @@ INSERT INTO `departments` (`department_id`, `department_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `education_table`
+--
+
+CREATE TABLE `education_table` (
+  `education_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `school_name` varchar(100) NOT NULL,
+  `level_of_qualification` varchar(50) NOT NULL,
+  `entry_date` date NOT NULL,
+  `date_graduated` date NOT NULL,
+  `school_address` varchar(255) NOT NULL,
+  `qualification_document` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fees_and_finicial_aid_2`
 --
 
@@ -1514,6 +1548,42 @@ INSERT INTO `footer_list_heading` (`list_heading_id`, `heading_name`) VALUES
 (2, 'Give Light'),
 (3, 'Attendance Cost'),
 (4, 'general information');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gender`
+--
+
+CREATE TABLE `gender` (
+  `gender_id` int(11) NOT NULL,
+  `gender_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `gender`
+--
+
+INSERT INTO `gender` (`gender_id`, `gender_name`) VALUES
+(1, 'M'),
+(2, 'F'),
+(3, 'Other'),
+(4, 'Non-Binary'),
+(5, 'Transgender Male'),
+(6, 'Transgender Female'),
+(7, 'Genderqueer'),
+(8, 'Genderfluid'),
+(9, 'Agender'),
+(10, 'Bigender'),
+(11, 'Two-Spirit'),
+(12, 'Pangender'),
+(13, 'Neutrois'),
+(14, 'Demiboy'),
+(15, 'Demigirl'),
+(16, 'Androgynous'),
+(17, 'Gender Non-Conforming'),
+(18, 'Intersex'),
+(19, 'Polygender');
 
 -- --------------------------------------------------------
 
@@ -1623,6 +1693,54 @@ INSERT INTO `home_page3` (`home_page3_id`, `button`, `button_url`, `Picture`) VA
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `intake`
+--
+
+CREATE TABLE `intake` (
+  `intake_id` int(11) NOT NULL,
+  `intake_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `intake`
+--
+
+INSERT INTO `intake` (`intake_id`, `intake_name`) VALUES
+(1, 'January'),
+(2, 'May'),
+(3, 'September');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `maritalstatus`
+--
+
+CREATE TABLE `maritalstatus` (
+  `status_id` int(11) NOT NULL,
+  `status_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `maritalstatus`
+--
+
+INSERT INTO `maritalstatus` (`status_id`, `status_name`) VALUES
+(1, 'Single'),
+(2, 'Married'),
+(3, 'Divorced'),
+(4, 'Widowed'),
+(5, 'Separated'),
+(6, 'In a Civil Union'),
+(7, 'In a Domestic Partnership'),
+(8, 'Engaged'),
+(9, 'Annulled'),
+(10, 'In a Long-term Relationship'),
+(11, 'Other');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mood_of_study`
 --
 
@@ -1643,6 +1761,248 @@ INSERT INTO `mood_of_study` (`mood_id`, `mood_name`) VALUES
 (5, 'Full-time and Distance'),
 (6, 'Online and Full-time'),
 (7, 'Online and Distance');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nationality`
+--
+
+CREATE TABLE `nationality` (
+  `nationality_id` int(11) NOT NULL,
+  `nationality_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nationality`
+--
+
+INSERT INTO `nationality` (`nationality_id`, `nationality_name`) VALUES
+(1, 'Afghanistan'),
+(2, 'Albania'),
+(3, 'Algeria'),
+(4, 'Andorra'),
+(5, 'Angola'),
+(6, 'Antigua and Barbuda'),
+(7, 'Argentina'),
+(8, 'Armenia'),
+(9, 'Australia'),
+(10, 'Austria'),
+(11, 'Azerbaijan'),
+(12, 'Bahamas'),
+(13, 'Bahrain'),
+(14, 'Bangladesh'),
+(15, 'Barbados'),
+(16, 'Belarus'),
+(17, 'Belgium'),
+(18, 'Belize'),
+(19, 'Benin'),
+(20, 'Bermuda'),
+(21, 'Bhutan'),
+(22, 'Bolivia'),
+(23, 'Bosnia and Herzegovina'),
+(24, 'Botswana'),
+(25, 'Brazil'),
+(26, 'Brunei'),
+(27, 'Bulgaria'),
+(28, 'Burkina Faso'),
+(29, 'Burundi'),
+(30, 'Cabo Verde'),
+(31, 'Cambodia'),
+(32, 'Cameroon'),
+(33, 'Canada'),
+(34, 'Cayman Islands'),
+(35, 'Central African Republic'),
+(36, 'Chad'),
+(37, 'Chile'),
+(38, 'China'),
+(39, 'Colombia'),
+(40, 'Comoros'),
+(41, 'Congo'),
+(42, 'Costa Rica'),
+(43, 'Croatia'),
+(44, 'Cuba'),
+(45, 'Cyprus'),
+(46, 'Czechia'),
+(47, 'Denmark'),
+(48, 'Djibouti'),
+(49, 'Dominica'),
+(50, 'Dominican Republic'),
+(51, 'Ecuador'),
+(52, 'Egypt'),
+(53, 'El Salvador'),
+(54, 'Equatorial Guinea'),
+(55, 'Eritrea'),
+(56, 'Estonia'),
+(57, 'Eswatini'),
+(58, 'Ethiopia'),
+(59, 'Falkland Islands'),
+(60, 'Faroe Islands'),
+(61, 'Fiji'),
+(62, 'Finland'),
+(63, 'France'),
+(64, 'French Guiana'),
+(65, 'French Polynesia'),
+(66, 'Gabon'),
+(67, 'Gambia'),
+(68, 'Georgia'),
+(69, 'Germany'),
+(70, 'Ghana'),
+(71, 'Gibraltar'),
+(72, 'Greece'),
+(73, 'Greenland'),
+(74, 'Grenada'),
+(75, 'Guadeloupe'),
+(76, 'Guam'),
+(77, 'Guatemala'),
+(78, 'Guernsey'),
+(79, 'Guinea'),
+(80, 'Guinea-Bissau'),
+(81, 'Guyana'),
+(82, 'Haiti'),
+(83, 'Honduras'),
+(84, 'Hong Kong'),
+(85, 'Hungary'),
+(86, 'Iceland'),
+(87, 'India'),
+(88, 'Indonesia'),
+(89, 'Iran'),
+(90, 'Iraq'),
+(91, 'Ireland'),
+(92, 'Isle of Man'),
+(93, 'Israel'),
+(94, 'Italy'),
+(95, 'Jamaica'),
+(96, 'Japan'),
+(97, 'Jordan'),
+(98, 'Kazakhstan'),
+(99, 'Kenya'),
+(100, 'Kiribati'),
+(101, 'Korea, North'),
+(102, 'Korea, South'),
+(103, 'Kosovo'),
+(104, 'Kuwait'),
+(105, 'Kyrgyzstan'),
+(106, 'Laos'),
+(107, 'Latvia'),
+(108, 'Lebanon'),
+(109, 'Lesotho'),
+(110, 'Liberia'),
+(111, 'Libya'),
+(112, 'Liechtenstein'),
+(113, 'Lithuania'),
+(114, 'Luxembourg'),
+(115, 'Macao'),
+(116, 'Madagascar'),
+(117, 'Malawi'),
+(118, 'Malaysia'),
+(119, 'Maldives'),
+(120, 'Mali'),
+(121, 'Malta'),
+(122, 'Marshall Islands'),
+(123, 'Martinique'),
+(124, 'Mauritania'),
+(125, 'Mauritius'),
+(126, 'Mayotte'),
+(127, 'Mexico'),
+(128, 'Micronesia'),
+(129, 'Moldova'),
+(130, 'Monaco'),
+(131, 'Mongolia'),
+(132, 'Montenegro'),
+(133, 'Montserrat'),
+(134, 'Morocco'),
+(135, 'Mozambique'),
+(136, 'Myanmar'),
+(137, 'Namibia'),
+(138, 'Nauru'),
+(139, 'Nepal'),
+(140, 'Netherlands'),
+(141, 'New Caledonia'),
+(142, 'New Zealand'),
+(143, 'Nicaragua'),
+(144, 'Niger'),
+(145, 'Nigeria'),
+(146, 'North Macedonia'),
+(147, 'Northern Mariana Islands'),
+(148, 'Norway'),
+(149, 'Oman'),
+(150, 'Pakistan'),
+(151, 'Palau'),
+(152, 'Palestine'),
+(153, 'Panama'),
+(154, 'Papua New Guinea'),
+(155, 'Paraguay'),
+(156, 'Peru'),
+(157, 'Philippines'),
+(158, 'Poland'),
+(159, 'Portugal'),
+(160, 'Puerto Rico'),
+(161, 'Qatar'),
+(162, 'Réunion'),
+(163, 'Romania'),
+(164, 'Russia'),
+(165, 'Rwanda'),
+(166, 'Saint Barthélemy'),
+(167, 'Saint Kitts and Nevis'),
+(168, 'Saint Lucia'),
+(169, 'Saint Martin'),
+(170, 'Saint Pierre and Miquelon'),
+(171, 'Saint Vincent and the Grenadines'),
+(172, 'Samoa'),
+(173, 'San Marino'),
+(174, 'São Tomé and Príncipe'),
+(175, 'Saudi Arabia'),
+(176, 'Senegal'),
+(177, 'Serbia'),
+(178, 'Seychelles'),
+(179, 'Sierra Leone'),
+(180, 'Singapore'),
+(181, 'Sint Maarten'),
+(182, 'Slovakia'),
+(183, 'Slovenia'),
+(184, 'Solomon Islands'),
+(185, 'Somalia'),
+(186, 'South Africa'),
+(187, 'South Sudan'),
+(188, 'Spain'),
+(189, 'Sri Lanka'),
+(190, 'Sudan'),
+(191, 'Suriname'),
+(192, 'Sweden'),
+(193, 'Switzerland'),
+(194, 'Syria'),
+(195, 'Taiwan'),
+(196, 'Tajikistan'),
+(197, 'Tanzania'),
+(198, 'Thailand'),
+(199, 'Timor-Leste'),
+(200, 'Togo'),
+(201, 'Tokelau'),
+(202, 'Tonga'),
+(203, 'Trinidad and Tobago'),
+(204, 'Tunisia'),
+(205, 'Turkey'),
+(206, 'Turkmenistan'),
+(207, 'Turks and Caicos Islands'),
+(208, 'Tuvalu'),
+(209, 'Uganda'),
+(210, 'Ukraine'),
+(211, 'United Arab Emirates'),
+(212, 'United Kingdom'),
+(213, 'United States'),
+(214, 'Uruguay'),
+(215, 'Uzbekistan'),
+(216, 'Vanuatu'),
+(217, 'Venezuela'),
+(218, 'Vietnam'),
+(219, 'Virgin Islands, British'),
+(220, 'Virgin Islands, U.S.'),
+(221, 'Wallis and Futuna'),
+(222, 'Western Sahara'),
+(223, 'Yemen'),
+(224, 'Zambia'),
+(225, 'Zimbabwe');
 
 -- --------------------------------------------------------
 
@@ -2701,6 +3061,73 @@ INSERT INTO `program_registration` (`program_registration_id`, `program_id`, `ce
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `qualificationlevel`
+--
+
+CREATE TABLE `qualificationlevel` (
+  `level_id` int(11) NOT NULL,
+  `level_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `qualificationlevel`
+--
+
+INSERT INTO `qualificationlevel` (`level_id`, `level_name`) VALUES
+(1, 'No Formal Education'),
+(2, 'Primary School'),
+(3, 'Middle School'),
+(4, 'High School Diploma'),
+(5, 'Vocational Training'),
+(6, 'Associate Degree'),
+(7, 'Undergraduate Degree'),
+(8, 'Graduate Certificate'),
+(9, 'Postgraduate Diploma'),
+(10, 'Master’s Degree'),
+(11, 'Doctorate (PhD)'),
+(12, 'Professional Degree (e.g., MD, JD)'),
+(13, 'Postdoctoral Research'),
+(14, 'Technical Certification'),
+(15, 'Advanced Diploma');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `religion`
+--
+
+CREATE TABLE `religion` (
+  `religion_id` int(11) NOT NULL,
+  `religion_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `religion`
+--
+
+INSERT INTO `religion` (`religion_id`, `religion_name`) VALUES
+(1, 'Christianity'),
+(2, 'Islam'),
+(3, 'Hinduism'),
+(4, 'Buddhism'),
+(5, 'Judaism'),
+(6, 'Sikhism'),
+(7, 'Taoism'),
+(8, 'Confucianism'),
+(9, 'Shinto'),
+(10, 'Zoroastrianism'),
+(11, 'Baha\'i Faith'),
+(12, 'Jainism'),
+(13, 'Daoism'),
+(14, 'Shintoism'),
+(15, 'Animism'),
+(16, 'Atheism'),
+(17, 'Agnosticism'),
+(18, 'Indigenous Beliefs');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `semester`
 --
 
@@ -2720,169 +3147,73 @@ INSERT INTO `semester` (`semester_id`, `semester_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `staff`
+-- Table structure for table `student_application`
 --
 
-CREATE TABLE `staff` (
-  `staff_id` int(11) NOT NULL,
-  `first_name` varchar(255) DEFAULT NULL,
-  `middle_name` varchar(255) DEFAULT NULL,
-  `last_name` varchar(255) DEFAULT NULL,
-  `gender` char(1) DEFAULT NULL CHECK (`gender` in ('f','m','o')),
-  `phone_number` int(11) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `religion` varchar(255) DEFAULT NULL,
-  `date_of_birth` date DEFAULT NULL,
-  `emergency_phone` int(11) DEFAULT NULL,
-  `marital_status` varchar(255) DEFAULT NULL,
-  `profile_picture` blob DEFAULT NULL,
-  `department_id` int(11) DEFAULT NULL,
-  `job_tittle` varchar(100) DEFAULT NULL
+CREATE TABLE `student_application` (
+  `application_id` int(11) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `middle_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `date_of_birth` date NOT NULL,
+  `profile_picture` varchar(255) DEFAULT NULL,
+  `phone_number` varchar(15) NOT NULL,
+  `emergency_phone` varchar(15) NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `marital_status` varchar(20) DEFAULT NULL,
+  `religion` varchar(30) DEFAULT NULL,
+  `program_id` int(11) NOT NULL,
+  `certification_type` varchar(50) NOT NULL,
+  `intake_type` varchar(20) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `nationality` varchar(50) NOT NULL,
+  `national_id_number` varchar(15) NOT NULL,
+  `zipcode` varchar(10) DEFAULT NULL,
+  `address_line1` varchar(255) NOT NULL,
+  `address_line2` varchar(255) DEFAULT NULL,
+  `school_name` varchar(100) NOT NULL,
+  `level_of_qualification` varchar(50) NOT NULL,
+  `entry_date` date NOT NULL,
+  `date_graduated` date NOT NULL,
+  `school_address` varchar(255) NOT NULL,
+  `qualification_document` varchar(255) NOT NULL,
+  `application_status` varchar(20) DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `student_application`
+--
+
+INSERT INTO `student_application` (`application_id`, `first_name`, `middle_name`, `last_name`, `username`, `date_of_birth`, `profile_picture`, `phone_number`, `emergency_phone`, `gender`, `marital_status`, `religion`, `program_id`, `certification_type`, `intake_type`, `city`, `nationality`, `national_id_number`, `zipcode`, `address_line1`, `address_line2`, `school_name`, `level_of_qualification`, `entry_date`, `date_graduated`, `school_address`, `qualification_document`, `application_status`) VALUES
+(1, 'Erick', '', 'maliko', '', '0000-00-00', '', '', '', '', '', '', 0, '', '', 'Brooklyn', '', '', '11220', '733 59th St', '', '', '', '0000-00-00', '0000-00-00', '', '', 'Pending'),
+(11, 'E', '', 'mal', 'erickmaliko69@gmail.com', '0000-00-00', '', '', '', '', '', '', 0, '', '', 'Brooklyn', '', '', '11220', '733 59th St', '', '', '', '0000-00-00', '0000-00-00', '', '', 'Pending'),
+(13, 'Erickhhhhhhhh', '', 'malikohhhhhhhhhh', 'erickmal9@gmail.com', '0000-00-00', '', '', '', '', '', '', 0, '', '', 'Brooklyn', '', '', '11220', '733 59th St', '', '', '', '0000-00-00', '0000-00-00', '', '', 'Pending'),
+(15, 'Er', '', 'ma', 'chipangochipango', '0000-00-00', '', '', '', '', '', '', 0, '', '', 'Brooklyn', '', '', '11220', '733 59th St', '', '', '', '0000-00-00', '0000-00-00', '', '', 'Pending');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `staff_address`
+-- Table structure for table `student_details_table`
 --
 
-CREATE TABLE `staff_address` (
-  `adress_id` int(11) NOT NULL,
-  `adress_line1` varchar(255) DEFAULT NULL,
-  `adress_line2` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
-  `state` varchar(255) DEFAULT NULL,
-  `nationality` varchar(255) DEFAULT NULL,
-  `zipcode` varchar(255) DEFAULT NULL,
-  `staff_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `staff_education`
---
-
-CREATE TABLE `staff_education` (
-  `education_id` int(11) NOT NULL,
-  `school_name` varchar(255) DEFAULT NULL,
-  `level_of_qualification` varchar(255) DEFAULT NULL,
-  `entry_date` date DEFAULT NULL,
-  `date_graduated` date DEFAULT NULL,
-  `school_adress` varchar(255) DEFAULT NULL,
-  `qualification_document` blob DEFAULT NULL,
-  `staff_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `staff_login`
---
-
-CREATE TABLE `staff_login` (
-  `login_id` int(11) NOT NULL,
-  `user` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `staff_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `students`
---
-
-CREATE TABLE `students` (
+CREATE TABLE `student_details_table` (
   `student_id` int(11) NOT NULL,
-  `first_name` varchar(255) DEFAULT NULL,
-  `middle_name` varchar(255) DEFAULT NULL,
-  `last_name` varchar(255) DEFAULT NULL,
-  `gender` char(1) DEFAULT NULL CHECK (`gender` in ('f','m','o')),
-  `phone_number` bigint(11) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `religion` varchar(255) DEFAULT NULL,
-  `date_of_birth` date DEFAULT NULL,
-  `emergency_phone` bigint(11) DEFAULT NULL,
-  `marital_status` varchar(255) DEFAULT NULL,
-  `profile_picture` blob DEFAULT NULL,
-  `program_id` int(11) DEFAULT NULL
+  `first_name` varchar(50) NOT NULL,
+  `middle_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `date_of_birth` date NOT NULL,
+  `profile_picture` varchar(255) DEFAULT NULL,
+  `phone_number` varchar(15) NOT NULL,
+  `emergency_phone` varchar(15) NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `marital_status` varchar(20) DEFAULT NULL,
+  `religion` varchar(30) DEFAULT NULL,
+  `program_id` int(11) NOT NULL,
+  `certification_type` varchar(50) NOT NULL,
+  `intake_type` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `students`
---
-
-INSERT INTO `students` (`student_id`, `first_name`, `middle_name`, `last_name`, `gender`, `phone_number`, `email`, `religion`, `date_of_birth`, `emergency_phone`, `marital_status`, `profile_picture`, `program_id`) VALUES
-(192, 'Erick ', '', 'maliko', 'M', 66666, 'erickworkspace6969@gmail.com', 'Shintoism ', '2024-08-18', 977961230, 'Divorced', 0x312e6a7067, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `student_address`
---
-
-CREATE TABLE `student_address` (
-  `adress_id` int(11) NOT NULL,
-  `adress_line1` varchar(255) DEFAULT NULL,
-  `adress_line2` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
-  `state` varchar(255) DEFAULT NULL,
-  `nationality` varchar(255) DEFAULT NULL,
-  `zipcode` varchar(255) DEFAULT NULL,
-  `student_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `student_address`
---
-
-INSERT INTO `student_address` (`adress_id`, `adress_line1`, `adress_line2`, `city`, `state`, `nationality`, `zipcode`, `student_id`) VALUES
-(6, '733 59th St', 'ESCO MONGU TRADES ROAD', 'Brooklyn', 'NY', 'Albania', '11220', 192);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `student_education`
---
-
-CREATE TABLE `student_education` (
-  `education_id` int(11) NOT NULL,
-  `school_name` varchar(255) DEFAULT NULL,
-  `level_of_qualification` varchar(255) DEFAULT NULL,
-  `entry_date` date DEFAULT NULL,
-  `date_graduated` date DEFAULT NULL,
-  `school_adress` varchar(255) DEFAULT NULL,
-  `qualification_document` blob DEFAULT NULL,
-  `student_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `student_education`
---
-
-INSERT INTO `student_education` (`education_id`, `school_name`, `level_of_qualification`, `entry_date`, `date_graduated`, `school_adress`, `qualification_document`, `student_id`) VALUES
-(4, 'Mulamatiwa Basic School', 'hhhh', '2024-08-30', '2024-08-24', 'hhhh', 0x322e6a7067, 192);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `student_login`
---
-
-CREATE TABLE `student_login` (
-  `login_id` int(11) NOT NULL,
-  `user` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `student_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `student_login`
---
-
-INSERT INTO `student_login` (`login_id`, `user`, `password`, `student_id`) VALUES
-(2, 'erickworkspace6969@gmail.com', '$2y$10$1q4Zrz.C8tNw3SsXqLRmWOs6vEMK8p/e5amXwjcnZOUHA0MtBZb2S', 192);
 
 -- --------------------------------------------------------
 
@@ -2947,6 +3278,13 @@ INSERT INTO `years_of_study` (`years_of_study_id`, `year_number`) VALUES
 --
 ALTER TABLE `accademic_table`
   ADD PRIMARY KEY (`accademic_table_id`);
+
+--
+-- Indexes for table `address_table`
+--
+ALTER TABLE `address_table`
+  ADD PRIMARY KEY (`address_id`),
+  ADD KEY `student_id` (`student_id`);
 
 --
 -- Indexes for table `admision`
@@ -3032,6 +3370,13 @@ ALTER TABLE `departments`
   ADD PRIMARY KEY (`department_id`);
 
 --
+-- Indexes for table `education_table`
+--
+ALTER TABLE `education_table`
+  ADD PRIMARY KEY (`education_id`),
+  ADD KEY `student_id` (`student_id`);
+
+--
 -- Indexes for table `fees_and_finicial_aid_2`
 --
 ALTER TABLE `fees_and_finicial_aid_2`
@@ -3055,6 +3400,12 @@ ALTER TABLE `footer_lists`
 --
 ALTER TABLE `footer_list_heading`
   ADD PRIMARY KEY (`list_heading_id`);
+
+--
+-- Indexes for table `gender`
+--
+ALTER TABLE `gender`
+  ADD PRIMARY KEY (`gender_id`);
 
 --
 -- Indexes for table `home_nav`
@@ -3081,10 +3432,28 @@ ALTER TABLE `home_page3`
   ADD PRIMARY KEY (`home_page3_id`);
 
 --
+-- Indexes for table `intake`
+--
+ALTER TABLE `intake`
+  ADD PRIMARY KEY (`intake_id`);
+
+--
+-- Indexes for table `maritalstatus`
+--
+ALTER TABLE `maritalstatus`
+  ADD PRIMARY KEY (`status_id`);
+
+--
 -- Indexes for table `mood_of_study`
 --
 ALTER TABLE `mood_of_study`
   ADD PRIMARY KEY (`mood_id`);
+
+--
+-- Indexes for table `nationality`
+--
+ALTER TABLE `nationality`
+  ADD PRIMARY KEY (`nationality_id`);
 
 --
 -- Indexes for table `programpage`
@@ -3117,68 +3486,37 @@ ALTER TABLE `program_registration`
   ADD KEY `course_code` (`course_code`);
 
 --
+-- Indexes for table `qualificationlevel`
+--
+ALTER TABLE `qualificationlevel`
+  ADD PRIMARY KEY (`level_id`);
+
+--
+-- Indexes for table `religion`
+--
+ALTER TABLE `religion`
+  ADD PRIMARY KEY (`religion_id`);
+
+--
 -- Indexes for table `semester`
 --
 ALTER TABLE `semester`
   ADD PRIMARY KEY (`semester_id`);
 
 --
--- Indexes for table `staff`
+-- Indexes for table `student_application`
 --
-ALTER TABLE `staff`
-  ADD PRIMARY KEY (`staff_id`),
-  ADD KEY `department_id` (`department_id`);
+ALTER TABLE `student_application`
+  ADD PRIMARY KEY (`application_id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
--- Indexes for table `staff_address`
+-- Indexes for table `student_details_table`
 --
-ALTER TABLE `staff_address`
-  ADD PRIMARY KEY (`adress_id`),
-  ADD KEY `lecture_id` (`staff_id`);
-
---
--- Indexes for table `staff_education`
---
-ALTER TABLE `staff_education`
-  ADD PRIMARY KEY (`education_id`),
-  ADD KEY `lecture_id` (`staff_id`);
-
---
--- Indexes for table `staff_login`
---
-ALTER TABLE `staff_login`
-  ADD PRIMARY KEY (`login_id`),
-  ADD UNIQUE KEY `user` (`user`),
-  ADD KEY `lecture_id` (`staff_id`);
-
---
--- Indexes for table `students`
---
-ALTER TABLE `students`
+ALTER TABLE `student_details_table`
   ADD PRIMARY KEY (`student_id`),
+  ADD UNIQUE KEY `username` (`username`),
   ADD KEY `program_id` (`program_id`);
-
---
--- Indexes for table `student_address`
---
-ALTER TABLE `student_address`
-  ADD PRIMARY KEY (`adress_id`),
-  ADD KEY `student_id` (`student_id`);
-
---
--- Indexes for table `student_education`
---
-ALTER TABLE `student_education`
-  ADD PRIMARY KEY (`education_id`),
-  ADD KEY `student_id` (`student_id`);
-
---
--- Indexes for table `student_login`
---
-ALTER TABLE `student_login`
-  ADD PRIMARY KEY (`login_id`),
-  ADD UNIQUE KEY `user` (`user`),
-  ADD KEY `student_id` (`student_id`);
 
 --
 -- Indexes for table `year`
@@ -3201,6 +3539,12 @@ ALTER TABLE `years_of_study`
 --
 ALTER TABLE `accademic_table`
   MODIFY `accademic_table_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `address_table`
+--
+ALTER TABLE `address_table`
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `admision`
@@ -3275,6 +3619,12 @@ ALTER TABLE `departments`
   MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
+-- AUTO_INCREMENT for table `education_table`
+--
+ALTER TABLE `education_table`
+  MODIFY `education_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `fees_and_finicial_aid_2`
 --
 ALTER TABLE `fees_and_finicial_aid_2`
@@ -3297,6 +3647,12 @@ ALTER TABLE `footer_lists`
 --
 ALTER TABLE `footer_list_heading`
   MODIFY `list_heading_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `gender`
+--
+ALTER TABLE `gender`
+  MODIFY `gender_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `home_nav`
@@ -3323,10 +3679,28 @@ ALTER TABLE `home_page3`
   MODIFY `home_page3_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `intake`
+--
+ALTER TABLE `intake`
+  MODIFY `intake_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `maritalstatus`
+--
+ALTER TABLE `maritalstatus`
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `mood_of_study`
 --
 ALTER TABLE `mood_of_study`
   MODIFY `mood_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `nationality`
+--
+ALTER TABLE `nationality`
+  MODIFY `nationality_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
 
 --
 -- AUTO_INCREMENT for table `programpage`
@@ -3353,46 +3727,34 @@ ALTER TABLE `program_registration`
   MODIFY `program_registration_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=929;
 
 --
+-- AUTO_INCREMENT for table `qualificationlevel`
+--
+ALTER TABLE `qualificationlevel`
+  MODIFY `level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `religion`
+--
+ALTER TABLE `religion`
+  MODIFY `religion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT for table `semester`
 --
 ALTER TABLE `semester`
   MODIFY `semester_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `staff_address`
+-- AUTO_INCREMENT for table `student_application`
 --
-ALTER TABLE `staff_address`
-  MODIFY `adress_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `student_application`
+  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- AUTO_INCREMENT for table `staff_education`
+-- AUTO_INCREMENT for table `student_details_table`
 --
-ALTER TABLE `staff_education`
-  MODIFY `education_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `staff_login`
---
-ALTER TABLE `staff_login`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `student_address`
---
-ALTER TABLE `student_address`
-  MODIFY `adress_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `student_education`
---
-ALTER TABLE `student_education`
-  MODIFY `education_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `student_login`
---
-ALTER TABLE `student_login`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `student_details_table`
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `year`
@@ -3411,6 +3773,12 @@ ALTER TABLE `years_of_study`
 --
 
 --
+-- Constraints for table `address_table`
+--
+ALTER TABLE `address_table`
+  ADD CONSTRAINT `address_table_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `allprograms`
 --
 ALTER TABLE `allprograms`
@@ -3424,6 +3792,12 @@ ALTER TABLE `allprograms`
 --
 ALTER TABLE `cumpus_housing_lists`
   ADD CONSTRAINT `cumpus_housing_lists_ibfk_1` FOREIGN KEY (`heading_list_id`) REFERENCES `cumpus_housing_heading_list` (`heading_list_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `education_table`
+--
+ALTER TABLE `education_table`
+  ADD CONSTRAINT `education_table_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `footer_lists`
@@ -3448,52 +3822,10 @@ ALTER TABLE `program_registration`
   ADD CONSTRAINT `program_registration_ibfk_5` FOREIGN KEY (`course_code`) REFERENCES `courses` (`course_code`);
 
 --
--- Constraints for table `staff`
+-- Constraints for table `student_details_table`
 --
-ALTER TABLE `staff`
-  ADD CONSTRAINT `staff_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `departments` (`department_id`);
-
---
--- Constraints for table `staff_address`
---
-ALTER TABLE `staff_address`
-  ADD CONSTRAINT `staff_address_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`);
-
---
--- Constraints for table `staff_education`
---
-ALTER TABLE `staff_education`
-  ADD CONSTRAINT `staff_education_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`);
-
---
--- Constraints for table `staff_login`
---
-ALTER TABLE `staff_login`
-  ADD CONSTRAINT `staff_login_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`);
-
---
--- Constraints for table `students`
---
-ALTER TABLE `students`
-  ADD CONSTRAINT `students_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`);
-
---
--- Constraints for table `student_address`
---
-ALTER TABLE `student_address`
-  ADD CONSTRAINT `student_address_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`);
-
---
--- Constraints for table `student_education`
---
-ALTER TABLE `student_education`
-  ADD CONSTRAINT `student_education_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`);
-
---
--- Constraints for table `student_login`
---
-ALTER TABLE `student_login`
-  ADD CONSTRAINT `student_login_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`);
+ALTER TABLE `student_details_table`
+  ADD CONSTRAINT `student_details_table_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

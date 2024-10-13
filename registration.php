@@ -1,4 +1,100 @@
+<?php
+// Assuming you have already established a connection to your database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "woods";
 
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch Programs
+$programs = [];
+$programs_sql = "SELECT program_id, program_name FROM programs";
+$result = $conn->query($programs_sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $programs[] = $row;
+    }
+}
+
+// Fetch Certifications
+$certifications = [];
+$certification_sql = "SELECT certification_id, certification_name FROM certifications";
+$result = $conn->query($certification_sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $certifications[] = $row;
+    }
+}
+
+// Fetch Intakes
+$intakes = [];
+$intake_sql = "SELECT intake_id, intake_name FROM intake";
+$result = $conn->query($intake_sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $intakes[] = $row;
+    }
+}
+
+// Fetch Gender options
+$genders = [];
+$gender_sql = "SELECT gender_id, gender_name FROM gender";
+$result = $conn->query($gender_sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $genders[] = $row;
+    }
+}
+
+// Fetch Marital Status options
+$marital_statuses = [];
+$marital_status_sql = "SELECT status_id, status_name FROM maritalStatus";
+$result = $conn->query($marital_status_sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $marital_statuses[] = $row;
+    }
+}
+
+// Fetch Religion options
+$religions = [];
+$religion_sql = "SELECT religion_id, religion_name FROM religion";
+$result = $conn->query($religion_sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $religions[] = $row;
+    }
+}
+
+// Fetch Nationality options
+$nationalities = [];
+$nationality_sql = "SELECT nationality_id, nationality_name FROM nationality";
+$result = $conn->query($nationality_sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $nationalities[] = $row;
+    }
+}
+
+// Fetch Qualification Levels
+$qualification_levels = [];
+$qualification_sql = "SELECT level_id, level_name FROM qualificationLevel";
+$result = $conn->query($qualification_sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $qualification_levels[] = $row;
+    }
+}
+
+$conn->close();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,9 +102,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WOODS TRAINING INSTITUTE - Student Application Form</title>
-    
+
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="main_boot/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="Resources/student_application.css?v=<?php echo time(); ?>">
@@ -19,73 +115,26 @@
     <link rel="stylesheet" href="Resources/fontawesome/css/brands.css">
     <link rel="stylesheet" href="Resources/fontawesome/css/fontawesome.css">
 
-    <script>
-        const certificationOptions = {
-            "1": ["Certificate", "Diploma", "Bachelor's Degree", "Master's Degree", "PhD"] // Computer Science
-        };
 
-        const intakeOptions = {
-            "Certificate": ["January", "May", "September"]
-        };
-
-        function showCertifications() {
-            const programSelect = document.getElementById('university_program');
-            const certificationDiv = document.getElementById('certification_div');
-            const certificationSelect = document.getElementById('certification_type');
-            const intakeDiv = document.getElementById('intake_div');
-            const intakeSelect = document.getElementById('intake_type');
-
-            certificationSelect.innerHTML = '<option value="">Select Certification</option>';
-            intakeSelect.innerHTML = '<option value="">Select Intake</option>';
-            intakeDiv.style.display = 'none';
-
-            if (programSelect.value) {
-                const selectedProgram = programSelect.value;
-                certificationDiv.style.display = 'block';
-                const certifications = certificationOptions[selectedProgram] || [];
-                certifications.forEach(cert => {
-                    const option = document.createElement('option');
-                    option.value = cert;
-                    option.textContent = cert;
-                    certificationSelect.appendChild(option);
-                });
-            } else {
-                certificationDiv.style.display = 'none';
-            }
-        }
-
-        function showIntakes() {
-            const certificationSelect = document.getElementById('certification_type');
-            const intakeDiv = document.getElementById('intake_div');
-            const intakeSelect = document.getElementById('intake_type');
-
-            intakeSelect.innerHTML = '<option value="">Select Intake</option>';
-
-            if (certificationSelect.value) {
-                const selectedCertification = certificationSelect.value;
-                intakeDiv.style.display = 'block';
-                const intakes = intakeOptions[selectedCertification] || [];
-                intakes.forEach(intake => {
-                    const option = document.createElement('option');
-                    option.value = intake;
-                    option.textContent = intake;
-                    intakeSelect.appendChild(option);
-                });
-            } else {
-                intakeDiv.style.display = 'none';
-            }
-        }
-    </script>
 </head>
 <body>
 
-<section class="containerrr">
-    <section class="edditing_part">
-        <div class="edditing_section">
+<section class="container mt-5">
+    <section class="editing_part">
+        <div class="editing_section">
+            <!-- Progress Bar -->
+            <div class="progress mb-4">
+                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
             <form class="row g-3 needs-validation" action="student_application_process.php" method="POST" enctype="multipart/form-data" novalidate>
 
-                <!-- Personal Information -->
-                <div class="col-md-6 position-relative">
+                <!-- Section 1: Personal Information -->
+                <div id="section-1" class="form-section">
+                    <h3>Personal Information</h3>
+
+                    <div class="row">
+                    <div class="col-md-6 position-relative">
                     <label for="first_name" class="form-label">First Name</label>
                     <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name" required>
                     <div class="invalid-tooltip">Please provide your first name.</div>
@@ -144,9 +193,9 @@
                     <label for="gender" class="form-label">Gender</label>
                     <select class="form-select" id="gender" name="gender" required>
                         <option selected disabled value="">Select Gender...</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
+                        <?php foreach ($genders as $gender) {
+        echo "<option value='" . $gender['gender_id'] . "'>" . $gender['gender_name'] . "</option>";
+    } ?>
                     </select>
                     <div class="invalid-tooltip">Please select your gender.</div>
                 </div>
@@ -155,8 +204,9 @@
                     <label for="marital_status" class="form-label">Marital Status</label>
                     <select id="marital_status" name="marital_status" class="form-select" required>
                         <option value="">Select</option>
-                        <option value="Single">Single</option>
-                        <option value="Married">Married</option>
+                       <?php foreach ($marital_statuses as $status) {
+        echo "<option value='" . $status['status_id'] . "'>" . $status['status_name'] . "</option>";
+    } ?>
                     </select>
                     <div class="invalid-tooltip">Please select your marital status.</div>
                 </div>
@@ -165,52 +215,86 @@
                     <label for="religion" class="form-label">Religion</label>
                     <select class="form-select" id="religion" name="religion" required>
                         <option value="">Select</option>
-                        <option value="Christianity">Christianity</option>
-                        <option value="Islam">Islam</option>
+                        <?php foreach ($religions as $religion) {
+        echo "<option value='" . $religion['religion_id'] . "'>" . $religion['religion_name'] . "</option>";
+    } ?>
                     </select>
                     <div class="invalid-tooltip">Please select your religion.</div>
                 </div>
 
-                <!-- Program Selection -->
-                <div class="col-md-5 position-relative">
-                    <label for="university_program" class="form-label">University Program</label>
-                    <select id="university_program" name="program_id" class="form-select" onchange="showCertifications()" required>
-                        <option value="">Select</option>
-                        <option value="1">Computer Science</option>
-                    </select>
-                    <div class="invalid-tooltip">Please provide your program.</div>
+               
+       
+        <!-- Program Selection -->
+        <div class="col-md-5 position-relative">
+            <label for="university_program" class="form-label">University Program</label>
+            <select id="university_program" name="program_id" class="form-select" onchange="showCertifications()" required>
+                <option value="">Select</option>
+                <?php
+                // Dynamically populate program options from the database
+                foreach ($programs as $program) {
+                    echo "<option value='" . $program['program_id'] . "'>" . $program['program_name'] . "</option>";
+                }
+                ?>
+            </select>
+            <div class="invalid-tooltip">Please provide your program.</div>
+        </div>
+
+        <!-- Certification Selection (Initially Hidden) -->
+        <div id="certification_div" class="col-md-4 position-relative" style="display: none;">
+            <label for="certification_type" class="form-label">Certification Type</label>
+            <select id="certification_type" name="certification_type" class="form-select" onchange="showIntakes()" required>
+                <option value="">Select Certification</option>
+                <?php
+                // Dynamically populate certification options from the database
+                foreach ($certifications as $certification) {
+                    echo "<option value='" . $certification['certification_id'] . "'>" . $certification['certification_name'] . "</option>";
+                }
+                ?>
+            </select>
+            <div class="invalid-tooltip">Please provide your certification type.</div>
+        </div>
+
+        <!-- Intake Selection (Initially Hidden) -->
+        <div id="intake_div" class="col-md-3 position-relative" style="display: none;">
+            <label for="intake_type" class="form-label">Intake</label>
+            <select id="intake_type" name="intake_type" class="form-select" required>
+                <option value="">Select Intake</option>
+                <?php
+                // Dynamically populate intake options from the database
+                foreach ($intakes as $intake) {
+                    echo "<option value='" . $intake['intake_id'] . "'>" . $intake['intake_name'] . "</option>";
+                }
+                ?>
+            </select>
+            <div class="invalid-tooltip">Please select an intake type.</div>
+        </div>
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <button type="button" class="btn btn-secondary" onclick="nextSection()">Next</button>
+                    </div>
                 </div>
 
-                <!-- Certification Selection (Initially Hidden) -->
-                <div id="certification_div" class="col-md-4 position-relative" style="display: none;">
-                    <label for="certification_type" class="form-label">Certification Type</label>
-                    <select id="certification_type" name="certification_type" class="form-select" onchange="showIntakes()" required>
-                        <option value="">Select Certification</option>
-                    </select>
-                    <div class="invalid-tooltip">Please provide your certification type.</div>
-                </div>
+                <!-- Section 2: Address Information -->
+                <div id="section-2" class="form-section" style="display:none;">
+                    <h3>Address Information</h3>
 
-                <!-- Intake Selection (Initially Hidden) -->
-                <div id="intake_div" class="col-md-3 position-relative" style="display: none;">
-                    <label for="intake_type" class="form-label">Intake</label>
-                    <select id="intake_type" name="intake_type" class="form-select" required>
-                        <option value="">Select Intake</option>
-                    </select>
-                    <div class="invalid-tooltip">Please select an intake type.</div>
-                </div>
-
-                <!-- Address Information -->
-                <h3>Address Information</h3>
-                <div class="col-md-6 position-relative">
+                    <div class="row">
+                    <div class="col-md-6 position-relative">
                     <label for="city" class="form-label">City</label>
                     <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city" required>
                     <div class="invalid-tooltip">Please provide your city.</div>
                 </div>
 
                 <div class="col-md-6 position-relative">
-                    <label for="nationality" class="form-label">Nationality</label>
-                    <input type="text" class="form-control" id="nationality" name="nationality" placeholder="Enter your nationality" required>
-                    <div class="invalid-tooltip">Please provide your nationality.</div>
+                <label for="nationality" class="form-label">Nationality</label>
+                    <select class="form-select" id="nationality" name="nationality" placeholder="Enter your nationality" required>
+                    <option value="">Select</option>
+                    <?php foreach ($nationalities as $nationality) {
+        echo "<option value='" . $nationality['nationality_id'] . "'>" . $nationality['nationality_name'] . "</option>";
+    } ?>
+                    </select>
+                    <div class="invalid-tooltip">Please select your Nationality.</div>
                 </div>
 
                 <div class="col-md-6 position-relative">
@@ -225,20 +309,34 @@
                     <div class="invalid-tooltip">Please provide your zipcode.</div>
                 </div>
 
-                <div class="col-md-6 position-relative">
-                    <label for="address_line1" class="form-label">Address Line 1</label>
-                    <input type="text" class="form-control" id="address_line1" name="address_line1" placeholder="Enter address line 1" required>
-                    <div class="invalid-tooltip">Please provide your address line 1.</div>
+
+
+<div class="col-md-6 position-relative">
+<label for="address_line1" class="form-label">Address Line 1</label>
+  <textarea class="form-control"  id="address_line1" name="address_line1" placeholder="Enter address line 1" rows="3"></textarea>
+  <div class="invalid-tooltip">Please provide your address line 1.</div>
+</div>
+
+
+<div class="col-md-6 position-relative">
+<label for="address_line2" class="form-label">Address Line 2</label>
+  <textarea class="form-control"  id="address_line2" name="address_line2" placeholder="Enter address line 2" rows="3"></textarea>
+  <div class="invalid-tooltip">Please provide your address line 2.</div>
+</div>
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <button type="button" class="btn btn-secondary" onclick="previousSection()">Previous</button>
+                        <button type="button" class="btn btn-secondary" onclick="nextSection()">Next</button>
+                    </div>
                 </div>
 
-                <div class="col-md-6 position-relative">
-                    <label for="address_line2" class="form-label">Address Line 2</label>
-                    <input type="text" class="form-control" id="address_line2" name="address_line2" placeholder="Enter address line 2">
-                </div>
+                <!-- Section 3: Education Information -->
+                <div id="section-3" class="form-section" style="display:none;">
+                    <h3>Education Information</h3>
 
-                <!-- Education Information -->
-                <h3>Education Information</h3>
-                <div class="col-md-6 position-relative">
+                    <div class="row">
+                    <div class="col-md-6 position-relative">
                     <label for="school_name" class="form-label">School Name</label>
                     <input type="text" class="form-control" id="school_name" name="school_name" placeholder="Enter the name of your school" required>
                     <div class="invalid-tooltip">Please provide your school name.</div>
@@ -248,9 +346,9 @@
                     <label for="level_of_qualification" class="form-label">Level of Qualification</label>
                     <select id="level_of_qualification" name="level_of_qualification" class="form-select" required>
                         <option value="">Select Qualification</option>
-                        <option value="High School Diploma">High School Diploma</option>
-                        <option value="Undergraduate Degree">Undergraduate Degree</option>
-                        <option value="Postgraduate Degree">Postgraduate Degree</option>
+                        <?php foreach ($qualification_levels as $level) {
+        echo "<option value='" . $level['level_id'] . "'>" . $level['level_name'] . "</option>";
+    } ?>
                     </select>
                     <div class="invalid-tooltip">Please provide your level of qualification.</div>
                 </div>
@@ -278,9 +376,12 @@
                     <input type="file" class="form-control" id="qualification_document" name="qualification_document" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
                     <div class="invalid-tooltip">Please upload your qualification document.</div>
                 </div>
+                    </div>
 
-                <div class="col-12">
-                    <button class="btn btn-primary" type="submit">Submit Application</button>
+                    <div class="col-12 mt-3">
+                        <button type="button" class="btn btn-secondary" onclick="previousSection()">Previous</button>
+                        <button type="submit" class="btn btn-primary">Submit Application</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -291,6 +392,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-<script src="Resources/validation.js"></script>
+<script src="javascripts/application.js"></script>
+
 </body>
 </html>

@@ -1,87 +1,81 @@
-const  form = document.querySelector("form"),
-        nextbtn = form.querySelector(".nextbtn"),
-        backbtn  = form.querySelector(" .backbtn "),
-        allinput  = form.querySelectorAll(" .first input");
 
-        nextbtn.addEventListener("click",()=> { 
-            allinput.forEach(input => {
-                if(input.value != ""){
-                    form.classList.add('secActive');
-                } else {
-                    form.classList.remove('secActive');
-                  
+let currentSection = 1;
 
-                }
-            })
-        })
+function showSection(sectionNumber) {
+    document.querySelectorAll('.form-section').forEach((section) => {
+        section.style.display = 'none';
+    });
+    document.getElementById(`section-${sectionNumber}`).style.display = 'block';
+    updateProgressBar(sectionNumber);
+}
 
-        
+function updateProgressBar(sectionNumber) {
+    const progressBar = document.getElementById('progress-bar');
+    const percentage = (sectionNumber / 3) * 100;
+    progressBar.style.width = `${percentage}%`;
+}
 
+function validateSection() {
+    const currentForm = document.querySelector(`#section-${currentSection}`);
+    const inputs = currentForm.querySelectorAll("input, select");
+    let isValid = true;
 
-backbtn.addEventListener("click",()=> form.classList.remove('secActive'));
+    inputs.forEach(input => {
+        if (!input.checkValidity()) {
+            input.classList.add("is-invalid");
+            isValid = false;
+        } else {
+            input.classList.remove("is-invalid");
+        }
+    });
 
+    return isValid;
+}
 
-
-
-
-
-
-
-//this is for the program selection
-const certificationOptions = {
-    "1": ["Certificate", "Diploma", "Bachelor's Degree", "Master's Degree", "PhD"] // Computer Science
-};
-
-const intakeOptions = {
-    "Certificate": ["January", "May", "September"]
-};
-
-function showCertifications() {
-    const programSelect = document.getElementById('university_program');
-    const certificationDiv = document.getElementById('certification_div');
-    const certificationSelect = document.getElementById('certification_type');
-    const intakeDiv = document.getElementById('intake_div');
-    const intakeSelect = document.getElementById('intake_type');
-
-    certificationSelect.innerHTML = '<option value="">Select Certification</option>';
-    intakeSelect.innerHTML = '<option value="">Select Intake</option>';
-    intakeDiv.style.display = 'none';
-
-    if (programSelect.value) {
-        const selectedProgram = programSelect.value;
-        certificationDiv.style.display = 'block';
-        const certifications = certificationOptions[selectedProgram] || [];
-        certifications.forEach(cert => {
-            const option = document.createElement('option');
-            option.value = cert;
-            option.textContent = cert;
-            certificationSelect.appendChild(option);
-        });
-    } else {
-        certificationDiv.style.display = 'none';
+function nextSection() {
+    if (validateSection()) {
+        if (currentSection < 3) {
+            currentSection++;
+            showSection(currentSection);
+        }
     }
 }
 
-function showIntakes() {
-    const certificationSelect = document.getElementById('certification_type');
-    const intakeDiv = document.getElementById('intake_div');
-    const intakeSelect = document.getElementById('intake_type');
-
-    intakeSelect.innerHTML = '<option value="">Select Intake</option>';
-
-    if (certificationSelect.value) {
-        const selectedCertification = certificationSelect.value;
-        intakeDiv.style.display = 'block';
-        const intakes = intakeOptions[selectedCertification] || [];
-        intakes.forEach(intake => {
-            const option = document.createElement('option');
-            option.value = intake;
-            option.textContent = intake;
-            intakeSelect.appendChild(option);
-        });
-    } else {
-        intakeDiv.style.display = 'none';
+function previousSection() {
+    if (currentSection > 1) {
+        currentSection--;
+        showSection(currentSection);
     }
 }
 
+window.onload = () => {
+    showSection(currentSection);
+};
 
+
+
+//this is for the certification or choosing of programs
+        function showCertifications() {
+            const programSelect = document.getElementById('university_program');
+            const certificationDiv = document.getElementById('certification_div');
+            const certificationSelect = document.getElementById('certification_type');
+
+            if (programSelect.value) {
+                certificationDiv.style.display = 'block'; // Show certifications
+            } else {
+                certificationDiv.style.display = 'none'; // Hide certifications
+                document.getElementById('intake_div').style.display = 'none'; // Hide intakes if no program is selected
+                certificationSelect.value = ''; // Reset certification value
+            }
+        }
+
+        function showIntakes() {
+            const certificationSelect = document.getElementById('certification_type');
+            const intakeDiv = document.getElementById('intake_div');
+
+            if (certificationSelect.value) {
+                intakeDiv.style.display = 'block'; // Show intakes
+            } else {
+                intakeDiv.style.display = 'none'; // Hide intakes
+            }
+        }
