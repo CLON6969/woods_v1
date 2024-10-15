@@ -1,11 +1,11 @@
-<?php
-// Assuming you have already established a connection to your database
+<?php 
+session_start(); // Start the session
+
+// Database Connection
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "woods";
-
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
@@ -93,9 +93,96 @@ if ($result->num_rows > 0) {
     }
 }
 
-$conn->close();
-?>
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+    // Prevent double submission
+    if (isset($_SESSION['form_submitted'])) {
+        echo "<div class='alert alert-warning'>This form has already been submitted.</div>";
+        exit();
+    }
+
+    // Validate input and retrieve form data
+    $first_name = $_POST['first_name'] ?? '';
+    $middle_name = $_POST['middle_name'] ?? '';
+    $last_name = $_POST['last_name'] ?? '';
+    $username = $_POST['username'] ?? '';
+    $date_of_birth = $_POST['date_of_birth'] ?? '';
+    $profile_picture = $_FILES['profile_picture']['name'] ?? '';
+    $phone_number = $_POST['phone_number'] ?? '';
+    $emergency_phone = $_POST['emergency_phone'] ?? '';
+    $gender = $_POST['gender'] ?? '';
+    $marital_status = $_POST['marital_status'] ?? '';
+    $religion = $_POST['religion'] ?? '';
+    $program_id = $_POST['program_id'] ?? '';
+    $certification_type = $_POST['certification_type'] ?? '';
+    $intake_type = $_POST['intake_type'] ?? '';
+    $city = $_POST['city'] ?? '';
+    $nationality = $_POST['nationality'] ?? '';
+    $national_id_number = $_POST['national_id_number'] ?? '';
+    $zipcode = $_POST['zipcode'] ?? '';
+    $address_line1 = $_POST['address_line1'] ?? '';
+    $address_line2 = $_POST['address_line2'] ?? '';
+    $school_name = $_POST['school_name'] ?? '';
+    $level_of_qualification = $_POST['level_of_qualification'] ?? '';
+    $entry_date = $_POST['entry_date'] ?? '';
+    $date_graduated = $_POST['date_graduated'] ?? '';
+    $school_address = $_POST['school_address'] ?? '';
+    $qualification_document = $_FILES['qualification_document']['name'] ?? '';
+
+    // Handle file uploads
+    $target_dir_profile = "uploads/students/profile_picture/";
+    $target_dir_documents = "uploads/students/qualifications/";
+    $target_file_profile = $target_dir_profile . basename($profile_picture);
+    $target_file_document = $target_dir_documents . basename($qualification_document);
+
+    // Upload files
+    move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_file_profile);
+    move_uploaded_file($_FILES['qualification_document']['tmp_name'], $target_file_document);
+
+    // SQL insert statement
+    $sql = "INSERT INTO student_application (first_name, middle_name, last_name, username, date_of_birth, 
+            profile_picture, phone_number, emergency_phone, gender, marital_status, religion, program_id, 
+            certification_type, intake_type, city, nationality, national_id_number, zipcode, address_line1, 
+            address_line2, school_name, level_of_qualification, entry_date, date_graduated, school_address, 
+            qualification_document) VALUES (
+            '$first_name', '$middle_name', '$last_name', '$username', '$date_of_birth', '$profile_picture', 
+            '$phone_number', '$emergency_phone', '$gender', '$marital_status', '$religion', '$program_id', 
+            '$certification_type', '$intake_type', '$city', '$nationality', '$national_id_number', '$zipcode', 
+            '$address_line1', '$address_line2', '$school_name', '$level_of_qualification', '$entry_date', 
+            '$date_graduated', '$school_address', '$qualification_document')";
+
+    if ($conn->query($sql) === TRUE) {
+        // Set the session variable to indicate that the form has been submitted
+        $_SESSION['form_submitted'] = true;
+
+        // Display success message with progress bar and auto-refresh
+        echo "
+        <div class='container'>
+            <div class='alert alert-success mt-4'>Application submitted successfully!</div>
+            <div class='progress'>
+                <div class='progress-bar' role='progressbar' style='width: 100%; background-color: #09c561;' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>
+            </div>
+        </div>
+        <script>
+            setTimeout(function(){
+                window.location.reload(1);
+            }, 3000);
+        </script>";
+    } else {
+        if ($conn->errno == 1062) {
+            // Duplicate entry error for username (email)
+            echo "<div class='alert alert-danger'>This email already exists. Please use a different email.</div>";
+        } else {
+            // General error handling
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+    // Close connection
+    $conn->close();
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -119,15 +206,18 @@ $conn->close();
 </head>
 <body>
 
-<section class="container mt-5">
-    <section class="editing_part">
-        <div class="editing_section">
+<section class="container mt-2">
+<section class="edditing_part">
+<div class="edditing_section">
+<label ><a class="logo" href="index.php">WOODS</a> </label>
             <!-- Progress Bar -->
             <div class="progress mb-4">
-                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 33%;  background-color: #09c561;"  aria-valuenow="3" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
 
-            <form class="row g-3 needs-validation" action="student_application_process.php" method="POST" enctype="multipart/form-data" novalidate>
+            
+            <form class="row g-3 needs-validation" action="" method="POST" enctype="multipart/form-data" novalidate onsubmit="showProgress();">
+
 
                 <!-- Section 1: Personal Information -->
                 <div id="section-1" class="form-section">
@@ -225,7 +315,7 @@ $conn->close();
                
        
         <!-- Program Selection -->
-        <div class="col-md-5 position-relative">
+        <div class="col-md-4 position-relative">
             <label for="university_program" class="form-label">University Program</label>
             <select id="university_program" name="program_id" class="form-select" onchange="showCertifications()" required>
                 <option value="">Select</option>
@@ -244,27 +334,31 @@ $conn->close();
             <label for="certification_type" class="form-label">Certification Type</label>
             <select id="certification_type" name="certification_type" class="form-select" onchange="showIntakes()" required>
                 <option value="">Select Certification</option>
+
                 <?php
                 // Dynamically populate certification options from the database
                 foreach ($certifications as $certification) {
                     echo "<option value='" . $certification['certification_id'] . "'>" . $certification['certification_name'] . "</option>";
                 }
                 ?>
+
             </select>
             <div class="invalid-tooltip">Please provide your certification type.</div>
         </div>
 
         <!-- Intake Selection (Initially Hidden) -->
-        <div id="intake_div" class="col-md-3 position-relative" style="display: none;">
+        <div id="intake_div" class="col-md-4 position-relative" style="display: none;">
             <label for="intake_type" class="form-label">Intake</label>
             <select id="intake_type" name="intake_type" class="form-select" required>
                 <option value="">Select Intake</option>
+
                 <?php
                 // Dynamically populate intake options from the database
                 foreach ($intakes as $intake) {
                     echo "<option value='" . $intake['intake_id'] . "'>" . $intake['intake_name'] . "</option>";
                 }
                 ?>
+
             </select>
             <div class="invalid-tooltip">Please select an intake type.</div>
         </div>
@@ -290,9 +384,13 @@ $conn->close();
                 <label for="nationality" class="form-label">Nationality</label>
                     <select class="form-select" id="nationality" name="nationality" placeholder="Enter your nationality" required>
                     <option value="">Select</option>
-                    <?php foreach ($nationalities as $nationality) {
-        echo "<option value='" . $nationality['nationality_id'] . "'>" . $nationality['nationality_name'] . "</option>";
-    } ?>
+
+                    <?php 
+                    foreach ($nationalities as $nationality) {
+                    echo "<option value='" . $nationality['nationality_id'] . "'>" . $nationality['nationality_name'] . "</option>";
+                     }
+                      ?>
+
                     </select>
                     <div class="invalid-tooltip">Please select your Nationality.</div>
                 </div>
@@ -311,18 +409,18 @@ $conn->close();
 
 
 
-<div class="col-md-6 position-relative">
-<label for="address_line1" class="form-label">Address Line 1</label>
-  <textarea class="form-control"  id="address_line1" name="address_line1" placeholder="Enter address line 1" rows="3"></textarea>
-  <div class="invalid-tooltip">Please provide your address line 1.</div>
-</div>
+                <div class="col-md-6 position-relative">
+                <label for="address_line1" class="form-label">Address Line 1</label>
+                  <textarea class="form-control"  id="address_line1" name="address_line1" placeholder="Enter address line 1"  rows="3"></textarea>
+                  <div class="invalid-tooltip">Please provide your address line 1.</div>
+                </div>
 
 
-<div class="col-md-6 position-relative">
-<label for="address_line2" class="form-label">Address Line 2</label>
-  <textarea class="form-control"  id="address_line2" name="address_line2" placeholder="Enter address line 2" rows="3"></textarea>
-  <div class="invalid-tooltip">Please provide your address line 2.</div>
-</div>
+                <div class="col-md-6 position-relative">
+                <label for="address_line2" class="form-label">Address Line 2</label>
+                  <textarea class="form-control"  id="address_line2" name="address_line2" placeholder="Enter address line 2"  rows="3"></textarea>
+                  <div class="invalid-tooltip">Please provide your address line 2.</div>
+                </div>
                     </div>
 
                     <div class="col-12 mt-3">
@@ -346,9 +444,13 @@ $conn->close();
                     <label for="level_of_qualification" class="form-label">Level of Qualification</label>
                     <select id="level_of_qualification" name="level_of_qualification" class="form-select" required>
                         <option value="">Select Qualification</option>
-                        <?php foreach ($qualification_levels as $level) {
-        echo "<option value='" . $level['level_id'] . "'>" . $level['level_name'] . "</option>";
-    } ?>
+
+                        <?php 
+                        foreach ($qualification_levels as $level) {
+                         echo "<option value='" . $level['level_id'] . "'>" . $level['level_name'] . "</option>";
+                        }
+                         ?>
+
                     </select>
                     <div class="invalid-tooltip">Please provide your level of qualification.</div>
                 </div>
@@ -388,11 +490,17 @@ $conn->close();
     </section>
 </section>
 
+<!-- Progress Bar -->
+<div id="progress-bar-container" style="display: none;">
+    <div id="progress-bar"></div>
+</div>
+
+
+</body>
 <!-- Bootstrap JS and Dependencies -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 <script src="javascripts/application.js"></script>
 
-</body>
 </html>

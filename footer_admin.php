@@ -308,7 +308,7 @@ if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
 
 
 
-</body>
 <script src="javascripts/footer_admin_select.js"></script>
+</body>
 
 </html>
