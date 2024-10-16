@@ -1,3 +1,4 @@
+
 <?php 
 session_start(); // Start the session
 
@@ -12,6 +13,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
 
 // Fetch Programs
 $programs = [];
@@ -99,8 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Prevent double submission
     if (isset($_SESSION['form_submitted'])) {
         echo "<div class='alert alert-warning'>This form has already been submitted.</div>";
-        exit();
-    }
+    } else {
 
     // Validate input and retrieve form data
     $first_name = $_POST['first_name'] ?? '';
@@ -140,49 +141,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_file_profile);
     move_uploaded_file($_FILES['qualification_document']['tmp_name'], $target_file_document);
 
-    // SQL insert statement
-    $sql = "INSERT INTO student_application (first_name, middle_name, last_name, username, date_of_birth, 
-            profile_picture, phone_number, emergency_phone, gender, marital_status, religion, program_id, 
-            certification_type, intake_type, city, nationality, national_id_number, zipcode, address_line1, 
-            address_line2, school_name, level_of_qualification, entry_date, date_graduated, school_address, 
-            qualification_document) VALUES (
-            '$first_name', '$middle_name', '$last_name', '$username', '$date_of_birth', '$profile_picture', 
-            '$phone_number', '$emergency_phone', '$gender', '$marital_status', '$religion', '$program_id', 
-            '$certification_type', '$intake_type', '$city', '$nationality', '$national_id_number', '$zipcode', 
-            '$address_line1', '$address_line2', '$school_name', '$level_of_qualification', '$entry_date', 
-            '$date_graduated', '$school_address', '$qualification_document')";
+        // SQL insert statement
+        $sql = "INSERT INTO student_application (first_name, middle_name, last_name, username, date_of_birth, 
+                profile_picture, phone_number, emergency_phone, gender, marital_status, religion, program_id, 
+                certification_type, intake_type, city, nationality, national_id_number, zipcode, address_line1, 
+                address_line2, school_name, level_of_qualification, entry_date, date_graduated, school_address, 
+                qualification_document) VALUES (
+                '$first_name', '$middle_name', '$last_name', '$username', '$date_of_birth', '$profile_picture', 
+                '$phone_number', '$emergency_phone', '$gender', '$marital_status', '$religion', '$program_id', 
+                '$certification_type', '$intake_type', '$city', '$nationality', '$national_id_number', '$zipcode', 
+                '$address_line1', '$address_line2', '$school_name', '$level_of_qualification', '$entry_date', 
+                '$date_graduated', '$school_address', '$qualification_document')";
 
-    if ($conn->query($sql) === TRUE) {
-        // Set the session variable to indicate that the form has been submitted
-        $_SESSION['form_submitted'] = true;
+        if ($conn->query($sql) === TRUE) {
+            // Set the session variable to indicate that the form has been submitted
+            $_SESSION['form_submitted'] = true;
 
-        // Display success message with progress bar and auto-refresh
-        echo "
-        <div class='container'>
-            <div class='alert alert-success mt-4'>Application submitted successfully!</div>
-            <div class='progress'>
-                <div class='progress-bar' role='progressbar' style='width: 100%; background-color: #09c561;' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>
-            </div>
-        </div>
-        <script>
-            setTimeout(function(){
-                window.location.reload(1);
-            }, 3000);
-        </script>";
-    } else {
-        if ($conn->errno == 1062) {
-            // Duplicate entry error for username (email)
-            echo "<div class='alert alert-danger'>This email already exists. Please use a different email.</div>";
+            // Display success message without page reload
+            echo "
+            <div class='container'>
+                <div class='alert alert-success mt-4'>Application submitted successfully!</div>
+            </div>";
         } else {
-            // General error handling
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            if ($conn->errno == 1062) {
+                // Duplicate entry error for username (email)
+                echo "<div class='alert alert-danger'>This email already exists. Please use a different email.</div>";
+            } else {
+                // General error handling
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
         }
+        // Close connection
+        $conn->close();
     }
-    // Close connection
-    $conn->close();
+}
+
+// Optional: Clear the session after displaying the success message or when the user returns to the form
+if (isset($_POST['clear_session'])) {
+    unset($_SESSION['form_submitted']);
+    header("Location: " . $_SERVER['PHP_SELF']); // Redirect to reload the form
     exit();
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -195,6 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="Resources/student_application.css?v=<?php echo time(); ?>">
+   
     
     <!-- FontAwesome Links -->
     <link rel="stylesheet" href="Resources/fontawesome/css/solid.css">
@@ -490,9 +493,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </section>
 </section>
 
+
+
 <!-- Progress Bar -->
-<div id="progress-bar-container" style="display: none;">
-    <div id="progress-bar"></div>
+<div id="progresss-bar-container" style="display: none;">
+    <div id="progresss-bar"></div>
 </div>
 
 
@@ -502,5 +507,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 <script src="javascripts/application.js"></script>
+<script src="javascripts/application2.js"></script>
 
 </html>
+
