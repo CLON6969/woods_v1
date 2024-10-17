@@ -49,37 +49,6 @@ INSERT INTO `accademic_table` VALUES (1,'Academic Calendar','We’re Ready When 
 UNLOCK TABLES;
 
 --
--- Table structure for table `address_table`
---
-
-DROP TABLE IF EXISTS `address_table`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `address_table` (
-  `address_id` int(11) NOT NULL AUTO_INCREMENT,
-  `student_id` int(11) NOT NULL,
-  `city` varchar(50) NOT NULL,
-  `nationality` varchar(50) NOT NULL,
-  `national_id_number` varchar(15) NOT NULL,
-  `zipcode` varchar(10) DEFAULT NULL,
-  `address_line1` varchar(255) NOT NULL,
-  `address_line2` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`address_id`),
-  KEY `student_id` (`student_id`),
-  CONSTRAINT `address_table_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `address_table`
---
-
-LOCK TABLES `address_table` WRITE;
-/*!40000 ALTER TABLE `address_table` DISABLE KEYS */;
-/*!40000 ALTER TABLE `address_table` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `admision`
 --
 
@@ -449,37 +418,6 @@ LOCK TABLES `departments` WRITE;
 /*!40000 ALTER TABLE `departments` DISABLE KEYS */;
 INSERT INTO `departments` VALUES (1,'Computer Science and Information Technology'),(2,'Business and Economics'),(3,'Engineering'),(4,'Natural Sciences'),(5,'Health Sciences'),(6,'Social Sciences and Humanities'),(7,'Arts and Design'),(8,'Agriculture and Forestry'),(9,'Architecture and Urban Planning'),(10,'Hospitality and Tourism');
 /*!40000 ALTER TABLE `departments` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `education_table`
---
-
-DROP TABLE IF EXISTS `education_table`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `education_table` (
-  `education_id` int(11) NOT NULL AUTO_INCREMENT,
-  `student_id` int(11) NOT NULL,
-  `school_name` varchar(100) NOT NULL,
-  `level_of_qualification` varchar(50) NOT NULL,
-  `entry_date` date NOT NULL,
-  `date_graduated` date NOT NULL,
-  `school_address` varchar(255) NOT NULL,
-  `qualification_document` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`education_id`),
-  KEY `student_id` (`student_id`),
-  CONSTRAINT `education_table_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `education_table`
---
-
-LOCK TABLES `education_table` WRITE;
-/*!40000 ALTER TABLE `education_table` DISABLE KEYS */;
-/*!40000 ALTER TABLE `education_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1031,6 +969,39 @@ INSERT INTO `semester` VALUES (1,'First semester'),(2,'Second semester');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `student_address_table`
+--
+
+DROP TABLE IF EXISTS `student_address_table`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `student_address_table` (
+  `address_id` int(11) NOT NULL AUTO_INCREMENT,
+  `student_id` int(11) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `nationality` int(50) NOT NULL,
+  `national_id_number` varchar(15) NOT NULL,
+  `zipcode` varchar(10) DEFAULT NULL,
+  `address_line1` varchar(255) NOT NULL,
+  `address_line2` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`address_id`),
+  KEY `student_id` (`student_id`),
+  KEY `fk_nationality` (`nationality`),
+  CONSTRAINT `fk_nationality` FOREIGN KEY (`nationality`) REFERENCES `nationality` (`nationality_id`),
+  CONSTRAINT `student_address_table_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `student_address_table`
+--
+
+LOCK TABLES `student_address_table` WRITE;
+/*!40000 ALTER TABLE `student_address_table` DISABLE KEYS */;
+/*!40000 ALTER TABLE `student_address_table` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `student_application`
 --
 
@@ -1068,7 +1039,7 @@ CREATE TABLE `student_application` (
   `application_status` varchar(20) DEFAULT 'Pending',
   PRIMARY KEY (`application_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1077,6 +1048,7 @@ CREATE TABLE `student_application` (
 
 LOCK TABLES `student_application` WRITE;
 /*!40000 ALTER TABLE `student_application` DISABLE KEYS */;
+INSERT INTO `student_application` VALUES (35,'Erick','Ackim','maliko','erickmaliko69@gmail.com','2024-10-09','10.png','9909999999999','0960421574','18','11','17',17,'2','1','MONGU','2','88888','0000','51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','MONGU TRADES SECONDARY SCHOOL','4','2024-10-13','2024-10-03','733 59th St','12.png','Pending'),(36,'Erick','Mot','maliko','erickwoffffrkspace6969@gmail.com','2024-10-12','73.5.jpg','998888877777777','0977961230','18','10','8',18,'3','1','MONGU','5','999','0000','51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','Mulamatiwa Basic School','7','2024-10-19','2024-10-20','51610 LITOMA ROAD COLD','5.png','Pending'),(37,'Erick','Ackim','maliko','erickworkspace6969@gmail.comdddddddddddd','2024-10-19','18.jpg','998888877777777','0977867201','15','10','17',16,'3','2','MONGU','9','88888','0000','51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','MONGU TRADES SECONDARY SCHOOL','7','0000-00-00','2024-10-26','51610 LITOMA ROAD COLD','12.png','Pending');
 /*!40000 ALTER TABLE `student_application` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1097,17 +1069,27 @@ CREATE TABLE `student_details_table` (
   `profile_picture` varchar(255) DEFAULT NULL,
   `phone_number` varchar(15) NOT NULL,
   `emergency_phone` varchar(15) NOT NULL,
-  `gender` varchar(10) NOT NULL,
-  `marital_status` varchar(20) DEFAULT NULL,
-  `religion` varchar(30) DEFAULT NULL,
+  `gender` int(10) NOT NULL,
+  `marital_status` int(20) DEFAULT NULL,
+  `religion` int(30) DEFAULT NULL,
   `program_id` int(11) NOT NULL,
-  `certification_type` varchar(50) NOT NULL,
-  `intake_type` varchar(20) NOT NULL,
+  `certification_type` int(50) NOT NULL,
+  `intake_type` int(20) NOT NULL,
   PRIMARY KEY (`student_id`),
   UNIQUE KEY `username` (`username`),
   KEY `program_id` (`program_id`),
+  KEY `fk_gender` (`gender`),
+  KEY `fk_marital_status` (`marital_status`),
+  KEY `fk_religion` (`religion`),
+  KEY `fk_certification_type` (`certification_type`),
+  KEY `fk_intake_type` (`intake_type`),
+  CONSTRAINT `fk_certification_type` FOREIGN KEY (`certification_type`) REFERENCES `certifications` (`certification_id`),
+  CONSTRAINT `fk_gender` FOREIGN KEY (`gender`) REFERENCES `gender` (`gender_id`),
+  CONSTRAINT `fk_intake_type` FOREIGN KEY (`intake_type`) REFERENCES `intake` (`intake_id`),
+  CONSTRAINT `fk_marital_status` FOREIGN KEY (`marital_status`) REFERENCES `maritalstatus` (`status_id`),
+  CONSTRAINT `fk_religion` FOREIGN KEY (`religion`) REFERENCES `religion` (`religion_id`),
   CONSTRAINT `student_details_table_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1117,6 +1099,64 @@ CREATE TABLE `student_details_table` (
 LOCK TABLES `student_details_table` WRITE;
 /*!40000 ALTER TABLE `student_details_table` DISABLE KEYS */;
 /*!40000 ALTER TABLE `student_details_table` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `student_education_table`
+--
+
+DROP TABLE IF EXISTS `student_education_table`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `student_education_table` (
+  `education_id` int(11) NOT NULL AUTO_INCREMENT,
+  `student_id` int(11) NOT NULL,
+  `school_name` varchar(100) NOT NULL,
+  `level_of_qualification` varchar(50) NOT NULL,
+  `entry_date` date NOT NULL,
+  `date_graduated` date NOT NULL,
+  `school_address` varchar(255) NOT NULL,
+  `qualification_document` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`education_id`),
+  KEY `student_id` (`student_id`),
+  CONSTRAINT `student_education_table_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `student_education_table`
+--
+
+LOCK TABLES `student_education_table` WRITE;
+/*!40000 ALTER TABLE `student_education_table` DISABLE KEYS */;
+/*!40000 ALTER TABLE `student_education_table` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `student_login`
+--
+
+DROP TABLE IF EXISTS `student_login`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `student_login` (
+  `login_id` int(11) NOT NULL AUTO_INCREMENT,
+  `student_id` int(11) DEFAULT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`login_id`),
+  KEY `student_id` (`student_id`),
+  CONSTRAINT `student_login_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `student_login`
+--
+
+LOCK TABLES `student_login` WRITE;
+/*!40000 ALTER TABLE `student_login` DISABLE KEYS */;
+/*!40000 ALTER TABLE `student_login` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1176,4 +1216,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-16 14:47:43
+-- Dump completed on 2024-10-17 17:15:14

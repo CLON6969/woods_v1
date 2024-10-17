@@ -1,6 +1,12 @@
-
 <?php 
+
 session_start(); // Start the session
+
+// Clear session variable for new form submissions
+if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+    // Clear the session variable to allow new form submission when the form is displayed again (on page load)
+    unset($_SESSION['form_submitted']);
+}
 
 // Database Connection
 $servername = "localhost";
@@ -13,6 +19,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+
+
 
 
 // Fetch Programs
@@ -100,47 +109,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Prevent double submission
     if (isset($_SESSION['form_submitted'])) {
-        echo "<div class='alert alert-warning'>This form has already been submitted.</div>";
+        echo "<script>alert('This form has already been submitted.');</script>";
+        // Redirect to reload the form after the alert
+        echo "<script>setTimeout(function(){ window.location.href = '".$_SERVER['PHP_SELF']."'; }, 1000);</script>";
     } else {
 
-    // Validate input and retrieve form data
-    $first_name = $_POST['first_name'] ?? '';
-    $middle_name = $_POST['middle_name'] ?? '';
-    $last_name = $_POST['last_name'] ?? '';
-    $username = $_POST['username'] ?? '';
-    $date_of_birth = $_POST['date_of_birth'] ?? '';
-    $profile_picture = $_FILES['profile_picture']['name'] ?? '';
-    $phone_number = $_POST['phone_number'] ?? '';
-    $emergency_phone = $_POST['emergency_phone'] ?? '';
-    $gender = $_POST['gender'] ?? '';
-    $marital_status = $_POST['marital_status'] ?? '';
-    $religion = $_POST['religion'] ?? '';
-    $program_id = $_POST['program_id'] ?? '';
-    $certification_type = $_POST['certification_type'] ?? '';
-    $intake_type = $_POST['intake_type'] ?? '';
-    $city = $_POST['city'] ?? '';
-    $nationality = $_POST['nationality'] ?? '';
-    $national_id_number = $_POST['national_id_number'] ?? '';
-    $zipcode = $_POST['zipcode'] ?? '';
-    $address_line1 = $_POST['address_line1'] ?? '';
-    $address_line2 = $_POST['address_line2'] ?? '';
-    $school_name = $_POST['school_name'] ?? '';
-    $level_of_qualification = $_POST['level_of_qualification'] ?? '';
-    $entry_date = $_POST['entry_date'] ?? '';
-    $date_graduated = $_POST['date_graduated'] ?? '';
-    $school_address = $_POST['school_address'] ?? '';
-    $qualification_document = $_FILES['qualification_document']['name'] ?? '';
 
-    // Handle file uploads
-    $target_dir_profile = "uploads/students/profile_picture/";
-    $target_dir_documents = "uploads/students/qualifications/";
-    $target_file_profile = $target_dir_profile . basename($profile_picture);
-    $target_file_document = $target_dir_documents . basename($qualification_document);
+        // Validate input and retrieve form data
+        $first_name = $_POST['first_name'] ?? '';
+        $middle_name = $_POST['middle_name'] ?? '';
+        $last_name = $_POST['last_name'] ?? '';
+        $username = $_POST['username'] ?? '';
+        $date_of_birth = $_POST['date_of_birth'] ?? '';
+        $profile_picture = $_FILES['profile_picture']['name'] ?? '';
+        $phone_number = $_POST['phone_number'] ?? '';
+        $emergency_phone = $_POST['emergency_phone'] ?? '';
+        $gender = $_POST['gender'] ?? '';
+        $marital_status = $_POST['marital_status'] ?? '';
+        $religion = $_POST['religion'] ?? '';
+        $program_id = $_POST['program_id'] ?? '';
+        $certification_type = $_POST['certification_type'] ?? '';
+        $intake_type = $_POST['intake_type'] ?? '';
+        $city = $_POST['city'] ?? '';
+        $nationality = $_POST['nationality'] ?? '';
+        $national_id_number = $_POST['national_id_number'] ?? '';
+        $zipcode = $_POST['zipcode'] ?? '';
+        $address_line1 = $_POST['address_line1'] ?? '';
+        $address_line2 = $_POST['address_line2'] ?? '';
+        $school_name = $_POST['school_name'] ?? '';
+        $level_of_qualification = $_POST['level_of_qualification'] ?? '';
+        $entry_date = $_POST['entry_date'] ?? '';
+        $date_graduated = $_POST['date_graduated'] ?? '';
+        $school_address = $_POST['school_address'] ?? '';
+        $qualification_document = $_FILES['qualification_document']['name'] ?? '';
 
-    // Upload files
-    move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_file_profile);
-    move_uploaded_file($_FILES['qualification_document']['tmp_name'], $target_file_document);
+        // Handle file uploads
+        $target_dir_profile = "uploads/students/profile_picture/";
+        $target_dir_documents = "uploads/students/qualifications/";
+        $target_file_profile = $target_dir_profile . basename($profile_picture);
+        $target_file_document = $target_dir_documents . basename($qualification_document);
 
+        // Upload files
+        move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_file_profile);
+        move_uploaded_file($_FILES['qualification_document']['tmp_name'], $target_file_document);
+
+
+        // SQL insert statement
         // SQL insert statement
         $sql = "INSERT INTO student_application (first_name, middle_name, last_name, username, date_of_birth, 
                 profile_picture, phone_number, emergency_phone, gender, marital_status, religion, program_id, 
@@ -157,30 +171,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Set the session variable to indicate that the form has been submitted
             $_SESSION['form_submitted'] = true;
 
-            // Display success message without page reload
-            echo "
-            <div class='container'>
-                <div class='alert alert-success mt-4'>Application submitted successfully!</div>
-            </div>";
+            // Display success message as a pop-up and redirect back to the form
+            echo "<script>alert('Application submitted successfully!');</script>";
+            echo "<script>setTimeout(function(){ window.location.href = '".$_SERVER['PHP_SELF']."'; }, 1000);</script>";
+
         } else {
             if ($conn->errno == 1062) {
                 // Duplicate entry error for username (email)
-                echo "<div class='alert alert-danger'>This email already exists. Please use a different email.</div>";
+                echo "<script>alert('This email already exists. Please use a different email.');</script>";
             } else {
                 // General error handling
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                echo "<script>alert('Error: ". $conn->error ."');</script>";
             }
+            // Redirect back to the form after error
+            echo "<script>setTimeout(function(){ window.location.href = '".$_SERVER['PHP_SELF']."'; }, 1000);</script>";
         }
-        // Close connection
+
+        // Close the connection
         $conn->close();
     }
-}
-
-// Optional: Clear the session after displaying the success message or when the user returns to the form
-if (isset($_POST['clear_session'])) {
-    unset($_SESSION['form_submitted']);
-    header("Location: " . $_SERVER['PHP_SELF']); // Redirect to reload the form
-    exit();
 }
 ?>
 

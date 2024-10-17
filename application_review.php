@@ -1,4 +1,4 @@
-<?php
+<?php 
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $student_id = $conn->insert_id;
 
             // Insert into education_table
-            $sql_education = "INSERT INTO education_table 
+            $sql_education = "INSERT INTO student_education_table 
                 (student_id, school_name, level_of_qualification, entry_date, date_graduated, 
                 school_address, qualification_document)
                 VALUES ('$student_id', '{$application['school_name']}', 
@@ -58,11 +58,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 '{$application['address_line1']}', '{$application['address_line2']}')";
             $conn->query($sql_address);
 
+            // Generate a random password
+            $generated_password = bin2hex(random_bytes(8)); // Generates a 16-character random password
+            $hashed_password = password_hash($generated_password, PASSWORD_BCRYPT); // Hash the random password
+
+            // Insert into student_login table
+            $sql_login = "INSERT INTO student_login (student_id, username, password)
+                          VALUES ('$student_id', '{$application['username']}', '$hashed_password')";
+            $conn->query($sql_login);
+
             // Remove from student_application table
             $delete_sql = "DELETE FROM student_application WHERE application_id = $application_id";
             $conn->query($delete_sql);
 
-            $message = "<div class='alert alert-success'>Application accepted successfully.</div>";
+            // Optionally, display or email the generated password to the user
+            $message = "<div class='alert alert-success'>Application accepted successfully. Generated password: $generated_password</div>";
         } else {
             $message = "<div class='alert alert-danger'>Error: " . $conn->error . "</div>";
         }
@@ -86,6 +96,7 @@ $result = $conn->query($sql);
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,7 +104,7 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review Applications</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="Resources/application_review.css?v=<?php echo time(); ?>">
@@ -118,25 +129,44 @@ $result = $conn->query($sql);
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
-                                    <img src="uploads/students/profile_picture/<?php echo $row['profile_picture']; ?>" alt="Profile Picture" class="profile-img mr-3">
-                                    <div>
-                                        <h5 class="card-title"><?php echo $row['first_name'] . " " . $row['middle_name'] . " " . $row['last_name']; ?></h5>
-                                        <p class="card-text"><strong>Email:</strong> <?php echo $row['username']; ?></p>
-                                        <p class="card-text"><strong>Phone:</strong> <?php echo $row['phone_number']; ?></p>
+
+                                <div class="box_card-title">
+                                        <p class="card-title"><strong class="strong">Name: </strong>  <?php echo $row['first_name'] . " " . $row['middle_name'] . " " . $row['last_name']; ?></p>
+                                        <p class="card-text"><strong class="strong">Email: </strong>  <?php echo $row['username']; ?></p>
+                                        <p class="card-text"><strong class="strong">Phone: </strong>  <?php echo $row['phone_number']; ?></p>
+                                        <p class="card-text"><strong class="strong">Program Applied: </strong>  <?php echo $row['program_name']; ?></p>
                                     </div>
+
+                                    <img src="uploads/students/profile_picture/<?php echo $row['profile_picture']; ?>" alt="Profile Picture" class="profile-img mr-3">
+
+
+
+
+
                                 </div>
+                               
+                                
 
-                                <p class="card-text"><strong>Program Applied:</strong> <?php echo $row['program_name']; ?></p>
 
+                            <div  class="boxxxxx">
+
+                            <div>
                                 <button class="btn btn-view-doc" data-toggle="modal" data-target="#documentModal<?php echo $row['application_id']; ?>">
                                     View Qualification Document
                                 </button>
+                                </div>
 
+                                <div>
                                 <form method="POST" action="" class="mt-3">
                                     <input type="hidden" name="application_id" value="<?php echo $row['application_id']; ?>">
                                     <button type="submit" name="accept" class="btn btn-success">Accept</button>
                                     <button type="submit" name="reject" class="btn btn-danger">Reject</button>
                                 </form>
+                                </div>
+
+                            </div>
+
+
                             </div>
                         </div>
                     </div>

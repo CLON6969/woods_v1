@@ -79,6 +79,7 @@ window.onload = () => {
                 intakeDiv.style.display = 'none'; // Hide intakes
             }
         }
+        
 
    
 

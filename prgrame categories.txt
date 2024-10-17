@@ -1,4 +1,5 @@
-
+ // Hash a default password
+ $password = password_hash('defaultPassword', PASSWORD_BCRYPT); 
 
 UPDATE certification SET years_of_study = years_of_study + 4 WHERE certificate_name LIKE '%certificate%';
 
