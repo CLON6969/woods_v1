@@ -1,0 +1,388 @@
+
+
+UPDATE certification SET years_of_study = years_of_study + 4 WHERE certificate_name LIKE '%certificate%';
+
+//Adding foreign to an existing table
+ALTER TABLE student
+ADD CONSTRAINT fk_religion FOREIGN KEY (religion) 
+REFERENCES religion(religion_id);
+
+//this is for reseting the id of a collum
+update study_mood set study_mood_id = @num  := (@num+1); alter table study_mood auto_increment =1;
+// if u have already deleted the records and just what to reset the autoincrement value u can use 
+ALTER TABLE cumpus_housing_lists AUTO_INCREMENT = 1;
+
+
+
+//altering the tale collum
+ALTER TABLE  study_mood ADD CONSTRAINT mood_name CHECK (mood_name IN ( 'Online' , 'Fulltime', 'Distance'));
+
+
+
+//selecting from maltiple tables that are linked
+SELECT programs.program_name,certification.certificate_name,certification.years_of_study,study_mood.study_mood_name FROM programs INNER JOIN certification ON programs.program_id = certification.certification_id INNER JOIN study_mood ON certification.certification_id = study_mood.study_mood_id;
+
+
+
+
+SELECT programs.program_name,certification.certificate_name,certification.years_of_study,study_mood.study_mood_name FROM programs INNER JOIN certification ON programs.program_name = certification.certificate_name INNER JOIN study_mood ON certification.certificate_name = study_mood.study_mood_name;
+
+
+
+
+// this is for extracting information from a table thatonly contains Id
+SELECT 
+programs.program_name,
+certifications.certification_name,
+year.year_name,
+program_registration.program_registration_id
+
+FROM
+program_registration 
+JOIN
+programs  ON program_registration.program_id =  programs.program_id  
+JOIN
+certifications ON program_registration.certification_id =certifications.certification_id
+JOIN
+year  ON program_registration.year_id = year .year_id
+
+
+
+
+SELECT
+  programs.program_name,
+  GROUP_CONCAT(DISTINCT certifications.certification_name ORDER BY certifications.certification_name) AS certifications,
+  years_of_study.year_number,
+  mood_of_study.mood_name,
+  allprograms.allprograms_id
+FROM
+  allprograms
+JOIN
+  programs ON allprograms.program_id = programs.program_id
+JOIN
+  certifications ON allprograms.certification_id = certifications.certification_id
+JOIN
+  years_of_study ON allprograms.years_of_study_id = years_of_study.years_of_study_id
+JOIN
+  mood_of_study ON allprograms.mood_id = mood_of_study.mood_id
+GROUP BY
+  programs.program_name,
+  years_of_study.year_number,
+  mood_of_study.mood_name,
+  allprograms.allprograms_id
+ORDER BY
+  programs.program_name;
+
+
+
+SELECT
+  programs.program_name,
+  GROUP_CONCAT(DISTINCT certifications.certification_name ORDER BY certifications.certification_name) AS certifications,
+  years_of_study.year_number,
+  mood_of_study.mood_name,
+  allprograms.allprograms_id
+FROM
+  allprograms
+JOIN
+  programs ON allprograms.program_id = programs.program_id
+JOIN
+  certifications ON allprograms.certification_id = certifications.certification_id
+JOIN
+  years_of_study ON allprograms.years_of_study_id = years_of_study.years_of_study_id
+JOIN
+  mood_of_study ON allprograms.mood_id = mood_of_study.mood_id
+WHERE
+  mood_of_study.mood_name = 'Online'
+GROUP BY
+  programs.program_name,
+  years_of_study.year_number,
+  mood_of_study.mood_name,
+  allprograms.allprograms_id
+ORDER BY
+  programs.program_name;
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE cumpus_housing_slides_images (
+    cumpus_housing_slides_images_id INT AUTO_INCREMENT PRIMARY KEY,
+    link_name VARCHAR(255),
+    picture1 VARCHAR(255),
+    picture2 VARCHAR(255),
+    picture3 VARCHAR(255) 
+);
+
+
+CREATE TABLE cumpus_housing_heading_list (
+    heading_list_id INT AUTO_INCREMENT PRIMARY KEY,
+    heading_name VARCHAR(255) NOT NULL
+);
+
+
+
+CREATE TABLE cumpus_housing_lists (
+    cumpus_housing_lists_id INT AUTO_INCREMENT PRIMARY KEY,
+    heading_list_id INT NOT NULL,
+    item_name VARCHAR(255) NOT NULL,
+    FOREIGN KEY (heading_list_id) REFERENCES cumpus_housing_heading_list(heading_list_id) ON DELETE CASCADE
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+updating page
+
+
+
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "woods";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Function to handle adding, updating, and deleting records
+function handle_request($conn, $table, $fields, $primaryKey, $action, $condition = '') {
+    if ($action == "Add") {
+        $columns = implode(", ", array_keys($fields));
+        $values = implode(", ", array_map(fn($value) => "'" . $conn->real_escape_string($value) . "'", array_values($fields)));
+        $sql = "INSERT INTO $table ($columns) VALUES ($values)";
+        if ($conn->query($sql) === TRUE) {
+            echo "New record created successfully in $table.<br>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    } elseif ($action == "Update") {
+        $updates = implode(", ", array_map(fn($key, $value) => "$key='" . $conn->real_escape_string($value) . "'", array_keys($fields), array_values($fields)));
+        $sql = "UPDATE $table SET $updates WHERE $primaryKey=" . intval($_POST[$primaryKey]) . " $condition";
+        if ($conn->query($sql) === TRUE) {
+            echo "Record updated successfully in $table.<br>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    } elseif ($action == "Delete") {
+        $sql = "DELETE FROM $table WHERE $primaryKey=" . intval($_POST[$primaryKey]) . " $condition";
+        if ($conn->query($sql) === TRUE) {
+            echo "Record deleted successfully from $table.<br>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+}
+
+// Handle cumpus_housing (Update only)
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['table']) && $_POST['table'] == 'cumpus_housing') {
+    $fields = [
+        'logo' => $_POST['logo'],
+        'tittle' => $_POST['tittle'],
+        'heading1' => $_POST['heading1'],
+        'heading1_content' => $_POST['heading1_content'],
+        'heading2' => $_POST['heading2'],
+        'heading2_content' => $_POST['heading2_content'],
+        'heading3' => $_POST['heading3'],
+        'heading3_content' => $_POST['heading3_content'],
+        'heading4' => $_POST['heading4'],
+        'heading4_content' => $_POST['heading4_content'],
+        'heading5' => $_POST['heading5']
+    ];
+    handle_request($conn, 'cumpus_housing', $fields, 'cumpus_housing_id', 'Update');
+}
+
+// Handle cumpus_housing_nav_links (Add, Update, Delete)
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['table']) && $_POST['table'] == 'cumpus_housing_nav_links') {
+    $fields = [
+        'nav_link_name' => $_POST['nav_link_name']
+    ];
+    handle_request($conn, 'cumpus_housing_nav_links', $fields, 'cumpus_housing_nav_links_id', $_POST['action']);
+}
+
+// Handle cumpus_housing_slides_images (Add, Update, Delete)
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['table']) && $_POST['table'] == 'cumpus_housing_slides_images') {
+    $fields = [
+        'link_name' => $_POST['link_name'],
+        'picture1' => $_POST['picture1'],
+        'picture2' => $_POST['picture2'],
+        'picture3' => $_POST['picture3'],
+        'picture4' => $_POST['picture4']
+    ];
+    handle_request($conn, 'cumpus_housing_slides_images', $fields, 'cumpus_housing_slides_images_id', $_POST['action']);
+}
+
+// Handle cumpus_housing_heading_list (Add, Update, Delete)
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['table']) && $_POST['table'] == 'cumpus_housing_heading_list') {
+    $fields = [
+        'heading_name' => $_POST['heading_name']
+    ];
+    handle_request($conn, 'cumpus_housing_heading_list', $fields, 'heading_list_id', $_POST['action']);
+
+    if ($_POST['action'] == 'Add' && !empty($_POST['product_names'])) {
+        $last_id = $conn->insert_id;
+        $product_names = explode(',', $_POST['product_names']);
+        foreach ($product_names as $product_name) {
+            $fields = [
+                'heading_list_id' => $last_id,
+                'product_name' => trim($product_name)
+            ];
+            handle_request($conn, 'cumpus_housing_lists', $fields, 'cumpus_housing_lists_id', 'Add');
+        }
+    }
+}
+
+// Handle cumpus_housing_lists (Add, Update, Delete)
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['table']) && $_POST['table'] == 'cumpus_housing_lists') {
+    if (!empty($_POST['heading_list_id'])) {
+        $fields = [
+            'heading_list_id' => $_POST['heading_list_id'],
+            'product_name' => $_POST['product_name']
+        ];
+        handle_request($conn, 'cumpus_housing_lists', $fields, 'cumpus_housing_lists_id', $_POST['action']);
+    } else {
+        echo "Error: heading_list_id is required.<br>";
+    }
+}
+
+// Function to display records with edit links
+function display_records($conn, $table, $primaryKey) {
+    $sql = "SELECT * FROM $table";
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        echo "<h3>$table Records</h3>";
+        echo "<table border='1'><tr>";
+        foreach ($result->fetch_fields() as $field) {
+            echo "<th>{$field->name}</th>";
+        }
+        echo "<th>Actions</th></tr>";
+        
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            foreach ($row as $key => $value) {
+                echo "<td>$value</td>";
+            }
+            echo "<td><a href='?edit={$row[$primaryKey]}&table=$table'>Edit</a></td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+    } else {
+        echo "No records found in $table.<br>";
+    }
+}
+
+// Populate form with current values for the record being edited
+function populate_form($conn, $table, $primaryKey) {
+    if (isset($_GET['edit'])) {
+        $id = intval($_GET['edit']);
+        $sql = "SELECT * FROM $table WHERE $primaryKey=$id";
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows == 1) {
+            return $result->fetch_assoc();
+        }
+    }
+    return null;
+}
+
+// Handle form population for each table
+$record_cumpus_housing = populate_form($conn, 'cumpus_housing', 'cumpus_housing_id');
+$record_cumpus_housing_nav_links = populate_form($conn, 'cumpus_housing_nav_links', 'cumpus_housing_nav_links_id');
+$record_cumpus_housing_slides_images = populate_form($conn, 'cumpus_housing_slides_images', 'cumpus_housing_slides_images_id');
+$record_cumpus_housing_heading_list = populate_form($conn, 'cumpus_housing_heading_list', 'heading_list_id');
+$record_cumpus_housing_lists = populate_form($conn, 'cumpus_housing_lists', 'cumpus_housing_lists_id');
+
+?>
+
+<!-- Form for cumpus_housing table (Update only) -->
+<form method="POST">
+    <input type="hidden" name="table" value="cumpus_housing">
+    <label>Logo:</label><input type="text" name="logo" value="<?php echo $record_cumpus_housing['logo'] ?? ''; ?>"><br>
+    <label>Title:</label><input type="text" name="tittle" value="<?php echo $record_cumpus_housing['tittle'] ?? ''; ?>"><br>
+    <label>Heading 1:</label><input type="text" name="heading1" value="<?php echo $record_cumpus_housing['heading1'] ?? ''; ?>"><br>
+    <label>Heading 1 Content:</label><textarea name="heading1_content"><?php echo $record_cumpus_housing['heading1_content'] ?? ''; ?></textarea><br>
+    <label>Heading 2:</label><input type="text" name="heading2" value="<?php echo $record_cumpus_housing['heading2'] ?? ''; ?>"><br>
+    <label>Heading 2 Content:</label><textarea name="heading2_content"><?php echo $record_cumpus_housing['heading2_content'] ?? ''; ?></textarea><br>
+    <label>Heading 3:</label><input type="text" name="heading3" value="<?php echo $record_cumpus_housing['heading3'] ?? ''; ?>"><br>
+    <label>Heading 3 Content:</label><textarea name="heading3_content"><?php echo $record_cumpus_housing['heading3_content'] ?? ''; ?></textarea><br>
+    <label>Heading 4:</label><input type="text" name="heading4" value="<?php echo $record_cumpus_housing['heading4'] ?? ''; ?>"><br>
+    <label>Heading 4 Content:</label><textarea name="heading4_content"><?php echo $record_cumpus_housing['heading4_content'] ?? ''; ?></textarea><br>
+    <label>Heading 5:</label><input type="text" name="heading5" value="<?php echo $record_cumpus_housing['heading5'] ?? ''; ?>"><br>
+    <input type="hidden" name="cumpus_housing_id" value="<?php echo $record_cumpus_housing['cumpus_housing_id'] ?? ''; ?>">
+    <input type="submit" name="action" value="Update">
+</form>
+
+<!-- Form for cumpus_housing_nav_links table -->
+<form method="POST">
+    <input type="hidden" name="table" value="cumpus_housing_nav_links">
+    <label>Nav Link Name:</label><input type="text" name="nav_link_name" value="<?php echo $record_cumpus_housing_nav_links['nav_link_name'] ?? ''; ?>"><br>
+    <input type="hidden" name="cumpus_housing_nav_links_id" value="<?php echo $record_cumpus_housing_nav_links['cumpus_housing_nav_links_id'] ?? ''; ?>">
+    <input type="submit" name="action" value="Add">
+    <input type="submit" name="action" value="Update">
+    <input type="submit" name="action" value="Delete">
+</form>
+
+<!-- Form for cumpus_housing_slides_images table -->
+<form method="POST">
+    <input type="hidden" name="table" value="cumpus_housing_slides_images">
+    <label>Link Name:</label><input type="text" name="link_name" value="<?php echo $record_cumpus_housing_slides_images['link_name'] ?? ''; ?>"><br>
+    <label>Picture 1:</label><input type="text" name="picture1" value="<?php echo $record_cumpus_housing_slides_images['picture1'] ?? ''; ?>"><br>
+    <label>Picture 2:</label><input type="text" name="picture2" value="<?php echo $record_cumpus_housing_slides_images['picture2'] ?? ''; ?>"><br>
+    <label>Picture 3:</label><input type="text" name="picture3" value="<?php echo $record_cumpus_housing_slides_images['picture3'] ?? ''; ?>"><br>
+    <label>Picture 4:</label><input type="text" name="picture4" value="<?php echo $record_cumpus_housing_slides_images['picture4'] ?? ''; ?>"><br>
+    <input type="hidden" name="cumpus_housing_slides_images_id" value="<?php echo $record_cumpus_housing_slides_images['cumpus_housing_slides_images_id'] ?? ''; ?>">
+    <input type="submit" name="action" value="Add">
+    <input type="submit" name="action" value="Update">
+    <input type="submit" name="action" value="Delete">
+</form>
+
+<!-- Form for cumpus_housing_heading_list table -->
+<form method="POST">
+    <input type="hidden" name="table" value="cumpus_housing_heading_list">
+    <label>Heading Name:</label><input type="text" name="heading_name" value="<?php echo $record_cumpus_housing_heading_list['heading_name'] ?? ''; ?>"><br>
+    <input type="hidden" name="heading_list_id" value="<?php echo $record_cumpus_housing_heading_list['heading_list_id'] ?? ''; ?>">
+    <input type="submit" name="action" value="Add">
+    <input type="submit" name="action" value="Update">
+    <input type="submit" name="action" value="Delete">
+</form>
+
+<!-- Form for cumpus_housing_lists table -->
+<form method="POST">
+    <input type="hidden" name="table" value="cumpus_housing_lists">
+    <label>Heading List ID:</label><input type="number" name="heading_list_id" value="<?php echo $record_cumpus_housing_lists['heading_list_id'] ?? ''; ?>"><br>
+    <label>Product Name:</label><input type="text" name="product_name" value="<?php echo $record_cumpus_housing_lists['product_name'] ?? ''; ?>"><br>
+    <input type="hidden" name="cumpus_housing_lists_id" value="<?php echo $record_cumpus_housing_lists['cumpus_housing_lists_id'] ?? ''; ?>">
+    <input type="submit" name="action" value="Add">
+    <input type="submit" name="action" value="Update">
+    <input type="submit" name="action" value="Delete">
+</form>
+
+<?php $conn->close(); ?>
+
+
