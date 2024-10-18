@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -10,6 +10,14 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+// Include PHPMailer files
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
 
 $message = ""; // Variable to store success or error messages
 
@@ -71,8 +79,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $delete_sql = "DELETE FROM student_application WHERE application_id = $application_id";
             $conn->query($delete_sql);
 
-            // Optionally, display or email the generated password to the user
-            $message = "<div class='alert alert-success'>Application accepted successfully. Generated password: $generated_password</div>";
+            // Use PHPMailer to send an email with username and password
+            $mail = new PHPMailer(true);
+            try {
+                // Server settings
+                $mail->isSMTP();
+                $mail->Host       = 'smtp.gmail.com'; // Set the SMTP server to send through
+                $mail->SMTPAuth   = true;               // Enable SMTP authentication
+                $mail->Username   = 'erickworkspace6969@gmail.com'; // SMTP username
+                $mail->Password   = 'rpln hcaj uihn cbsa';    // SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption, or PHPMailer::ENCRYPTION_SMTPS
+                $mail->Port = 587;               // TCP port to connect to (TLS/SSL)
+                $mail->Host = 'smtp.gmail.com';
+
+
+
+                // Recipients
+                $mail->setFrom('erickworkspace6969@gmail.com', 'WOODS University Admissions');
+                $mail->addAddress($application['username']); // Add recipient (student email)
+
+                // Content
+                $mail->isHTML(true);                                  
+                $mail->Subject = 'WOODS University Application Accepted';
+                $mail->Body    = "
+                Dear {$application['first_name']} {$application['last_name']},<br><br>
+                Congratulations! Your application to WOODS University has been accepted.<br><br>
+                Below are your login credentials:<br>
+                <b>Username:</b> {$application['username']}<br>
+                <b>Password:</b> $generated_password<br><br>
+                Please log in at the student portal and change your password after your first login.<br><br>
+                Welcome to WOODS University!<br><br>
+                Regards,<br>
+                WOODS University Admissions Office";
+                
+                // Send email
+                $mail->send();
+                $message = "<div class='alert alert-success'>Application accepted successfully. Email sent to the student.</div>";
+            } catch (Exception $e) {
+                $message = "<div class='alert alert-warning'>Application accepted, but email could not be sent. Mailer Error: {$mail->ErrorInfo}</div>";
+            }
+
         } else {
             $message = "<div class='alert alert-danger'>Error: " . $conn->error . "</div>";
         }
@@ -104,7 +150,7 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review Applications</title>
     <!-- Bootstrap CSS -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="Resources/application_review.css?v=<?php echo time(); ?>">
@@ -129,44 +175,29 @@ $result = $conn->query($sql);
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-3">
-
-                                <div class="box_card-title">
+                                    <div class="box_card-title">
                                         <p class="card-title"><strong class="strong">Name: </strong>  <?php echo $row['first_name'] . " " . $row['middle_name'] . " " . $row['last_name']; ?></p>
                                         <p class="card-text"><strong class="strong">Email: </strong>  <?php echo $row['username']; ?></p>
                                         <p class="card-text"><strong class="strong">Phone: </strong>  <?php echo $row['phone_number']; ?></p>
                                         <p class="card-text"><strong class="strong">Program Applied: </strong>  <?php echo $row['program_name']; ?></p>
                                     </div>
-
                                     <img src="uploads/students/profile_picture/<?php echo $row['profile_picture']; ?>" alt="Profile Picture" class="profile-img mr-3">
-
-
-
-
-
-                                </div>
-                               
-                                
-
-
-                            <div  class="boxxxxx">
-
-                            <div>
-                                <button class="btn btn-view-doc" data-toggle="modal" data-target="#documentModal<?php echo $row['application_id']; ?>">
-                                    View Qualification Document
-                                </button>
                                 </div>
 
-                                <div>
-                                <form method="POST" action="" class="mt-3">
-                                    <input type="hidden" name="application_id" value="<?php echo $row['application_id']; ?>">
-                                    <button type="submit" name="accept" class="btn btn-success">Accept</button>
-                                    <button type="submit" name="reject" class="btn btn-danger">Reject</button>
-                                </form>
+                                <div class="boxxxxx">
+                                    <div>
+                                        <button class="btn btn-view-doc" data-toggle="modal" data-target="#documentModal<?php echo $row['application_id']; ?>">
+                                            View Qualification Document
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <form method="POST" action="" class="mt-3">
+                                            <input type="hidden" name="application_id" value="<?php echo $row['application_id']; ?>">
+                                            <button type="submit" name="accept" class="btn btn-success">Accept</button>
+                                            <button type="submit" name="reject" class="btn btn-danger">Reject</button>
+                                        </form>
+                                    </div>
                                 </div>
-
-                            </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -182,7 +213,20 @@ $result = $conn->query($sql);
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <iframe src="uploads/students/qualifications/<?php echo $row['qualification_document']; ?>" frameborder="0" class="doc-frame"></iframe>
+                                    <?php 
+                                    // Get the file extension
+                                    $file_extension = pathinfo($row['qualification_document'], PATHINFO_EXTENSION);
+
+                                    // Check if the document is an image
+                                    if (in_array(strtolower($file_extension), ['jpg', 'jpeg', 'png', 'gif'])) {
+                                        // Show image directly in the modal
+                                        echo '<img src="uploads/students/qualifications/' . $row['qualification_document'] . '" class="img-fluid" alt="Qualification Document">';
+                                    } else {
+                                        // Provide a clickable link for PDF, DOC, DOCX, or unsupported formats
+                                        echo '<p>You can view or download the document using the following link:</p>';
+                                        echo '<a href="uploads/students/qualifications/' . $row['qualification_document'] . '" target="_blank" class="btn btn-primary">View Qualification Document</a>';
+                                    }
+                                    ?>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -190,12 +234,9 @@ $result = $conn->query($sql);
                             </div>
                         </div>
                     </div>
-
                 <?php endwhile; ?>
             <?php else : ?>
-                <div class="col-12">
-                    <div class="alert alert-info text-center">No pending applications found.</div>
-                </div>
+                <p>No pending applications found.</p>
             <?php endif; ?>
         </div>
     </div>
@@ -206,7 +247,3 @@ $result = $conn->query($sql);
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-<?php 
-$conn->close();
-?>

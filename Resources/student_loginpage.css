@@ -1,29 +1,26 @@
-*{
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-body{
-    background-image:linear-gradient( rgba(0, 0, 50, 0.308), rgba(0, 0, 50, 0.295)), url('wall\ papers/53.jpg');
+body {
+    background-image: linear-gradient(rgba(0, 0, 50, 0.308), rgba(0, 0, 50, 0.295)), url('wall\ papers/53.jpg');
     background-position: center;
     background-size: cover;
 }
-#title{
-    color:  hsl(120, 92%, 36%);
+#title {
+    color: hsl(120, 92%, 36%);
     font-weight: 500;
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-   
-   
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
-
-.login_box{
+.login_box {
     width: 100%;
     height: 100vh;
     position: relative;
     align-content: center;
 }
-
-.form_box{
+.form_box {
     width: 30%;
     position: relative;
     margin: auto;
@@ -32,18 +29,14 @@ body{
     text-align: center;
     border-radius: 30px;
     border: 0.1px solid #0d737aa1;
-   
 }
-
-.form_box h1{
+.form_box h1 {
     font-size: 30px;
-    margin-bottom: 60px ;
+    margin-bottom: 60px;
     color: rgb(61, 102, 216);
     position: relative;
-
 }
-
-.form_box h1::after{
+.form_box h1::after {
     content: '';
     width: 3rem;
     height: 4px;
@@ -54,92 +47,95 @@ body{
     left: 50%;
     transform: translateX(-50%);
 }
-
-
-
-.form_box p a{
-
+.form_box p a {
     text-decoration: none;
     color: #1df5ca;
     padding-left: 4px;
 }
-
-
-/*this section is for the input fields*/
-.input_filed{
+/* This section is for the input fields */
+.input_filed {
     background: #eaeaea;
     margin: 15px 0;
     border-radius: 20px;
     display: flex;
     align-items: center;
 }
-
-input{
-    width:100% ;
+input {
+    width: 100%;
     background: transparent;
     border: 0;
     outline: 0;
     border-radius: 30px;
-    padding:18px 15px;
+    padding: 18px 15px;
 }
-
-.input_filed i{
-    margin-left: 15px ;
+.input_filed i {
+    margin-left: 15px;
     color: black;
 }
-
-.input_group{
+.input_group {
     height: 230px;
 }
-::placeholder{
+::placeholder {
     font-size: 13px;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.623);
 }
-
-form p{
-    color:  #d7d5e9e7;
-    font-size: 18xspx;
+form p {
+    color: #d7d5e9e7;
+    font-size: 18px;
     padding-right: 4px;
-   
 }
-
-/*this is the button section for both loging and applying*/
-
-.btn_filed{
+/* This is the button section for both logging and applying */
+.btn_filed {
     width: 100%;
     display: flex;
     justify-content: space-between;
     padding-top: 30px;
 }
-
-
-
-.btn_filed button{
-flex-basis: 48%;
-background: #1ba000;
-color: #eaeaea;
-height: 40px;
-border-radius:20px ;
-border: 0;
-outline: 0;
-cursor: pointer;
-transition: background 1s;
-font-size: 15px;
-font-weight: 800;
-}
-
-.btn_filed button:hover{
-border: 1px solid #00F0FF;
-}
-
-.btn_filed .disable{
+button {
     flex-basis: 48%;
     background: #1ba000;
     color: #eaeaea;
+    height: 40px;
+    border-radius: 5px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: background 1s;
+    font-size: 15px;
+    font-weight: 800;
+}
+button:hover {
+    border: 1px solid #00F0FF;
+    background: #eaeaea;
+    color: #1ba000;
+}
+/* Additional button styles */
+.btn_filed button {
+    flex-basis: 48%;
+    background: #1ba000;
+    color: #eaeaea;
+    height: 40px;
+    border-radius: 20px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: background 1s;
+    font-size: 15px;
+    font-weight: 800;
+}
+.btn_filed button:hover {
+    border: 1px solid #00F0FF;
+    background: #eaeaea;
+    color: #1ba000;
+}
+.btn_filed .disable {
+    flex-basis: 48%;
+    background: #1ba000;
+    color: #fff8f8;
     padding-top: 7px;
     height: 40px;
-    border-radius:20px ;
+    border-radius: 20px;
     border: 0;
     outline: 0;
     cursor: pointer;
@@ -147,111 +143,66 @@ border: 1px solid #00F0FF;
     font-size: 15px;
     font-weight: 800;
     text-decoration: none;
-    }
-
-
-
-
-
-
-.btn_filed .disable{
-background: #eaeaeace;
-color: #0ec01d;
-font-size: 18px; 
-font-weight: 800;
-transition: 0.4s;
-text-align: center;
 }
-
-.btn_filed .disable:hover{
-    background:#0ec01d ;
+.btn_filed .disable {
+    background: #fff9f9;
+    color: #0ec01d;
+    font-size: 18px;
+    font-weight: 800;
+    transition: 0.4s;
+    text-align: center;
+}
+.btn_filed .disable:hover {
+    background: #0ec01d;
     color: #eaeaea;
-    }
-
-    /*this is the footer positioning*/
-footer{
+}
+/* Footer positioning */
+footer {
     width: 100%;
     margin-top: 3%;
     padding-top: 2%;
     align-content: end;
 }
-footer p{
+footer p {
     margin-top: 3%;
     padding-top: 3%;
 }
 
-
-
-
-
-
-    
 /* Responsive styles */
 @media only screen and (max-width: 359px) {
-
-    .form_box{
+    .form_box {
         width: 100%;
         height: 100%;
         border-radius: 0;
         align-content: center;
-
     }
-
-    footer p{
+    footer p {
         width: 100%;
         font-size: 13px;
     }
-    
-        
 }
-
 @media only screen and (min-width: 360px) and (max-width: 479px) {
-    .form_box{
-        width:90%;
+    .form_box {
+        width: 90%;
     }
-     
-    
-
 }
-
 @media only screen and (min-width: 480px) and (max-width: 767px) {
-    .form_box{
-        width:65%;
+    .form_box {
+        width: 65%;
     }
-     
-
 }
-
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-
-    .form_box{
-        width:55%;
-    } 
+    .form_box {
+        width: 55%;
+    }
 }
-
 @media only screen and (min-width: 1024px) and (max-width: 1279px) {
-    .form_box{
-        width:45%;
+    .form_box {
+        width: 45%;
     }
 }
-
 @media only screen and (min-width: 1280px) and (max-width: 1384px) {
-
-    .form_box{
-        width:45%;
+    .form_box {
+        width: 45%;
     }
-
 }
-  
-
-
-        
- 
-
-
-    
-
-
-
-
-

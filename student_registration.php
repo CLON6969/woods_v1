@@ -4,7 +4,6 @@ session_start(); // Start the session
 
 // Clear session variable for new form submissions
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-    // Clear the session variable to allow new form submission when the form is displayed again (on page load)
     unset($_SESSION['form_submitted']);
 }
 
@@ -19,10 +18,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
-
-
-
 
 // Fetch Programs
 $programs = [];
@@ -104,22 +99,21 @@ if ($result->num_rows > 0) {
     }
 }
 
+
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Prevent double submission
     if (isset($_SESSION['form_submitted'])) {
         echo "<script>alert('This form has already been submitted.');</script>";
-        // Redirect to reload the form after the alert
         echo "<script>setTimeout(function(){ window.location.href = '".$_SERVER['PHP_SELF']."'; }, 1000);</script>";
     } else {
-
 
         // Validate input and retrieve form data
         $first_name = $_POST['first_name'] ?? '';
         $middle_name = $_POST['middle_name'] ?? '';
         $last_name = $_POST['last_name'] ?? '';
-        $username = $_POST['username'] ?? '';
+        $username = $_POST['username'] ?? ''; // This is the email field
         $date_of_birth = $_POST['date_of_birth'] ?? '';
         $profile_picture = $_FILES['profile_picture']['name'] ?? '';
         $phone_number = $_POST['phone_number'] ?? '';
@@ -153,44 +147,85 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_file_profile);
         move_uploaded_file($_FILES['qualification_document']['tmp_name'], $target_file_document);
 
+        // Allowed file types for profile picture (extensive image types)
+$allowed_image_types = [
+    'image/jpeg',  // JPEG/JPG
+    'image/png',   // PNG
+    'image/gif',   // GIF
+    'image/bmp',   // BMP
+    'image/webp',  // WebP
+    'image/tiff'   // TIFF
+];
 
-        // SQL insert statement
-        // SQL insert statement
-        $sql = "INSERT INTO student_application (first_name, middle_name, last_name, username, date_of_birth, 
-                profile_picture, phone_number, emergency_phone, gender, marital_status, religion, program_id, 
-                certification_type, intake_type, city, nationality, national_id_number, zipcode, address_line1, 
-                address_line2, school_name, level_of_qualification, entry_date, date_graduated, school_address, 
-                qualification_document) VALUES (
-                '$first_name', '$middle_name', '$last_name', '$username', '$date_of_birth', '$profile_picture', 
-                '$phone_number', '$emergency_phone', '$gender', '$marital_status', '$religion', '$program_id', 
-                '$certification_type', '$intake_type', '$city', '$nationality', '$national_id_number', '$zipcode', 
-                '$address_line1', '$address_line2', '$school_name', '$level_of_qualification', '$entry_date', 
-                '$date_graduated', '$school_address', '$qualification_document')";
+// Allowed file types for qualification document (extensive document and image types)
+$allowed_doc_types = [
+    'application/pdf',  // PDF
+    'application/msword',  // DOC
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  // DOCX
+    'application/vnd.oasis.opendocument.text',  // ODT
+    'application/rtf',  // RTF
+    'text/plain',  // TXT
+    'image/jpeg',  // Image formats
+    'image/png',
+    'image/gif',
+    'image/bmp',
+    'image/webp',
+    'image/tiff'
+];
 
-        if ($conn->query($sql) === TRUE) {
-            // Set the session variable to indicate that the form has been submitted
-            $_SESSION['form_submitted'] = true;
+// Increase the maximum file size to 10MB
+$max_file_size = 10 * 1024 * 1024;  // 10MB
 
-            // Display success message as a pop-up and redirect back to the form
-            echo "<script>alert('Application submitted successfully!');</script>";
-            echo "<script>setTimeout(function(){ window.location.href = '".$_SERVER['PHP_SELF']."'; }, 1000);</script>";
+// Validate profile picture
+if ($_FILES['profile_picture']['size'] > $max_file_size || !in_array($_FILES['profile_picture']['type'], $allowed_image_types)) {
+    echo "<script>alert('Invalid profile picture format or size. Allowed formats are JPEG, PNG, GIF, BMP, WebP, TIFF, and the size must not exceed 10MB.');</script>";
+    exit;
+}
 
-        } else {
-            if ($conn->errno == 1062) {
-                // Duplicate entry error for username (email)
-                echo "<script>alert('This email already exists. Please use a different email.');</script>";
+// Validate qualification document
+if ($_FILES['qualification_document']['size'] > $max_file_size || !in_array($_FILES['qualification_document']['type'], $allowed_doc_types)) {
+    echo "<script>alert('Invalid qualification document format or size. Allowed formats are PDF, DOC, DOCX, ODT, RTF, TXT, and image formats (JPEG, PNG, GIF, BMP, WebP, TIFF). The size must not exceed 10MB.');</script>";
+    exit;
+}
+
+
+
+            // SQL insert statement
+            $sql = "INSERT INTO student_application (first_name, middle_name, last_name, username, date_of_birth, 
+                    profile_picture, phone_number, emergency_phone, gender, marital_status, religion, program_id, 
+                    certification_type, intake_type, city, nationality, national_id_number, zipcode, address_line1, 
+                    address_line2, school_name, level_of_qualification, entry_date, date_graduated, school_address, 
+                    qualification_document) VALUES (
+                    '$first_name', '$middle_name', '$last_name', '$username', '$date_of_birth', '$profile_picture', 
+                    '$phone_number', '$emergency_phone', '$gender', '$marital_status', '$religion', '$program_id', 
+                    '$certification_type', '$intake_type', '$city', '$nationality', '$national_id_number', '$zipcode', 
+                    '$address_line1', '$address_line2', '$school_name', '$level_of_qualification', '$entry_date', 
+                    '$date_graduated', '$school_address', '$qualification_document')";
+
+            if ($conn->query($sql) === TRUE) {
+                // Set the session variable to indicate that the form has been submitted
+                $_SESSION['form_submitted'] = true;
+
+                // Display success message as a pop-up and redirect back to the form
+                echo "<script>alert('Application submitted successfully!');</script>";
+                echo "<script>setTimeout(function(){ window.location.href = '".$_SERVER['PHP_SELF']."'; }, 1000);</script>";
             } else {
-                // General error handling
-                echo "<script>alert('Error: ". $conn->error ."');</script>";
+                if ($conn->errno == 1062) {
+                    // Duplicate entry error for username (email)
+                    echo "<script>alert('This email already exists. Please use a different email.');</script>";
+                } else {
+                    // General error handling
+                    echo "<script>alert('Error: ". $conn->error ."');</script>";
+                }
+                // Redirect back to the form after error
+                echo "<script>setTimeout(function(){ window.location.href = '".$_SERVER['PHP_SELF']."'; }, 1000);</script>";
             }
-            // Redirect back to the form after error
-            echo "<script>setTimeout(function(){ window.location.href = '".$_SERVER['PHP_SELF']."'; }, 1000);</script>";
         }
 
         // Close the connection
         $conn->close();
     }
-}
+
 ?>
 
 
@@ -273,11 +308,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="invalid-tooltip">Please provide your date of birth.</div>
                 </div>
 
-                <div class="col-md-6 position-relative">
-                    <label for="profile_picture" class="form-label">Profile Picture</label>
-                    <input type="file" class="form-control" id="profile_picture" name="profile_picture" accept="image/*" required>
-                    <div class="invalid-tooltip">Please upload your profile picture.</div>
-                </div>
+<div class="col-md-6 position-relative">
+    <label for="profile_picture" class="form-label">Profile Picture</label>
+    <input type="file" class="form-control" id="profile_picture" name="profile_picture" 
+           accept="image/jpeg, image/png, image/gif, image/bmp, image/webp, image/tiff" required>
+    <div class="invalid-tooltip">Please upload your profile picture.</div>
+</div>
                 
                 <div class="col-md-6 position-relative">
                     <label for="phone_number" class="form-label">Phone Number</label>
@@ -485,12 +521,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="invalid-tooltip">Please provide your school address.</div>
                 </div>
 
-                <div class="col-md-6 position-relative">
-                    <label for="qualification_document" class="form-label">Qualification Document</label>
-                    <input type="file" class="form-control" id="qualification_document" name="qualification_document" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
-                    <div class="invalid-tooltip">Please upload your qualification document.</div>
-                </div>
-                    </div>
+
+
+<div class="col-md-6 position-relative">
+    <label for="qualification_document" class="form-label">Qualification Document</label>
+    <input type="file" class="form-control" id="qualification_document" name="qualification_document" 
+           accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.oasis.opendocument.text, application/rtf, text/plain, image/jpeg, image/png, image/gif, image/bmp, image/webp, image/tiff" required>
+    <div class="invalid-tooltip">Please upload your qualification document.</div>
+</div>
+
 
                     <div class="col-12 mt-3">
                         <button type="button" class="btn btn-secondary" onclick="previousSection()">Previous</button>

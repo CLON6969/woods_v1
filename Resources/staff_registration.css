@@ -1,0 +1,115 @@
+/* =============================================================================
+   Color Palette
+   =============================================================================
+   --primary-dark: #010d15;
+   --primary-accent: #09c561;
+   --neutral: #60676c;
+   --background: #1a1a1a;
+   --text-light: #ffffff;
+   --text-secondary: #b0b0b0;
+   --border-color: #2e2e2e;
+   ============================================================================= */
+
+/* Root Variables for Easy Maintenance */
+:root {
+    --primary-dark:#010d15;
+    --primary-accent: #09c561;
+    --neutral: #60676c;
+    --background: #052339;
+    --text-light: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: #2e2e2e;
+    --button-color: #03005c;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background: #010d15; /* Dark background for a modern feel */
+    font-family: Arial, sans-serif;     
+}
+
+h3{
+    color: aliceblue;
+    text-transform: uppercase;
+    font-weight: 800;
+    text-align: center;
+}
+
+
+label{color: aliceblue;}
+
+label .logo{
+    color: #ffffff;
+    font-size:30px ;
+    width: 5%;
+    text-decoration: none;
+    line-height: 80px;
+    padding-left: 2px;
+    font-weight: 600;
+    position: relative;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    cursor: pointer;
+
+}
+
+
+/* Container for the Editing Section */
+.edditing_part {
+    width: 100%;
+    margin: 15px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* General Section Styling */
+.edditing_section{
+    background-color: #052339;
+    border: 1px solid #2e2e2e;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.containerrr {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+
+
+
+/* this is for the updating  progress bar */
+#progresss-bar-container {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+#progresss-bar {
+    height: 5px;
+    width: 0%;
+    background-color: var(--primary-accent);
+    transition: width 0.5s;
+}
+
+
+.alert-success {
+    color: var(--text-light);
+    background-color: var(--primary-accent);
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
