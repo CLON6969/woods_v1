@@ -18,7 +18,7 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 
 // Use prepared statements to prevent SQL injection
-$stmt = $conn->prepare("SELECT * FROM student_login WHERE username = ?");
+$stmt = $conn->prepare("SELECT * FROM staff_login WHERE username = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -32,17 +32,17 @@ if ($result->num_rows > 0) {
     if (password_verify($password, $stored_hashed_password)) {
         // Set session variables
         $_SESSION['email'] = $row['username'];
-        $_SESSION['student_id'] = $row['student_id']; // Assuming you have student_id in student_login table
+        $_SESSION['student_id'] = $row['staff_id']; // Assuming you have student_id in student_login table
         $_SESSION['loggedin'] = true;
 
         // Check if the user has changed their password
         if ($password_changed == 0) {
             // Redirect to password change page if the password hasn't been changed
-            header("Location: change_password.php");
+            header("Location: staff_change_password.php");
             exit();
         } else {
             // Redirect to dashboard if the password has been changed
-            header("Location: student_panel.php");
+            header("Location: staff_darshbord.php");
             exit();
         }
     } else {

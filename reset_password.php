@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Update the password
     $sql_update = "UPDATE student_login SET password = '$new_password', reset_token = NULL, reset_token_expiry = NULL WHERE reset_token = '$token'";
     if ($conn->query($sql_update)) {
-        echo "Password reset successfully. <a href='login.php'>Login</a>";
+        echo "Password reset successfully. <a href='student_loginpage.php'>Login</a>";
     } else {
         echo "Error resetting password.";
     }

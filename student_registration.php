@@ -227,49 +227,39 @@ if ($_FILES['qualification_document']['size'] > $max_file_size || !in_array($_FI
     }
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WOODS TRAINING INSTITUTE - Student Application Form</title>
+    <title>WOODS TRAINING INSTITUTE - Staff Application Form</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     
+    <!-- FontAwesome Links (Optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="Resources/student_application.css?v=<?php echo time(); ?>">
-   
-    
-    <!-- FontAwesome Links -->
-    <link rel="stylesheet" href="Resources/fontawesome/css/solid.css">
-    <link rel="stylesheet" href="Resources/fontawesome/css/all.css">
-    <link rel="stylesheet" href="Resources/fontawesome/css/brands.css">
-    <link rel="stylesheet" href="Resources/fontawesome/css/fontawesome.css">
-
-
+    <link rel="stylesheet" href="Resources/staff_registration.css?v=<?php echo time(); ?>">
 </head>
 <body>
 
 <section class="container mt-2">
-<section class="edditing_part">
-<div class="edditing_section">
-<label ><a class="logo" href="index.php">WOODS</a> </label>
+    <div class="row">
+        <div class="col-md-12">
+            <label><a class="logo" href="index.php">WOODS</a></label>
+
             <!-- Progress Bar -->
             <div class="progress mb-4">
-                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 33%;  background-color: #09c561;"  aria-valuenow="3" aria-valuemin="0" aria-valuemax="100"></div>
+                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
 
-            
-            <form class="row g-3 needs-validation" action="" method="POST" enctype="multipart/form-data" novalidate onsubmit="showProgress();">
-
-
+            <!-- Main Form -->
+            <form class="needs-validation" id="multi-step-form" action="" method="POST" enctype="multipart/form-data" novalidate>
                 <!-- Section 1: Personal Information -->
-                <div id="section-1" class="form-section">
+                <div id="section-1" class="form-section active">
                     <h3>Personal Information</h3>
-
                     <div class="row">
                     <div class="col-md-6 position-relative">
                     <label for="first_name" class="form-label">First Name</label>
@@ -410,17 +400,16 @@ if ($_FILES['qualification_document']['size'] > $max_file_size || !in_array($_FI
             </select>
             <div class="invalid-tooltip">Please select an intake type.</div>
         </div>
+                        <!-- More fields go here -->
                     </div>
-
                     <div class="col-12 mt-3">
-                        <button type="button" class="btn btn-secondary" onclick="nextSection()">Next</button>
+                        <button type="button" class="btn btn-secondary" onclick="validateSection()">Next</button>
                     </div>
                 </div>
 
                 <!-- Section 2: Address Information -->
-                <div id="section-2" class="form-section" style="display:none;">
+                <div id="section-2" class="form-section">
                     <h3>Address Information</h3>
-
                     <div class="row">
                     <div class="col-md-6 position-relative">
                     <label for="city" class="form-label">City</label>
@@ -469,18 +458,17 @@ if ($_FILES['qualification_document']['size'] > $max_file_size || !in_array($_FI
                   <textarea class="form-control"  id="address_line2" name="address_line2" placeholder="Enter address line 2"  rows="3"></textarea>
                   <div class="invalid-tooltip">Please provide your address line 2.</div>
                 </div>
+                        <!-- More fields go here -->
                     </div>
-
                     <div class="col-12 mt-3">
-                        <button type="button" class="btn btn-secondary" onclick="previousSection()">Previous</button>
-                        <button type="button" class="btn btn-secondary" onclick="nextSection()">Next</button>
+                        <button type="button" class="btn btn-secondary" onclick="previousSection()">Back</button>
+                        <button type="button" class="btn btn-secondary" onclick="validateSection()">Next</button>
                     </div>
                 </div>
 
                 <!-- Section 3: Education Information -->
-                <div id="section-3" class="form-section" style="display:none;">
+                <div id="section-3" class="form-section">
                     <h3>Education Information</h3>
-
                     <div class="row">
                     <div class="col-md-6 position-relative">
                     <label for="school_name" class="form-label">School Name</label>
@@ -529,33 +517,20 @@ if ($_FILES['qualification_document']['size'] > $max_file_size || !in_array($_FI
            accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.oasis.opendocument.text, application/rtf, text/plain, image/jpeg, image/png, image/gif, image/bmp, image/webp, image/tiff" required>
     <div class="invalid-tooltip">Please upload your qualification document.</div>
 </div>
-
-
+                        <!-- More fields go here -->
+                    </div>
                     <div class="col-12 mt-3">
-                        <button type="button" class="btn btn-secondary" onclick="previousSection()">Previous</button>
+                        <button type="button" class="btn btn-secondary" onclick="previousSection()">Back</button>
                         <button type="submit" class="btn btn-primary">Submit Application</button>
                     </div>
                 </div>
             </form>
         </div>
-    </section>
+    </div>
 </section>
-
-
-
-<!-- Progress Bar -->
-<div id="progresss-bar-container" style="display: none;">
-    <div id="progresss-bar"></div>
-</div>
-
+<script src="javascripts/application.js"></script>
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-<!-- Bootstrap JS and Dependencies -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-<script src="javascripts/application.js"></script>
-<script src="javascripts/application2.js"></script>
-
 </html>
-

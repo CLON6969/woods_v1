@@ -1,86 +1,92 @@
+// First JavaScript: Multi-Step Form Handling 
 
-let currentSection = 1;
-
-function showSection(sectionNumber) {
-    document.querySelectorAll('.form-section').forEach((section) => {
-        section.style.display = 'none';
-    });
-    document.getElementById(`section-${sectionNumber}`).style.display = 'block';
-    updateProgressBar(sectionNumber);
-}
-
-function updateProgressBar(sectionNumber) {
+(function() {
+    let currentFormSection = 0;
+    const formSections = document.querySelectorAll('.form-section');
     const progressBar = document.getElementById('progress-bar');
-    const percentage = (sectionNumber / 3) * 100;
-    progressBar.style.width = `${percentage}%`;
-}
 
-function validateSection() {
-    const currentForm = document.querySelector(`#section-${currentSection}`);
-    const inputs = currentForm.querySelectorAll("input, select");
-    let isValid = true;
+    function showSection(index) {
+        formSections.forEach((section, idx) => {
+            section.classList.toggle('active', idx === index);
+        });
+        progressBar.style.width = `${(index + 1) / formSections.length * 100}%`;
+    }
 
-    inputs.forEach(input => {
-        if (!input.checkValidity()) {
-            input.classList.add("is-invalid");
-            isValid = false;
-        } else {
-            input.classList.remove("is-invalid");
+    window.validateSection = function() {
+        let inputs = formSections[currentFormSection].querySelectorAll('input, select');
+        let valid = true;
+
+        inputs.forEach((input) => {
+            if (!input.checkValidity()) {
+                input.classList.add('is-invalid');
+                valid = false;
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        });
+
+        if (valid) {
+            currentFormSection++;
+            showSection(currentFormSection);
+        }
+    };
+
+    window.previousSection = function() {
+        if (currentFormSection > 0) {
+            currentFormSection--;
+            showSection(currentFormSection);
+        }
+    };
+
+    document.getElementById('multi-step-form').addEventListener('submit', function(event) {
+        let form = this;
+        let valid = true;
+
+        formSections.forEach((section) => {
+            let inputs = section.querySelectorAll('input, select');
+            inputs.forEach((input) => {
+                if (!input.checkValidity()) {
+                    input.classList.add('is-invalid');
+                    valid = false;
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+        });
+
+        if (!valid) {
+            event.preventDefault();
+            event.stopPropagation();
         }
     });
+})();
 
-    return isValid;
-}
 
-function nextSection() {
-    if (validateSection()) {
-        if (currentSection < 3) {
-            currentSection++;
-            showSection(currentSection);
+// Second JavaScript: Program and Certification Handling 
+
+(function() {
+    window.showCertifications = function() {
+        const programSelect = document.getElementById('university_program');
+        const certificationDiv = document.getElementById('certification_div');
+        const certificationSelect = document.getElementById('certification_type');
+
+        if (programSelect.value) {
+            certificationDiv.style.display = 'block';
+        } else {
+            certificationDiv.style.display = 'none';
+            document.getElementById('intake_div').style.display = 'none';
+            certificationSelect.value = '';
         }
-    }
-}
+    };
 
-function previousSection() {
-    if (currentSection > 1) {
-        currentSection--;
-        showSection(currentSection);
-    }
-}
+    window.showIntakes = function() {
+        const certificationSelect = document.getElementById('certification_type');
+        const intakeDiv = document.getElementById('intake_div');
 
-window.onload = () => {
-    showSection(currentSection);
-};
-
-
-
-//this is for the certification or choosing of programs
-        function showCertifications() {
-            const programSelect = document.getElementById('university_program');
-            const certificationDiv = document.getElementById('certification_div');
-            const certificationSelect = document.getElementById('certification_type');
-
-            if (programSelect.value) {
-                certificationDiv.style.display = 'block'; // Show certifications
-            } else {
-                certificationDiv.style.display = 'none'; // Hide certifications
-                document.getElementById('intake_div').style.display = 'none'; // Hide intakes if no program is selected
-                certificationSelect.value = ''; // Reset certification value
-            }
+        if (certificationSelect.value) {
+            intakeDiv.style.display = 'block';
+        } else {
+            intakeDiv.style.display = 'none';
         }
-
-        function showIntakes() {
-            const certificationSelect = document.getElementById('certification_type');
-            const intakeDiv = document.getElementById('intake_div');
-
-            if (certificationSelect.value) {
-                intakeDiv.style.display = 'block'; // Show intakes
-            } else {
-                intakeDiv.style.display = 'none'; // Hide intakes
-            }
-        }
-        
-
-   
-
-
+    };
+})();

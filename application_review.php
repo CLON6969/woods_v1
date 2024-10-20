@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $mail->Password   = 'rpln hcaj uihn cbsa';    // SMTP password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption, or PHPMailer::ENCRYPTION_SMTPS
                 $mail->Port = 587;               // TCP port to connect to (TLS/SSL)
-                $mail->Host = 'smtp.gmail.com';
+                
 
 
 

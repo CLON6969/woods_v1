@@ -37,7 +37,7 @@
                 <label for="remember" style="color: #d7d5e9e7; font-size: 14px;"> Remember Me</label>
             </div>
 
-            <p>Forgot password? <a href="forgot_password.php">Click here</a></p>
+            <p>Forgot password? <a href="staff_forgot_password.php">Click here</a></p>
 
             <div class="btn_filed">
                 <button type="submit" id="sign_up_btn">Login</button>

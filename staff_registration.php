@@ -19,6 +19,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Fetch necessary options from the database (e.g., gender, marital status, etc.)
 // Fetch Programs
 $programs = [];
 $programs_sql = "SELECT program_id, program_name FROM programs";
@@ -39,13 +40,12 @@ if ($result->num_rows > 0) {
     }
 }
 
-// Fetch Intakes
-$intakes = [];
-$intake_sql = "SELECT intake_id, intake_name FROM intake";
-$result = $conn->query($intake_sql);
+$employment_statuses = [];
+$employment_status_sql = "SELECT employment_status_id, status_name FROM employment_status";
+$result = $conn->query($employment_status_sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $intakes[] = $row;
+        $employment_statuses[] = $row;
     }
 }
 
@@ -58,6 +58,27 @@ if ($result->num_rows > 0) {
         $genders[] = $row;
     }
 }
+
+// Fetch Nationality options
+$countries = [];
+$nationality_sql = "SELECT nationality_id, nationality_name FROM nationality";
+$result = $conn->query($nationality_sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $countries[] = $row;
+    }
+}
+
+// Fetch Qualification Levels
+$qualification_levels = [];
+$qualification_sql = "SELECT level_id, level_name FROM qualificationLevel";
+$result = $conn->query($qualification_sql);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $qualification_levels[] = $row;
+    }
+}
+
 
 // Fetch Marital Status options
 $marital_statuses = [];
@@ -79,23 +100,24 @@ if ($result->num_rows > 0) {
     }
 }
 
-// Fetch Nationality options
-$nationalities = [];
-$nationality_sql = "SELECT nationality_id, nationality_name FROM nationality";
-$result = $conn->query($nationality_sql);
+// Fetch role options
+$roles = [];
+$roles_sql = "SELECT role_id, role_name FROM roles";
+$result = $conn->query($roles_sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $nationalities[] = $row;
+        $roles[] = $row;
     }
 }
 
-// Fetch Qualification Levels
-$qualification_levels = [];
-$qualification_sql = "SELECT level_id, level_name FROM qualificationLevel";
-$result = $conn->query($qualification_sql);
+
+// Fetch department options
+$departments = [];
+$departments_sql = "SELECT department_id, department_name FROM departments";
+$result = $conn->query($departments_sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $qualification_levels[] = $row;
+        $departments[] = $row;
     }
 }
 
@@ -118,28 +140,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $profile_picture = $_FILES['profile_picture']['name'] ?? '';
         $phone_number = $_POST['phone_number'] ?? '';
         $emergency_phone = $_POST['emergency_phone'] ?? '';
-        $gender = $_POST['gender'] ?? '';
-        $marital_status = $_POST['marital_status'] ?? '';
-        $religion = $_POST['religion'] ?? '';
-        $program_id = $_POST['program_id'] ?? '';
-        $certification_type = $_POST['certification_type'] ?? '';
-        $intake_type = $_POST['intake_type'] ?? '';
-        $city = $_POST['city'] ?? '';
-        $nationality = $_POST['nationality'] ?? '';
-        $national_id_number = $_POST['national_id_number'] ?? '';
-        $zipcode = $_POST['zipcode'] ?? '';
+        $gender_id = $_POST['gender'] ?? '';
+        $marital_status_id = $_POST['marital_status'] ?? '';
+        $religion_id = $_POST['religion'] ?? '';
+        $role_id = $_POST['role'] ?? '';
+        $employment_status_id = $_POST['employment_status'] ?? ''; // Employment Status field
+        $department_id = $_POST['department'] ?? '';
+        $country_id = $_POST['country'] ?? '';
         $address_line1 = $_POST['address_line1'] ?? '';
         $address_line2 = $_POST['address_line2'] ?? '';
-        $school_name = $_POST['school_name'] ?? '';
-        $level_of_qualification = $_POST['level_of_qualification'] ?? '';
-        $entry_date = $_POST['entry_date'] ?? '';
-        $date_graduated = $_POST['date_graduated'] ?? '';
-        $school_address = $_POST['school_address'] ?? '';
+        $city = $_POST['city'] ?? '';
+        $state = $_POST['state'] ?? '';
+        $postal_code = $_POST['postal_code'] ?? '';
+        $highest_qualification_id = $_POST['qualification'] ?? '';
         $qualification_document = $_FILES['qualification_document']['name'] ?? '';
+        $institution = $_POST['institution'] ?? '';
+        $institution_country_id = $_POST['institution_country'] ?? '';
+        $entry_date = $_POST['entry_date'] ?? '';
+        $graduation_date = $_POST['graduation_date'] ?? '';
 
         // Handle file uploads
-        $target_dir_profile = "uploads/students/profile_picture/";
-        $target_dir_documents = "uploads/students/qualifications/";
+        $target_dir_profile = "uploads/staff/profile_picture/";
+        $target_dir_documents = "uploads/staff/qualifications/";
         $target_file_profile = $target_dir_profile . basename($profile_picture);
         $target_file_document = $target_dir_documents . basename($qualification_document);
 
@@ -147,136 +169,118 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         move_uploaded_file($_FILES['profile_picture']['tmp_name'], $target_file_profile);
         move_uploaded_file($_FILES['qualification_document']['tmp_name'], $target_file_document);
 
-        // Allowed file types for profile picture (extensive image types)
-$allowed_image_types = [
-    'image/jpeg',  // JPEG/JPG
-    'image/png',   // PNG
-    'image/gif',   // GIF
-    'image/bmp',   // BMP
-    'image/webp',  // WebP
-    'image/tiff'   // TIFF
-];
+        // Increase the maximum file size to 10MB
+        $max_file_size = 10 * 1024 * 1024;  // 10MB
 
-// Allowed file types for qualification document (extensive document and image types)
-$allowed_doc_types = [
-    'application/pdf',  // PDF
-    'application/msword',  // DOC
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  // DOCX
-    'application/vnd.oasis.opendocument.text',  // ODT
-    'application/rtf',  // RTF
-    'text/plain',  // TXT
-    'image/jpeg',  // Image formats
-    'image/png',
-    'image/gif',
-    'image/bmp',
-    'image/webp',
-    'image/tiff'
-];
+        // Validate profile picture
+        if ($_FILES['profile_picture']['size'] > $max_file_size) {
+            echo "<script>alert('Profile picture size exceeds 10MB limit.');</script>";
+            exit;
+        }
 
-// Increase the maximum file size to 10MB
-$max_file_size = 10 * 1024 * 1024;  // 10MB
+        // Validate qualification document
+        if ($_FILES['qualification_document']['size'] > $max_file_size) {
+            echo "<script>alert('Qualification document size exceeds 10MB limit.');</script>";
+            exit;
+        }
 
-// Validate profile picture
-if ($_FILES['profile_picture']['size'] > $max_file_size || !in_array($_FILES['profile_picture']['type'], $allowed_image_types)) {
-    echo "<script>alert('Invalid profile picture format or size. Allowed formats are JPEG, PNG, GIF, BMP, WebP, TIFF, and the size must not exceed 10MB.');</script>";
-    exit;
-}
+        // SQL insert statement for staff_application
+        $conn->begin_transaction();
 
-// Validate qualification document
-if ($_FILES['qualification_document']['size'] > $max_file_size || !in_array($_FILES['qualification_document']['type'], $allowed_doc_types)) {
-    echo "<script>alert('Invalid qualification document format or size. Allowed formats are PDF, DOC, DOCX, ODT, RTF, TXT, and image formats (JPEG, PNG, GIF, BMP, WebP, TIFF). The size must not exceed 10MB.');</script>";
-    exit;
-}
+        try {
+            // Insert into staff_application
+            $sql_application = "INSERT INTO staff_application (
+                                    first_name, middle_name, last_name, username, date_of_birth, 
+                                    profile_picture, phone_number, emergency_phone, gender_id, marital_status_id, 
+                                    religion_id, role_id, employment_status_id, department_id, address_line1, address_line2, 
+                                    city, state, postal_code, country_id, highest_qualification_id, qualification_document, 
+                                    institution, institution_country_id, entry_date, graduation_date, status) 
+                                VALUES (
+                                    '$first_name', '$middle_name', '$last_name', '$username', '$date_of_birth', 
+                                    '$profile_picture', '$phone_number', '$emergency_phone', '$gender_id', '$marital_status_id', 
+                                    '$religion_id', '$role_id', '$employment_status_id', '$department_id', '$address_line1', '$address_line2', 
+                                    '$city', '$state', '$postal_code', '$country_id', '$highest_qualification_id', '$qualification_document', 
+                                    '$institution', '$institution_country_id', '$entry_date', '$graduation_date', 'Pending')";
+            $conn->query($sql_application);
 
+            $conn->commit();
 
+            // Set the session variable to indicate that the form has been submitted
+            $_SESSION['form_submitted'] = true;
 
-            // SQL insert statement
-            $sql = "INSERT INTO student_application (first_name, middle_name, last_name, username, date_of_birth, 
-                    profile_picture, phone_number, emergency_phone, gender, marital_status, religion, program_id, 
-                    certification_type, intake_type, city, nationality, national_id_number, zipcode, address_line1, 
-                    address_line2, school_name, level_of_qualification, entry_date, date_graduated, school_address, 
-                    qualification_document) VALUES (
-                    '$first_name', '$middle_name', '$last_name', '$username', '$date_of_birth', '$profile_picture', 
-                    '$phone_number', '$emergency_phone', '$gender', '$marital_status', '$religion', '$program_id', 
-                    '$certification_type', '$intake_type', '$city', '$nationality', '$national_id_number', '$zipcode', 
-                    '$address_line1', '$address_line2', '$school_name', '$level_of_qualification', '$entry_date', 
-                    '$date_graduated', '$school_address', '$qualification_document')";
+            // Display success message and redirect
+            echo "<script>alert('Application submitted successfully!');</script>";
+            echo "<script>setTimeout(function(){ window.location.href = '".$_SERVER['PHP_SELF']."'; }, 1000);</script>";
 
-            if ($conn->query($sql) === TRUE) {
-                // Set the session variable to indicate that the form has been submitted
-                $_SESSION['form_submitted'] = true;
-
-                // Display success message as a pop-up and redirect back to the form
-                echo "<script>alert('Application submitted successfully!');</script>";
-                echo "<script>setTimeout(function(){ window.location.href = '".$_SERVER['PHP_SELF']."'; }, 1000);</script>";
-            } else {
-                if ($conn->errno == 1062) {
-                    // Duplicate entry error for username (email)
-                    echo "<script>alert('This email already exists. Please use a different email.');</script>";
-                } else {
-                    // General error handling
-                    echo "<script>alert('Error: ". $conn->error ."');</script>";
-                }
-                // Redirect back to the form after error
-                echo "<script>setTimeout(function(){ window.location.href = '".$_SERVER['PHP_SELF']."'; }, 1000);</script>";
-            }
+        } catch (Exception $e) {
+            $conn->rollback(); // Rollback on error
+            echo "<script>alert('Error: ". $conn->error ."');</script>";
         }
 
         // Close the connection
         $conn->close();
     }
-
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WOODS TRAINING INSTITUTE - Employee Registration Form</title>
+    <title>WOODS TRAINING INSTITUTE - Staff Application Form</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     
+    <!-- FontAwesome Links (Optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="Resources/staff_registration.css?v=<?php echo time(); ?>">
-
-    <!-- FontAwesome Links -->
-    <link rel="stylesheet" href="Resources/fontawesome/css/all.css">
-
 </head>
 <body>
 
 <section class="container mt-2">
-    <section class="editing_part">
-        <div class="editing_section">
+    <div class="row">
+        <div class="col-md-12">
             <label><a class="logo" href="index.php">WOODS</a></label>
 
             <!-- Progress Bar -->
             <div class="progress mb-4">
-                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 33%; background-color: #09c561;" aria-valuenow="3" aria-valuemin="0" aria-valuemax="100"></div>
+                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
 
-            <form class="row g-3 needs-validation" action="" method="POST" enctype="multipart/form-data" novalidate onsubmit="showProgress();">
+
+            <form class="needs-validation" id="multi-step-form" action="" method="POST" enctype="multipart/form-data" novalidate onsubmit="showProgress();">
                 <!-- Section 1: Personal Information -->
-                <div id="section-1" class="form-section">
+                <div id="section-1" class="form-section active">
                     <h3>Personal Information</h3>
 
                     <div class="row">
-                        <div class="col-md-4 position-relative">
+                    <div class="col-md-6 position-relative">
                             <label for="first_name" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name" required>
+                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name"   required>
                             <div class="invalid-tooltip">Please provide your first name.</div>
                         </div>
 
-                        <div class="col-md-4 position-relative">
+                        <div class="col-md-6 position-relative">
                             <label for="middle_name" class="form-label">Middle Name</label>
                             <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="Enter your middle name">
                         </div>
 
-                        <div class="col-md-4 position-relative">
+                        <div class="col-md-6 position-relative">
                             <label for="last_name" class="form-label">Last Name</label>
                             <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter your last name" required>
                             <div class="invalid-tooltip">Please provide your last name.</div>
+                        </div>
+
+                        <div class="col-md-6 position-relative">
+                            <label for="username" class="form-label">Username</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">@</span>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                                <div class="invalid-tooltip">Please choose a unique username.</div>
+                            </div>
                         </div>
 
                         <div class="col-md-6 position-relative">
@@ -286,216 +290,284 @@ if ($_FILES['qualification_document']['size'] > $max_file_size || !in_array($_FI
                         </div>
 
                         <div class="col-md-6 position-relative">
-                            <label for="gender" class="form-label">Gender</label>
-                            <select class="form-select" id="gender" name="gender" required>
-                                <option selected disabled value="">Select Gender...</option>
-                                <?php foreach ($genders as $gender) {
-                                    echo "<option value='" . $gender['gender_id'] . "'>" . $gender['gender_name'] . "</option>";
-                                } ?>
-                            </select>
-                            <div class="invalid-tooltip">Please select your gender.</div>
-                        </div>
-
-                        <div class="col-md-6 position-relative">
-                            <label for="nationality" class="form-label">Nationality</label>
-                            <select class="form-select" id="nationality" name="nationality" required>
-                                <option selected disabled value="">Select Nationality...</option>
-                                <?php foreach ($nationalities as $nationality) {
-                                    echo "<option value='" . $nationality['nationality_id'] . "'>" . $nationality['nationality_name'] . "</option>";
-                                } ?>
-                            </select>
-                            <div class="invalid-tooltip">Please select your nationality.</div>
-                        </div>
-
-                        <div class="col-md-6 position-relative">
-                            <label for="national_id" class="form-label">National ID</label>
-                            <input type="text" class="form-control" id="national_id" name="national_id" placeholder="Enter your national ID" required>
-                            <div class="invalid-tooltip">Please provide your national ID.</div>
+                            <label for="profile_picture" class="form-label">Profile Picture</label>
+                            <input type="file" class="form-control" id="profile_picture" name="profile_picture" accept="image/*" required>
+                            <div class="invalid-tooltip">Please upload your profile picture.</div>
                         </div>
 
                         <div class="col-md-6 position-relative">
                             <label for="phone_number" class="form-label">Phone Number</label>
-                            <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Enter your phone number" pattern="\d{10,15}" title="Please enter a valid phone number (10-15 digits)." required>
+                            <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="(00)(00-00)(00-00)" pattern="\d{10,15}" required>
                             <div class="invalid-tooltip">Please provide a valid phone number.</div>
                         </div>
 
                         <div class="col-md-6 position-relative">
+                            <label for="emergency_phone" class="form-label">Emergency Phone Number</label>
+                            <input type="text" class="form-control" id="emergency_phone" name="emergency_phone" pattern="\d{10,15}" required>
+                            <div class="invalid-tooltip">Please provide an emergency contact number.</div>
+                        </div>
+
+                        <div class="col-md-4 position-relative">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-select" id="gender" name="gender" required>
+                                <option selected disabled value="">Select Gender...</option>
+                                <?php foreach ($genders as $gender) { echo "<option value='" . $gender['gender_id'] . "'>" . $gender['gender_name'] . "</option>"; } ?>
+                            </select>
+                            <div class="invalid-tooltip">Please select your gender.</div>
+                        </div>
+
+                        <div class="col-md-4 position-relative">
                             <label for="marital_status" class="form-label">Marital Status</label>
                             <select class="form-select" id="marital_status" name="marital_status" required>
-                                <option selected disabled value="">Select Status...</option>
-                                <?php foreach ($marital_statuses as $status) {
-                                    echo "<option value='" . $status['status_id'] . "'>" . $status['status_name'] . "</option>";
-                                } ?>
+                                <option selected disabled value="">Select Marital Status...</option>
+                                <?php foreach ($marital_statuses as $status) { echo "<option value='" . $status['status_id'] . "'>" . $status['status_name'] . "</option>"; } ?>
                             </select>
                             <div class="invalid-tooltip">Please select your marital status.</div>
                         </div>
 
-                        <div class="col-md-6 position-relative">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-                            <div class="invalid-tooltip">Please provide a valid email.</div>
-                        </div>
-
-                        <div class="col-md-6 position-relative">
-                            <label for="profile_picture" class="form-label">Profile Picture</label>
-                            <input type="file" class="form-control" id="profile_picture" name="profile_picture" accept="image/*" required>
-                            <div class="invalid-tooltip">Please upload a profile picture.</div>
-                        </div>
-
-                    </div>
-
-                    <div class="col-12 mt-3">
-                        <button type="button" class="btn btn-secondary" onclick="nextSection()">Next</button>
-                    </div>
-                </div>
-
-                <!-- Section 2: Employment Information -->
-                <div id="section-2" class="form-section" style="display:none;">
-                    <h3>Employment Information</h3>
-
-                    <div class="row">
-                        <div class="col-md-6 position-relative">
-                            <label for="job_title" class="form-label">Job Title</label>
-                            <input type="text" class="form-control" id="job_title" name="job_title" placeholder="Enter job title" required>
-                            <div class="invalid-tooltip">Please provide a job title.</div>
-                        </div>
-
-                        <div class="col-md-6 position-relative">
-                            <label for="department" class="form-label">Department</label>
-                            <input type="text" class="form-control" id="department" name="department" placeholder="Enter department" required>
-                            <div class="invalid-tooltip">Please provide a department.</div>
-                        </div>
-
-                        <div class="col-md-6 position-relative">
-                            <label for="employment_type" class="form-label">Employment Type</label>
-                            <select class="form-select" id="employment_type" name="employment_type" required>
-                                <option selected disabled value="">Select Employment Type...</option>
-                                <option value="Full-time">Full-time</option>
-                                <option value="Part-time">Part-time</option>
-                                <option value="Contract">Contract</option>
+                        <div class="col-md-4 position-relative">
+                            <label for="religion" class="form-label">Religion</label>
+                            <select class="form-select" id="religion" name="religion" required>
+                                <option selected disabled value="">Select Religion...</option>
+                                <?php foreach ($religions as $religion) { echo "<option value='" . $religion['religion_id'] . "'>" . $religion['religion_name'] . "</option>"; } ?>
                             </select>
-                            <div class="invalid-tooltip">Please select employment type.</div>
+                            <div class="invalid-tooltip">Please select your religion.</div>
                         </div>
 
-                        <div class="col-md-6 position-relative">
-                            <label for="employment_status" class="form-label">Employment Status</label>
+                        <div class="col-md-4 position-relative">
+                            <label for="religion" class="form-label">Role</label>
+                            <select class="form-select" id="role" name="role" required>
+                                <option selected disabled value="">Select role...</option>
+                                <?php foreach ($roles as $role) { echo "<option value='" . $role['role_id'] . "'>" . $role['role_name'] . "</option>"; } ?>
+                            </select>
+                            <div class="invalid-tooltip">Please select your religion.</div>
+                        </div>
+
+                        <div class="col-md-4 position-relative">
+                        <label for="employment_title" class="form-label">Employment Status</label>
                             <select class="form-select" id="employment_status" name="employment_status" required>
-                                <option selected disabled value="">Select Employment Status...</option>
-                                <option value="Active">Active</option>
-                                <option value="On Leave">On Leave</option>
-                                <option value="Retired">Retired</option>
+                                <option selected disabled value="">Select employment title...</option>
+                                <?php foreach ($employment_statuses as $employment_status) { echo "<option value='" .$employment_status['employment_status_id'] . "'>" . $employment_status['status_name'] . "</option>"; } ?>
                             </select>
-                            <div class="invalid-tooltip">Please select employment status.</div>
+                            <div class="invalid-tooltip">Please select your employment status.</div>
                         </div>
 
-                        <div class="col-md-6 position-relative">
-                            <label for="date_of_hire" class="form-label">Date of Hire</label>
-                            <input type="date" class="form-control" id="date_of_hire" name="date_of_hire" required>
-                            <div class="invalid-tooltip">Please provide your hire date.</div>
-                        </div>
-
-                        <div class="col-md-6 position-relative">
-                            <label for="supervisor_id" class="form-label">Supervisor (if any)</label>
-                            <select class="form-select" id="supervisor_id" name="supervisor_id">
-                                <option selected disabled value="">Select Supervisor...</option>
-                                <!-- Supervisor options would be dynamically populated -->
+                        
+                        <div class="col-md-4 position-relative">
+                            <label for="department" class="form-label">Department</label>
+                            <select class="form-select" id="department" name="department" required>
+                                <option selected disabled value="">Select Department...</option>
+                                <?php foreach ($departments as $department) { echo "<option value='" . $department['department_id'] . "'>" . $department['department_name'] . "</option>"; } ?>
                             </select>
+                            <div class="invalid-tooltip">Please select your department.</div>
                         </div>
-
-                        <div class="col-12 mt-3">
-                            <button type="button" class="btn btn-secondary" onclick="prevSection()">Previous</button>
-                            <button type="button" class="btn btn-secondary" onclick="nextSection()">Next</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section 3: Salary Information -->
-                <div id="section-3" class="form-section" style="display:none;">
-                    <h3>Salary Information</h3>
-
-                    <div class="row">
-                        <div class="col-md-6 position-relative">
-                            <label for="salary" class="form-label">Salary</label>
-                            <input type="number" class="form-control" id="salary" name="salary" placeholder="Enter salary" required>
-                            <div class="invalid-tooltip">Please provide a salary.</div>
-                        </div>
-
-                        <div class="col-md-6 position-relative">
-                            <label for="bonus" class="form-label">Bonus (if any)</label>
-                            <input type="number" class="form-control" id="bonus" name="bonus" placeholder="Enter bonus">
-                        </div>
-
-                        <div class="col-md-6 position-relative">
-                            <label for="salary_type" class="form-label">Salary Type</label>
-                            <select class="form-select" id="salary_type" name="salary_type" required>
-                                <option selected disabled value="">Select Salary Type...</option>
-                                <option value="Monthly">Monthly</option>
-                                <option value="Hourly">Hourly</option>
-                            </select>
-                            <div class="invalid-tooltip">Please select a salary type.</div>
-                        </div>
-
                     </div>
 
                     <div class="col-12 mt-3">
-                        <button type="button" class="btn btn-secondary" onclick="prevSection()">Previous</button>
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button type="button" class="btn btn-secondary" onclick="validateSection()">Next</button>
                     </div>
                 </div>
 
+                <!-- Section 2: Address Information -->
+                <div id="section-2" class="form-section">
+                    <h3>Address Information</h3>
+
+                    <div class="row">
+                    <div class="col-md-6 position-relative">
+                            <label for="address_line1" class="form-label">Address Line 1</label>
+                            <textarea class="form-control" id="address_line1" name="address_line1" placeholder="Enter address line 1"  rows="3"></textarea>
+                            <div class="invalid-tooltip">Please provide address line 1.</div>
+                        </div>
+
+                        <div class="col-md-6 position-relative">
+                            <label for="address_line2" class="form-label">Address Line 2</label>
+                            <textarea class="form-control" id="address_line2" name="address_line2" placeholder="Enter address line 2"  rows="3"></textarea>
+                        </div>
+
+                        <div class="col-md-6 position-relative">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city" required>
+                            <div class="invalid-tooltip">Please provide your city.</div>
+                        </div>
+
+                        <div class="col-md-6 position-relative">
+                            <label for="state" class="form-label">State</label>
+                            <input type="text" class="form-control" id="state" name="state" placeholder="Enter your state" required>
+                            <div class="invalid-tooltip">Please provide your state.</div>
+                        </div>
+
+                        <div class="col-md-6 position-relative">
+                            <label for="postal_code" class="form-label">Postal Code</label>
+                            <input type="text" class="form-control" id="postal_code" name="postal_code" pattern="\d{5,10}" placeholder="Enter postal code" required>
+                            <div class="invalid-tooltip">Please provide a valid postal code.</div>
+                        </div>
+
+                        <div class="col-md-6 position-relative">
+                            <label for="country" class="form-label">Country</label>
+                            <select class="form-select" id="country" name="country" required>
+                                <option selected disabled value="">Select Country...</option>
+                                <?php 
+                                foreach ($countries as $country) {
+                                echo "<option value='" . $country['nationality_id'] . "'>" . $country['nationality_name'] . "</option>";
+                                 }
+                                ?>
+                            </select>
+                            <div class="invalid-tooltip">Please select your country.</div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <button type="button" class="btn btn-secondary" onclick="previousSection()">Back</button>
+                        <button type="button" class="btn btn-secondary" onclick="validateSection()">Next</button>
+                    </div>
+                </div>
+
+                <!-- Section 3: Education Information -->
+                <div id="section-3" class="form-section">
+                    <h3>Education Information</h3>
+
+                    <div class="row">
+                    <div class="col-md-6 position-relative">
+                            <label for="highest_degree" class="form-label">Highest Qualification Obtained</label>
+                            <select id="qualification" name="qualification" class="form-select" required>
+                                 <option value="">Select Highest Qualification</option>
+                                    <?php 
+                                    foreach ($qualification_levels as $level) {
+                                     echo "<option value='" . $level['level_id'] . "'>" . $level['level_name'] . "</option>";
+                                    }
+                                     ?>
+                            </select>
+                            <div class="invalid-tooltip">Please provide your highest degree.</div>
+                        </div>
+
+
+                        <div class="col-md-6 position-relative">
+                            <label for="qualification_document" class="form-label">qualification_document</label>
+                            <input type="file" class="form-control" id="qualification_document" name="qualification_document" accept="image/*" required>
+                            <div class="invalid-tooltip">Please upload your qualification document.</div>
+                        </div>
+
+                        <div class="col-md-6 position-relative">
+                            <label for="institution" class="form-label">Institution</label>
+                            <input type="text" class="form-control" id="institution" name="institution" placeholder="Enter institution name" required>
+                            <div class="invalid-tooltip">Please provide the institution name.</div>
+                        </div>
+
+                        <div class="col-md-6 position-relative">
+                            <label for="institution_country" class="form-label">Country (location of the institute)</label>
+                            <select class="form-select" id="institution_country" name="institution_country" required>
+                                <option selected disabled value="">Select Country...</option>
+                                <?php 
+                                foreach ($countries as $country) {
+                                echo "<option value='" . $country['nationality_id'] . "'>" . $country['nationality_name'] . "</option>";
+                                 }
+                                ?>
+                            </select>
+                            <div class="invalid-tooltip">Please select your country.</div>
+                        </div>
+
+
+
+                        <div class="col-md-6 position-relative">
+                            <label for="entry_date" class="form-label">Date of entry</label>
+                            <input type="date" class="form-control" id="entry_date" name="entry_date" required>
+                            <div class="invalid-tooltip">Please provide your date of entry.</div>
+                        </div>
+
+                        <div class="col-md-6 position-relative">
+                            <label for="graduation_date" class="form-label">Date of graduation</label>
+                            <input type="date" class="form-control" id="graduation_date" name="graduation_date"   required>
+                            <div class="invalid-tooltip">Please provide your date of graduation.</div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-3">
+                        <button type="button" class="btn btn-secondary" onclick="previousSection()">Back</button>
+                        <button type="submit" class="btn btn-primary">Submit Application</button>
+                    </div>
+                </div>
             </form>
         </div>
-    </section>
+    </div>
 </section>
 
-<!-- Script to manage form section transitions -->
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
+    let currentSection = 0;
+    const formSections = document.querySelectorAll('.form-section');
+    const progressBar = document.getElementById('progress-bar');
+
+    function showSection(index) {
+        formSections.forEach((section, idx) => {
+            section.classList.toggle('active', idx === index);
+        });
+        progressBar.style.width = `${(index + 1) / formSections.length * 100}%`;
+        progressBar.setAttribute('aria-valuenow', (index + 1) * 33);
+    }
+
     function nextSection() {
-        var currentSection = document.querySelector('.form-section:not([style*="display: none"])');
-        var nextSection = currentSection.nextElementSibling;
-        if (nextSection && nextSection.classList.contains('form-section')) {
-            currentSection.style.display = 'none';
-            nextSection.style.display = 'block';
-            updateProgressBar();
+        if (currentSection < formSections.length - 1) {
+            currentSection++;
+            showSection(currentSection);
         }
     }
 
-    function prevSection() {
-        var currentSection = document.querySelector('.form-section:not([style*="display: none"])');
-        var prevSection = currentSection.previousElementSibling;
-        if (prevSection && prevSection.classList.contains('form-section')) {
-            currentSection.style.display = 'none';
-            prevSection.style.display = 'block';
-            updateProgressBar();
+    function previousSection() {
+        if (currentSection > 0) {
+            currentSection--;
+            showSection(currentSection);
         }
     }
 
-    function updateProgressBar() {
-        var sections = document.querySelectorAll('.form-section');
-        var currentSection = document.querySelector('.form-section:not([style*="display: none"])');
-        var currentIndex = Array.prototype.indexOf.call(sections, currentSection) + 1;
-        var progressBar = document.getElementById('progress-bar');
-        progressBar.style.width = (currentIndex / sections.length) * 100 + '%';
+    function validateSection() {
+        let currentFormSection = formSections[currentSection];
+        let inputs = currentFormSection.querySelectorAll('input, select');
+        let valid = true;
+
+        inputs.forEach((input) => {
+            if (!input.checkValidity()) {
+                input.classList.add('is-invalid');
+                valid = false;
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        });
+
+        if (valid) {
+            nextSection();
+        }
     }
 
-    function showProgress() {
-        document.getElementById('progress-bar').style.width = '100%';
-    }
-
+    // Form validation on submit
     (function () {
         'use strict';
-        var forms = document.querySelectorAll('.needs-validation');
-        Array.prototype.slice.call(forms).forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
+
+        let form = document.getElementById('multi-step-form');
+
+        form.addEventListener('submit', function (event) {
+            let valid = true;
+            formSections.forEach((section) => {
+                let inputs = section.querySelectorAll('input, select');
+                inputs.forEach((input) => {
+                    if (!input.checkValidity()) {
+                        input.classList.add('is-invalid');
+                        valid = false;
+                    } else {
+                        input.classList.remove('is-invalid');
+                    }
+                });
+            });
+
+            if (!valid) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            form.classList.add('was-validated');
+        }, false);
     })();
 </script>
-
 </body>
 </html>
