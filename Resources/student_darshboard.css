@@ -8,7 +8,7 @@
 
 body {
     height: min-content;
-    background-color: #0a0253;
+    background-color: #010d15;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -26,9 +26,11 @@ body {
 width: 29.8%;
 height: 100%;
 background-color: #020118;
-border-top: 2px solid rgb(25, 0, 255);
-border-left: 2px solid rgb(25, 0, 255);
-border-right: 2px solid rgb(25, 0, 255);
+
+
+
+border-right: 2px solid #2e2e2e
+;
 }
 
 /* this deals with the top part of the left(profile-display)*/
@@ -223,23 +225,11 @@ font-weight: 800;
 
 
 .inside_left4_child1 .list_back  {
-    width:63.2%;
+    width:63%;
     background-color:transparent;
     text-align: end;
     font-size: 12px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 .section1 .top .right{
@@ -255,8 +245,9 @@ font-weight: 800;
     width: 100%;
     height: 35.33vh;
     background-color: #020118;
-border-bottom: 2px solid rgb(25, 0, 255);
-border-left: 2px solid rgb(25, 0, 255);
+
+
+
 text-align: center;
 color: #ffffff;
 
@@ -298,8 +289,6 @@ ul{
 }
 
 
-
-
 }
 
 
@@ -317,7 +306,8 @@ ul{
 .section1 .top .right .box2 .child1_box2{
     width: 49.6%;
     background-color: #020118;
-    border: 2px solid rgb(25, 0, 255);
+
+
     text-align: center;
     color: #ffffff;
 
@@ -365,14 +355,11 @@ ul{
 
 }
 
-
-
-
 .section1 .top .right .box2 .child2_box2{
 
     width: 49.6%;
     background-color: #020118;
-    border: 2px solid rgb(25, 0, 255);
+ 
     text-align: center;
     color: #ffffff;
 
@@ -395,9 +382,6 @@ ul{
     
 }
 
-
-
-
 /* this is what is  the box3*/
 
 .section1 .top .right .box3{
@@ -406,14 +390,10 @@ ul{
     display: flex;
     flex-direction: row;
     background-color: #020118;
-    border-top: 2px solid rgb(25, 0, 255);
-    border-left: 2px solid rgb(25, 0, 255);
-    border-right: 2px solid rgb(25, 0, 255);
+    border-top: 2px solid #2e2e2e;
 
 
 /* this is what is inside the box3*/
-
-
 .calendar {
     border-radius: 8px;
     width: 67.92%; /* Set width to 67.92% */
@@ -468,10 +448,6 @@ ul{
     0 0 4px rgb(0, 204, 255); /* Second layer of shadow */
 }
 
-
-
-
-
 .opening_closing{
     width:40%;
     height: 35vh;
@@ -480,9 +456,6 @@ ul{
 
 
 /* this is what is inside  the opening_closing */
-
-
-
 .opening{
     height: 45%;
     padding: 20px;
@@ -504,9 +477,6 @@ ul{
     border-radius: 4px;
 
 }
-
-
-
 
 }
 

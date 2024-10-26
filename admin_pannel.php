@@ -51,7 +51,7 @@
         <!-- New Fully Expanded Sidebar -->
         <div class="nav-bar second-sidebar">
         <ul class="nav-list">
-                <li onclick="loadPage('darshboard.php')"><i class="fas fa-tachometer-alt"></i> <span class="nav-text">Dashboard</span></li>
+                <li onclick="loadPage('staff_darshboard.php')"><i class="fas fa-tachometer-alt"></i> <span class="nav-text">Dashboard</span></li>
 
                 <li onclick="loadPage('home_page_admin.php')"><i class="fas fa-layer-group"></i> <span class="nav-text">home page</span></li>     
 

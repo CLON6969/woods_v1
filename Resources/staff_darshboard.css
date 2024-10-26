@@ -8,7 +8,7 @@
 
 body {
     height: min-content;
-    background-color: #0a0253;
+    background-color: #010d15;;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -26,9 +26,9 @@ body {
 width: 29.8%;
 height: 100%;
 background-color: #020118;
-border-top: 2px solid rgb(25, 0, 255);
-border-left: 2px solid rgb(25, 0, 255);
-border-right: 2px solid rgb(25, 0, 255);
+
+border-right: 2px solid #2e2e2e
+;
 }
 
 /* this deals with the top part of the left(profile-display)*/
@@ -244,7 +244,7 @@ font-weight: 800;
 
 
 .inside_left4_child1 .list_back  {
-    width:63.2%;
+    width:63%;
     background-color:transparent;
     text-align: end;
     font-size: 12px;
@@ -276,8 +276,7 @@ font-weight: 800;
     width: 100%;
     height: 35.33vh;
     background-color: #020118;
-border-bottom: 2px solid rgb(25, 0, 255);
-border-left: 2px solid rgb(25, 0, 255);
+
 text-align: center;
 color: #ffffff;
 
@@ -359,7 +358,6 @@ ul{
 .section1 .top .right .box2 .child1_box2{
     width: 49.6%;
     background-color: #020118;
-    border: 2px solid rgb(25, 0, 255);
     text-align: center;
     color: #ffffff;
 
@@ -434,7 +432,8 @@ border-radius: 3px;
 
     width: 49.6%;
     background-color: #020118;
-    border: 2px solid rgb(25, 0, 255);
+   
+;
     text-align: center;
     color: #ffffff;
 
@@ -468,11 +467,8 @@ border-radius: 3px;
     display: flex;
     flex-direction: row;
     background-color: #020118;
-    border-top: 2px solid rgb(25, 0, 255);
-    border-left: 2px solid rgb(25, 0, 255);
-    border-right: 2px solid rgb(25, 0, 255);
-
-
+    border-top: 2px solid #2e2e2e
+;
 /* this is what is inside the box3*/
 
 .calendar {

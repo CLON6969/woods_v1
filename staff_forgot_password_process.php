@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $expiry = date("Y-m-d H:i:s", strtotime('+1 hour'));
 
         // Store the token and expiry in the database
-        $sql_token = "UPDATE student_login SET reset_token = ?, reset_token_expiry = ? WHERE username = ?";
+        $sql_token = "UPDATE staff_login SET reset_token = ?, reset_token_expiry = ? WHERE username = ?";
         $stmt = $conn->prepare($sql_token);
         $stmt->bind_param("sss", $token, $expiry, $email);
         $stmt->execute();
@@ -60,6 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $mail->send();
             echo "A password reset link has been sent to your email.";
+            echo "Click the following link to login: <a href='staff_loginpage.php'>Login</a>";
+
+            // Redirect to staff_loginpage.php after successful emai
+
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }

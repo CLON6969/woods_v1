@@ -42,7 +42,7 @@ if ($result->num_rows > 0) {
             exit();
         } else {
             // Redirect to dashboard if the password has been changed
-            header("Location: staff_darshbord.php");
+            header("Location: staff_darshboard.php");
             exit();
         }
     } else {

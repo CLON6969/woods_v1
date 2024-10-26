@@ -1,0 +1,309 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    background-color:  #08022c;
+    font-family: 'poppins', sans-serif;
+ 
+}
+
+
+h1{
+    font-weight: 700;
+    color: #08022c;
+   
+    
+}
+
+
+span{
+    font-size: 9rem;
+    color:#757373;
+
+}
+
+h6{
+    font-size: 1.1rem;
+    color: rgb(24, 24, 49);
+}
+
+
+/* NAVIGATION BAR */
+nav{
+    height: 11vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1vw 8vw;
+    align-items: center;
+    box-shadow: 2px 2px 10px #16045826;
+    position: fixed;
+    width: 100%;
+    background-color: #0d9d50;
+    z-index: 999;
+}
+label .logo{
+    color: hsl(120, 100%, 50%);
+    font-size:40px ;
+    width: 5%;
+    text-decoration: none;
+    line-height: 80px;
+    padding-left: 2px;
+    font-weight: 800;
+    position: relative;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    cursor: pointer;
+
+}
+nav ul{
+    float:right;
+    margin-right: 20px;
+}
+nav ul li{
+    display: inline;
+    line-height: 80px;
+    margin:0 5px  ;
+}
+    nav ul li a{
+        color: aliceblue;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: rgb(245, 245, 248);
+        font-size: 16px ;
+        font-weight: 800;
+        transition: 0.3s ease;
+    /*box around nav*/
+        padding: 15px 45px;
+        border-radius: 3px;
+      
+    }
+
+
+    .checkbtn{
+        font-size: 30px;
+        color: beige;
+        float: right;
+        line-height: 80px;
+        margin-right: 40px;
+        cursor: pointer;
+        display: none;
+    }
+    #check{
+        display: none;
+
+    }
+
+
+
+    nav .programs,.fees,.admision,.services{
+        background-color: #08022c;
+    }
+    nav .programs:hover,.fees:hover,.admision:hover,.services:hover,.contact:hover{
+        background-color:#ffffff;
+        -webkit-text-fill-color: #08022c;
+        transition: 0.3s;
+    
+    }
+    nav a.programs{
+        background:#ffffff;
+        color: #08022c;
+    }
+
+
+    @media (max-width:952px) {
+
+        label .logo{
+    font-size:35px ;
+    padding: 0 100px;
+}
+nav ul li{
+    font-size: 16px;
+}
+
+    }
+
+    @media (max-width:952px) {
+
+        .checkbtn{
+display: block;
+}
+ nav ul{
+    position: fixed;
+    width: 100%;
+    height: 100hvh;
+    background: #040127e7;
+    top:80px;
+    left:-100%;
+    text-align:center ;
+    transition: all .5s;
+
+}
+nav ul li{
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+    
+}
+nav ul li a{
+    font-size:20px ;
+
+}
+
+#check:checked ~ ul{
+    left: 0;
+
+}
+    }
+
+@media only screen and (min-width: 953px) and (max-width: 1077px) {
+
+
+    nav ul li a{
+     padding: 15px 20px;     
+}
+
+
+label .logo{
+    font-size:30px ;
+    padding-left: 0;
+}
+    }
+
+
+
+
+    
+  /*third part*/
+
+
+  .third_part{
+    display: flex;
+    height: 95vh;
+    padding: 11vh 0 0 0;
+    font-family: Arial, sans-serif;
+}
+
+.third_part .container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.third_part .nav-bar {
+    width: 15%;
+    background-color: #0d9d50;
+    border-right: 2px solid #08022c; 
+    display: flex;
+    flex-direction: column;
+}
+
+.third_part .nav-bar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; /* Added margin: 0 to remove default margins */
+}
+
+.third_part .nav-bar li {
+    width: 95%;
+    background: #08022c;
+    color: #ffffff;
+    margin: auto;
+    margin-top: 1.3rem;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.third_part .nav-bar li:hover {
+    background-color: #ddd;
+    color: #08022c;
+}
+
+.third_part .content {
+    flex: 1;
+    padding: 0; /* Remove padding to make iframe full size */
+    display: flex; /* Ensure the iframe takes full space */
+}
+
+.third_part iframe {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+
+
+    
+footer{
+    height: 5vh;
+    background-color:#0d9d50 ;
+    
+}
+
+footer p{
+    color:#08022c;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    list-style-type: none;
+    padding-top: 8px;
+}
+
+footer p a{
+    color:#08022c;
+    text-align: center;
+    list-style-type: none;
+    padding-top: 8px;
+}
+
+
+
+/* Responsive styles */
+@media only screen and (max-width: 359px) {
+
+    
+
+
+    
+}
+
+@media only screen and (min-width: 360px) and (max-width: 479px) {
+
+       
+
+
+}
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+
+
+       
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+
+    
+
+
+
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+}
+
+@media only screen and (min-width: 1280px) and (max-width: 1384px) {
+
+
+}

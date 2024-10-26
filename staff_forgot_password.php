@@ -9,7 +9,7 @@
 <body>
 <div class="login_box">
     <div class="form_box">
-        <form action="forgot_password_process.php" method="post">
+        <form action="staff_forgot_password_process.php" method="post">
             <h1 id="title">Forgot Password</h1>
             <div class="input_filed">
                 <i class="fa-solid fa-envelope"></i>

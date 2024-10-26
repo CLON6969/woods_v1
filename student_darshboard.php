@@ -1,36 +1,3 @@
-<?php
-session_start();
-
-// Redirect to login if not logged in
-if (!isset($_SESSION['loggedin'])) {
-    header("Location: login.php");
-    exit();
-}
-
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "woods";
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Get student data from the database
-$student_id = $_SESSION['student_id'];
-$student_query = "SELECT * FROM students WHERE student_id = '$student_id'";
-$student_result = $conn->query($student_query);
-
-if ($student_result->num_rows > 0) {
-    $student = $student_result->fetch_assoc();
-} else {
-    echo "Student data not found.";
-    exit();
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,13 +30,13 @@ if ($student_result->num_rows > 0) {
         <div class="left">
             <div class="inside_left1">
                 <aside class="inside_left1_child1">
-                    <img src="<?php echo $student['profile_picture']; ?>" alt="Profile Picture">
+                    <img src="" alt="Profile Picture">
                 </aside>
                 <ul class="inside_left1_child2">
-                    <li class="name"><?php echo $student['first_name'] . " " . $student['last_name']; ?></li>
-                    <li class="birth"><?php echo date("d M, Y", strtotime($student['date_of_birth'])); ?></li>
+                    <li class="name">erick</li>
+                    <li class="birth">12may/2008</li>
                     <li class="inside">
-                        <div class="program"><?php echo $student['program_id']; ?></div>
+                        <div class="program">wooods</div>
                         <i class="fas fa-book"></i> 
                     </li>
                 </ul>
@@ -96,7 +63,7 @@ if ($student_result->num_rows > 0) {
             <ul class="inside_left3_child1">
                 
                 <li>Self: </li>   <li class="amount1"> <p>50%</p> </li>
-                <li>Loan: </li>   <li class="amount1"> <p>50%</p> </li>
+                <li>Loan: </li>   <li class="amount1"> <p>25%</p> </li>
                 <li>Financial aid: </li>  
                 
                 
@@ -112,11 +79,12 @@ if ($student_result->num_rows > 0) {
 
 
         <div class="inside_left4">
+            
             <span class="tittle"> General <i class="fa-regular fa-bookmark"></i></span>
             <ul class="inside_left4_child1">
-            <li>Email: </li>      <li class="list_back"><?php echo $student['email']; ?></li>
-            <li>Phone: </li>   <li class="list_back"<?php echo $student['phone_number']; ?>> +260976206889</li>
-            <li>student id: </li>      <li class="list_back"><?php echo $student['student_id']; ?></li>            
+            <li>Email: </li>      <li class="list_back">pwoods@gmail.com</li>
+            <li>Phone: </li>   <li class="list_back"> +260976206889</li>
+            <li>student id: </li>      <li class="list_back">4444</li>            
             <li>Day of report: </li>   <li class="list_back"> 12 january 2024</li>
                
                 

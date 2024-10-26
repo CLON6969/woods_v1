@@ -87,7 +87,7 @@ CREATE TABLE `accepted_applications` (
   `status` enum('Pending','Accepted','Rejected') DEFAULT 'Pending',
   `submission_date` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`accepted_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,6 +96,7 @@ CREATE TABLE `accepted_applications` (
 
 LOCK TABLES `accepted_applications` WRITE;
 /*!40000 ALTER TABLE `accepted_applications` DISABLE KEYS */;
+INSERT INTO `accepted_applications` VALUES (6,22,'Erick','Ackim','maliko','erickmaliko69@gmail.com','2024-10-18','12.png','0977961230','0977961230',18,9,16,13,10,6,'733 59th St','733 59th St','Brooklyn','NY','11220',213,3,'12.png','gggggghhhhhhhh',213,'2024-10-10','2024-10-18','Accepted','2024-10-20 17:50:09');
 /*!40000 ALTER TABLE `accepted_applications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +119,7 @@ CREATE TABLE `address` (
   PRIMARY KEY (`address_id`),
   KEY `staff_id` (`staff_id`),
   CONSTRAINT `address_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,6 +128,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
+INSERT INTO `address` VALUES (34,40,'733 59th St','733 59th St','Brooklyn','NY','11220',213);
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,6 +268,34 @@ LOCK TABLES `allprograms` WRITE;
 /*!40000 ALTER TABLE `allprograms` DISABLE KEYS */;
 INSERT INTO `allprograms` VALUES (1,1,1,1,4),(2,1,2,3,4),(3,1,3,4,4),(4,1,4,4,4),(5,1,5,4,4),(7,2,1,1,4),(8,2,2,3,4),(9,2,3,4,4),(10,2,4,4,4),(11,2,5,4,4),(12,3,1,1,4),(13,3,2,3,4),(14,3,3,4,4),(15,3,4,4,4),(16,3,5,4,4),(17,4,1,1,5),(18,4,2,3,5),(19,4,3,4,5),(20,4,4,4,5),(21,4,5,4,5),(22,5,1,1,4),(23,5,2,3,4),(24,5,3,4,4),(25,5,4,4,4),(26,5,5,4,4),(27,6,1,1,2),(28,6,2,3,2),(29,6,3,4,2),(30,6,4,4,2),(31,6,5,4,2),(32,7,1,1,2),(33,7,2,3,2),(34,7,3,4,2),(35,7,4,4,2),(36,7,5,4,2),(37,8,1,1,2),(38,8,2,3,2),(39,8,3,4,2),(40,8,4,4,2),(41,8,5,4,2),(42,9,1,1,2),(43,9,2,3,2),(44,9,3,4,2),(45,9,4,4,2),(46,9,5,4,2),(47,10,1,1,2),(48,10,2,3,2),(49,10,3,4,2),(50,10,4,4,2),(51,10,5,4,2);
 /*!40000 ALTER TABLE `allprograms` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `assignments`
+--
+
+DROP TABLE IF EXISTS `assignments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `assignments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `subject` varchar(50) DEFAULT NULL,
+  `assignment_number` int(11) DEFAULT NULL,
+  `term` int(11) DEFAULT NULL,
+  `status` enum('submitted','not submitted','overdue') DEFAULT NULL,
+  `graded` enum('graded','not graded') DEFAULT NULL,
+  `due_date` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `assignments`
+--
+
+LOCK TABLES `assignments` WRITE;
+/*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -518,7 +548,7 @@ CREATE TABLE `employment` (
   PRIMARY KEY (`employment_id`),
   KEY `staff_id` (`staff_id`),
   CONSTRAINT `employment_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -527,6 +557,7 @@ CREATE TABLE `employment` (
 
 LOCK TABLES `employment` WRITE;
 /*!40000 ALTER TABLE `employment` DISABLE KEYS */;
+INSERT INTO `employment` VALUES (34,40,13,10,6);
 /*!40000 ALTER TABLE `employment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1049,7 +1080,7 @@ CREATE TABLE `qualification` (
   PRIMARY KEY (`qualification_id`),
   KEY `staff_id` (`staff_id`),
   CONSTRAINT `qualification_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1058,6 +1089,7 @@ CREATE TABLE `qualification` (
 
 LOCK TABLES `qualification` WRITE;
 /*!40000 ALTER TABLE `qualification` DISABLE KEYS */;
+INSERT INTO `qualification` VALUES (34,40,3,'12.png','gggggghhhhhhhh',213,'2024-10-10','2024-10-18');
 /*!40000 ALTER TABLE `qualification` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1180,7 +1212,7 @@ CREATE TABLE `staff` (
   `religion_id` int(11) NOT NULL,
   PRIMARY KEY (`staff_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1189,6 +1221,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
+INSERT INTO `staff` VALUES (40,'Erick','Ackim','maliko','erickmaliko69@gmail.com','2024-10-18','12.png','0977961230','0977961230',18,9,16);
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1230,7 +1263,7 @@ CREATE TABLE `staff_application` (
   `status` enum('Pending','Accepted','Rejected') DEFAULT 'Pending',
   `submission_date` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`application_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1254,14 +1287,14 @@ CREATE TABLE `staff_login` (
   `staff_id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `password_changed` timestamp NOT NULL DEFAULT current_timestamp(),
+  `password_changed` tinyint(4) DEFAULT 0,
   `reset_token` varchar(255) DEFAULT NULL,
   `reset_token_expiry` datetime DEFAULT NULL,
   PRIMARY KEY (`login_id`),
   UNIQUE KEY `username` (`username`),
   KEY `staff_id` (`staff_id`),
   CONSTRAINT `staff_login_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1270,6 +1303,7 @@ CREATE TABLE `staff_login` (
 
 LOCK TABLES `staff_login` WRITE;
 /*!40000 ALTER TABLE `staff_login` DISABLE KEYS */;
+INSERT INTO `staff_login` VALUES (26,40,'erickmaliko69@gmail.com','$2y$10$bqrwYlrAEUskN/vrAkQnRuu6HBTjmt9hJDX19kf3cJ9OvjhP.7z4e',0,'da678e307d45d3bd01afb2713c6a51ae1764b16c55ee0ab13995bd859953e0b5e3f8dc5ba2909d8cd6342d205a5af031f044','2024-10-20 21:25:16');
 /*!40000 ALTER TABLE `staff_login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1526,4 +1560,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-20 16:22:23
+-- Dump completed on 2024-10-25  6:00:03

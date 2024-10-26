@@ -1,0 +1,375 @@
+
+:root {
+    --primary-dark:#010d15;
+    --primary-accent: #09c561;
+    --neutral: #60676c;
+    --background: #052339;
+    --text-light: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: #2e2e2e;
+}
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container for the Editing Section */
+.edditing_part {
+    width: 100%;
+    max-width: 1350px;
+    height: fit-content;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.right .box1{
+    width: 100%;
+    height: fit-content;
+    margin: 15px;
+    background-color: #020118;
+text-align: center;
+color: #ffffff;
+
+
+/* this is what is inside  the right box1 */
+h1{
+width: fit-content;
+padding: 0 10% 0 10%;
+background-color: #4d4d4db9;
+border-radius: 5px;
+
+margin: auto;
+}
+
+ul{
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+   justify-content: center;
+
+   /* this is what is inside  the ul */
+   
+    li{
+        width: fit-content;
+        margin: auto;
+        margin: 1% 1% 0 0;
+        padding: 1.5%;
+        color: #ffffff;
+        background-color: #052339;
+        text-align: center;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        font-size: 14px; /* Font size for days */
+    }
+    
+    li:hover {
+        background-color: #595959;
+        border:1px solid #02a834;
+    }
+}
+
+
+}
+
+
+
+
+/* General Section Styling */
+.edditing_section{
+    background-color: var(--background);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+
+.assignment_box{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.assignment_box1{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 65%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--background);
+
+}
+
+.assignment_box_bar{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.assignment_box1_child1{
+    width: 100%;
+    text-align: center;
+
+}
+
+.titles{
+  justify-content: space-between;
+    background-color: #59597600;
+    color: #b0b0b0; 
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    overflow-wrap: inherit;
+}
+
+.assignment_name {
+  width:19% ;
+    padding: 10px;
+    text-align: center;
+    align-content: center;
+    
+}
+
+.assignment_check{
+    width:5% ;
+    text-align: center;
+    align-content: center;
+    font-size: 20px;
+    color: var(--primary-accent);
+    
+   
+}
+
+.assignment_file{
+    width:16% ;
+    text-align: center;
+    align-content: center;
+    
+}
+
+.fa-download{
+    color: var(--primary-dark);
+}
+
+button {
+    background-color: var(--primary-accent);
+    border-radius: 10px;
+    color: white;
+    padding: 2px 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: rgb(31, 74, 48);
+}
+
+ .assignment_conf {
+    width:18% ;
+    color: var(--primary-accent);
+    
+    text-align: center;
+    align-content: center;
+    
+}
+
+.opening {
+    width:16% ;
+    color: var(--neutral);
+    
+    text-align: center;
+    align-content: center;
+    
+}
+
+.closing {
+    width:16% ;
+    color: var(--neutral);
+    
+    text-align: center;
+    align-content: center;
+    
+}
+
+.pending {
+    color: var(--text-light);
+}
+
+
+.fa-xmark{
+color: red;
+}
+.assignment_con {
+    color: red;
+    
+    text-align: center;
+    align-content: center;
+}
+
+
+
+
+
+.assignment_box2{
+    background-color: var(--background);
+    color: #b0b0b0; 
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.451);
+    width: 28%;
+    margin-right: 15px;
+    height: fit-content;
+}
+
+.top_submitted{
+width: 70%;
+display: flex;
+flex-direction: row;
+margin: auto;
+margin-bottom: 20px;
+margin-top: 10px;
+padding: 5px;
+justify-content: space-between;
+background-color: #59597600;
+color: #b0b0b0; 
+border-radius: 5px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.451);
+}
+
+.assignment_box2 .assignment_file{
+    width:50% ;
+    text-align: center;
+    align-content: center;
+    
+}
+
+
+/* Buttons */
+button.btntxt,
+button.btntxt3 {
+    background-color: var(--primary-accent);
+    color: var(--primary-dark);
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.btntxt:hover,
+button.btntxt3:hover {
+    color: #ffffff;
+    background-color: #07a14d; /* Slightly darker shade */
+    border: 1px solid #ffffff;
+    transform: translateY(-2px);
+}
+
+button.btntxt:active,
+button.btntxt3:active {
+    transform: translateY(0);
+}
+/* Container for Buttons */
+.container {
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+
+
+.file-upload-card {
+    width: 80%; /* Width of the card */
+    padding: 4vw; /* Padding inside the card */
+    border-radius: 5px; /* Rounded corners */
+    margin: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    background-color: white; /* Card background */
+    text-align: center; /* Center text */
+}
+
+.file-upload-label {
+    display: inline-block;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: var( --background);
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.file-upload-label:hover {
+    background-color:#010d15; /* Change background on hover */
+}
+
+.file-upload-label i {
+    margin-right: 5px; /* Space between icon and text */
+}
+
+/* Input Fields */
+.input_field {
+    display: flex;
+    flex-direction: column;
+}
+
+
+input[type="file"] {
+    display: none; /* Hide the actual file input */
+}
+
+
+
+
+/* this is for the updating  progress bar */
+#progress-bar-container {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+#progress-bar {
+    height: 5px;
+    width: 0%;
+    background-color: var(--primary-accent);
+    transition: width 0.5s;
+}
+
+
+.alert-success {
+    color: var(--text-light);
+    background-color: var(--primary-accent);
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.new-assignment-indicator {
+    color: red;
+    font-weight: bold;
+    margin-left: 10px;
+}

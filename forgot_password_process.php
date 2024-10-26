@@ -60,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $mail->send();
             echo "A password reset link has been sent to your email.";
+            echo "Click the following link to login: <a href='student_loginpage.php'>Login</a>";
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }

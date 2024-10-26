@@ -18,7 +18,7 @@
 
 <div class="login_box">
     <div class="form_box">
-        <form action="student_login_connection.php" method="post" class="needs-validation">
+        <form action="staff_login_connection.php" method="post" class="needs-validation">
             <h1 id="title">Login</h1>
 
             <div class="input_filed">

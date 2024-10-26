@@ -105,6 +105,23 @@ if ($result->num_rows > 0) {
     echo "No records found.";
 }
 
+
+
+// Fetch data from the copyright table
+$query_copyright = "SELECT * FROM copyright LIMIT 1"; // Adjust the LIMIT or WHERE clause as needed
+$result = $conn->query($query_copyright);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+
+    $copyright_year= $row['copyright_year'];
+
+} else {
+    // Default values if no data is found
+    $copyright_year = "Default copyright year";
+
+}
+
 ?>
 
 
@@ -491,7 +508,7 @@ if ($result->num_rows > 0) {
 
 </section>
 <footer>
-    <p>&#9400 2024|Educenter|WOODS University </p>
+<p>&#9400 <?php echo $copyright_year; ?>|Educenter|WOODS University </p>
 </footer>
 
 

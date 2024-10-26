@@ -393,4 +393,48 @@ $record_cumpus_housing_lists = populate_form($conn, 'cumpus_housing_lists', 'cum
 
 
 
+implement the design i described belo, I would suggest breaking it down into a few key elements:
+
+Notification System (Blue Dot)
+
+This dot appears on a course header whenever a new assignment is uploaded.
+Clicking the course will display the assignment upload/download interface.
+Assignment Upload/Download Interface
+
+This section will contain options for submitting or downloading assignments.
+If the assignment is still open, there will be an option to upload the submission.
+Once the assignment is closed or submitted, the upload option is disabled, and only the download of the submitted file is available.
+Assignment Status:
+
+Each assignment has a submission status: "Submitted," "Overdue," or "Graded."
+If overdue, the upload option would be locked.
+Now, here’s an outline of how the UI could work in code (pseudo-code):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
