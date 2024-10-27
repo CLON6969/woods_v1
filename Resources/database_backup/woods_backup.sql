@@ -278,15 +278,15 @@ DROP TABLE IF EXISTS `assignments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `assignments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `subject` varchar(50) DEFAULT NULL,
-  `assignment_number` int(11) DEFAULT NULL,
-  `term` int(11) DEFAULT NULL,
-  `status` enum('submitted','not submitted','overdue') DEFAULT NULL,
-  `graded` enum('graded','not graded') DEFAULT NULL,
-  `due_date` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `assignment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `assignment_name` varchar(255) NOT NULL,
+  `file_path` varchar(255) DEFAULT NULL,
+  `course_code` varchar(50) NOT NULL,
+  `open_date` datetime NOT NULL,
+  `close_date` datetime NOT NULL,
+  `upload_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`assignment_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,6 +295,7 @@ CREATE TABLE `assignments` (
 
 LOCK TABLES `assignments` WRITE;
 /*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
+INSERT INTO `assignments` VALUES (1,'assigment1','	\r\nResources/wall papers/224.jpg','CHE101','2024-10-27 16:19:25','2024-10-28 16:19:25','2024-10-27 16:19:25');
 /*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1328,7 +1329,7 @@ CREATE TABLE `student_address_table` (
   KEY `fk_nationality` (`nationality`),
   CONSTRAINT `fk_nationality` FOREIGN KEY (`nationality`) REFERENCES `nationality` (`nationality_id`),
   CONSTRAINT `student_address_table_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1337,7 +1338,7 @@ CREATE TABLE `student_address_table` (
 
 LOCK TABLES `student_address_table` WRITE;
 /*!40000 ALTER TABLE `student_address_table` DISABLE KEYS */;
-INSERT INTO `student_address_table` VALUES (3,9,'MONGU',3,'88888','0000','51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE'),(4,12,'Brooklyn',2,'88888','11220','733 59th St','733 59th St'),(5,13,'MONGU',224,'88888','11220','51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE');
+INSERT INTO `student_address_table` VALUES (6,15,'Brooklyn',3,'88888','11220','733 59th St','733 59th St');
 /*!40000 ALTER TABLE `student_address_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1379,7 +1380,7 @@ CREATE TABLE `student_application` (
   `application_status` varchar(20) DEFAULT 'Pending',
   PRIMARY KEY (`application_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1428,7 +1429,7 @@ CREATE TABLE `student_details_table` (
   CONSTRAINT `fk_marital_status` FOREIGN KEY (`marital_status`) REFERENCES `maritalstatus` (`status_id`),
   CONSTRAINT `fk_religion` FOREIGN KEY (`religion`) REFERENCES `religion` (`religion_id`),
   CONSTRAINT `student_details_table_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1437,7 +1438,7 @@ CREATE TABLE `student_details_table` (
 
 LOCK TABLES `student_details_table` WRITE;
 /*!40000 ALTER TABLE `student_details_table` DISABLE KEYS */;
-INSERT INTO `student_details_table` VALUES (9,'Erick','','maliko','erickmalnniko69@gmail.com','2024-10-21','12.png','55555555555555','0960421574',19,10,15,18,3,1),(12,'Erick','Ackim','maliko','erickmaliko69@gmail.com','2024-10-11','13.jpg','0977961230','0977961230',17,9,16,17,4,2),(13,'gideo','','namulimukwa','gideonamulimukwa1@gmail.com','2024-10-16','12.png','0977961230','0960421574',2,3,12,6,4,1);
+INSERT INTO `student_details_table` VALUES (15,'Erick','Ackim','maliko','erickmaliko69@gmail.com','2024-10-17','WhatsApp Image 2024-10-18 at 10.36.08_a5825da5.jpg','0977961230','0960421574',18,9,17,10,2,1);
 /*!40000 ALTER TABLE `student_details_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1460,7 +1461,7 @@ CREATE TABLE `student_education_table` (
   PRIMARY KEY (`education_id`),
   KEY `student_id` (`student_id`),
   CONSTRAINT `student_education_table_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1469,7 +1470,7 @@ CREATE TABLE `student_education_table` (
 
 LOCK TABLES `student_education_table` WRITE;
 /*!40000 ALTER TABLE `student_education_table` DISABLE KEYS */;
-INSERT INTO `student_education_table` VALUES (3,9,'Mulamatiwa Basic School','1','2024-10-17','2024-10-13','51610 LITOMA ROAD COLD','16.jpg'),(4,12,'Mulamatiwa Basic School','2','2024-10-11','2024-10-18','51610 LITOMA ROAD COLD','22.jpg'),(5,13,'MONGU TRADES SECONDARY SCHOOL','9','2024-10-15','2024-10-15','733 59th St','89.jpg');
+INSERT INTO `student_education_table` VALUES (6,15,'MONGU TRADES SECONDARY SCHOOL','8','2024-10-13','2024-10-23','51610 LITOMA ROAD COLD','WhatsApp Image 2024-10-18 at 10.38.21_594c7f49.jpg');
 /*!40000 ALTER TABLE `student_education_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1491,7 +1492,7 @@ CREATE TABLE `student_login` (
   PRIMARY KEY (`login_id`),
   KEY `student_id` (`student_id`),
   CONSTRAINT `student_login_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1500,7 +1501,37 @@ CREATE TABLE `student_login` (
 
 LOCK TABLES `student_login` WRITE;
 /*!40000 ALTER TABLE `student_login` DISABLE KEYS */;
+INSERT INTO `student_login` VALUES (6,15,'erickmaliko69@gmail.com','$2y$10$sD5HImaFD4TJJQ1qaa6GOeLI8KnBjgl6alJn9NOMlieAWyfCCikNi',1,NULL,NULL);
 /*!40000 ALTER TABLE `student_login` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `submissions`
+--
+
+DROP TABLE IF EXISTS `submissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `submissions` (
+  `submission_id` int(11) NOT NULL AUTO_INCREMENT,
+  `assignment_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `file_path` varchar(255) NOT NULL,
+  `upload_date` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`submission_id`),
+  KEY `assignment_id` (`assignment_id`),
+  CONSTRAINT `submissions_ibfk_1` FOREIGN KEY (`assignment_id`) REFERENCES `assignments` (`assignment_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `submissions`
+--
+
+LOCK TABLES `submissions` WRITE;
+/*!40000 ALTER TABLE `submissions` DISABLE KEYS */;
+INSERT INTO `submissions` VALUES (1,1,15,'uploads/WhatsApp Image 2024-10-15 at 09.17.10_87dd03ba.jpg','2024-10-27 17:20:57');
+/*!40000 ALTER TABLE `submissions` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1560,4 +1591,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-25  6:00:03
+-- Dump completed on 2024-10-27 17:27:44

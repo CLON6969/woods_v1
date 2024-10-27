@@ -373,3 +373,9 @@ input[type="file"] {
     font-weight: bold;
     margin-left: 10px;
 }
+
+.disabled-btn {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}

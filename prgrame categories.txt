@@ -402,11 +402,10 @@ Clicking the course will display the assignment upload/download interface.
 Assignment Upload/Download Interface
 
 This section will contain options for submitting or downloading assignments.
-If the assignment is still open, there will be an option to upload the submission.
-Once the assignment is closed or submitted, the upload option is disabled, and only the download of the submitted file is available.
+If the assignment is still open, there will be an option to upload the submission and download the submitted assigment.
+Once the assignment is closed  the upload option is disabled, and only the download of the submitted file is available(if the assigment was uploaded before the closing date).
 Assignment Status:
-
-Each assignment has a submission status: "Submitted," "Overdue," or "Graded."
+assignment status: "Submitted," "Overdue," or "pen"
 If overdue, the upload option would be locked.
 Now, here’s an outline of how the UI could work in code (pseudo-code):
 
@@ -418,8 +417,15 @@ Now, here’s an outline of how the UI could work in code (pseudo-code):
 
 
 
+assignments{assignment_id
+assignment_name
+file_path
+course_code
+open_date
+close_date
+upload_date}
 
-
+	submissions{submission_id	assignment_id	student_id	file_path	upload_date}
 
 
 
