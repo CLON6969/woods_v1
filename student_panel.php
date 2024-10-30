@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    
     <!--styles links-->
-    <link rel="stylesheet" href="Resources/student_panel.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="Resources/assigment_page.css?v=<?php echo time(); ?>">
    
     <!--fontawesome links-->
     <link rel="stylesheet" href="Resources/fontawesome/css/solid.css">
@@ -31,7 +31,7 @@
 
                 <li onclick="loadPage('allprograms.php')"><i class="fas fa-layer-group"></i> <span class="nav-text">Courses</span></li>  
 
-                <li onclick="loadPage('allprograms.php')"><i class="fas fa-edit"></i> <span class="nav-text">Assignments</span></li>
+                <li onclick="loadPage('courses_board.php')"><i class="fas fa-edit"></i> <span class="nav-text">Assignments</span></li>
 
                 <li onclick="loadPage('allprograms.php')"><i class="fas fa-book-open"></i> <span class="nav-text">CA</span></li>
 

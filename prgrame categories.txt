@@ -436,7 +436,25 @@ upload_date}
 
 
 
+ 
 
+                    
+                            <div class="down_submitted">
+                                <form action="submit_assignment.php" method="post" enctype="multipart/form-data">
+                                    <div class="file-upload-card input_field">
+                                        <label for="fileInput" class="file-upload-label">
+                                            <i class="fa fa-upload"></i> 
+                                            <span id="fileName">No file chosen</span>
+                                        </label>
+                                        <input type="file" name="fileInput" id="fileInput" accept="image/*" <?php echo !$is_open ? 'disabled' : ''; ?>>
+                                    </div>
+                    
+                                    <div class="container">
+                                        <input type="hidden" name="assignment_id" value="<?php echo $assignment['assignment_id']; ?>">
+                                        <button class="btntxt" type="submit" name="assignment" <?php echo !$is_open ? 'disabled' : ''; ?>>Submit</button>
+                                    </div>
+                                </form>
+                            </div>
 
 
 
