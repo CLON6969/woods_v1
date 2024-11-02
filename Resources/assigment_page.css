@@ -447,17 +447,6 @@ input[type="file"] {
     margin: 10px 0;
 }
 
-.new-assignment-indicator {
-    color: red;
-    font-weight: bold;
-    margin-left: 10px;
-}
-
-.disabled-btn {
-    background-color: #ccc;
-    color: #666;
-    cursor: not-allowed;
-}
 
 
 .closing{

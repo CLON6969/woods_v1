@@ -286,7 +286,7 @@ CREATE TABLE `assignments` (
   `close_date` datetime NOT NULL,
   `upload_date` datetime DEFAULT NULL,
   PRIMARY KEY (`assignment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,7 +295,7 @@ CREATE TABLE `assignments` (
 
 LOCK TABLES `assignments` WRITE;
 /*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
-INSERT INTO `assignments` VALUES (1,'assigment1','	\r\nResources/wall papers/224.jpg','CHE101','2024-10-27 16:19:25','2024-10-28 16:19:25','2024-10-27 16:19:25');
+INSERT INTO `assignments` VALUES (1,'assigment1','	\r\nResources/wall papers/224.jpg','CHE101','2024-10-27 16:19:25','2024-10-31 16:19:25','2024-10-27 16:19:25'),(2,'assigment1\r\n','Resources/wall papers/224.jpg','CHE101','2024-10-28 16:05:28','2024-10-28 17:08:28','2024-10-28 17:05:28'),(3,'\r\nassigment3\r\n\r\n','Resources/wall papers/224.jpg','CHE101','2024-10-30 11:27:50','2024-11-05 12:27:50','2024-10-30 12:27:51');
 /*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -935,6 +935,66 @@ INSERT INTO `nationality` VALUES (1,'Afghanistan'),(2,'Albania'),(3,'Algeria'),(
 UNLOCK TABLES;
 
 --
+-- Table structure for table `payments`
+--
+
+DROP TABLE IF EXISTS `payments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `payments` (
+  `payment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `student_id` int(11) NOT NULL,
+  `program_id` int(11) NOT NULL,
+  `payment_source` enum('Government','Loan','Student','Sponsor','Other') NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `payment_date` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`payment_id`),
+  KEY `student_id` (`student_id`),
+  KEY `program_id` (`program_id`),
+  CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`),
+  CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payments`
+--
+
+LOCK TABLES `payments` WRITE;
+/*!40000 ALTER TABLE `payments` DISABLE KEYS */;
+INSERT INTO `payments` VALUES (1,15,1,'Government',3000.00,'2024-11-01 16:40:26'),(2,15,1,'Loan',10000.00,'2024-11-01 16:41:48');
+/*!40000 ALTER TABLE `payments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `program_price`
+--
+
+DROP TABLE IF EXISTS `program_price`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `program_price` (
+  `program_id` int(11) NOT NULL,
+  `certification_id` int(11) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`program_id`,`certification_id`),
+  KEY `certification_id` (`certification_id`),
+  CONSTRAINT `program_price_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`) ON DELETE CASCADE,
+  CONSTRAINT `program_price_ibfk_2` FOREIGN KEY (`certification_id`) REFERENCES `certifications` (`certification_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `program_price`
+--
+
+LOCK TABLES `program_price` WRITE;
+/*!40000 ALTER TABLE `program_price` DISABLE KEYS */;
+INSERT INTO `program_price` VALUES (1,1,24400.00);
+/*!40000 ALTER TABLE `program_price` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `program_registration`
 --
 
@@ -1438,7 +1498,7 @@ CREATE TABLE `student_details_table` (
 
 LOCK TABLES `student_details_table` WRITE;
 /*!40000 ALTER TABLE `student_details_table` DISABLE KEYS */;
-INSERT INTO `student_details_table` VALUES (15,'Erick','Ackim','maliko','erickmaliko69@gmail.com','2024-10-17','WhatsApp Image 2024-10-18 at 10.36.08_a5825da5.jpg','0977961230','0960421574',18,9,17,10,2,1);
+INSERT INTO `student_details_table` VALUES (15,'Erick','Ackim','maliko','erickmaliko69@gmail.com','2024-10-17','WhatsApp Image 2024-10-18 at 10.36.08_a5825da5.jpg','0977961230','0960421574',18,9,17,1,1,1);
 /*!40000 ALTER TABLE `student_details_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1521,7 +1581,7 @@ CREATE TABLE `submissions` (
   PRIMARY KEY (`submission_id`),
   KEY `assignment_id` (`assignment_id`),
   CONSTRAINT `submissions_ibfk_1` FOREIGN KEY (`assignment_id`) REFERENCES `assignments` (`assignment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1530,7 +1590,7 @@ CREATE TABLE `submissions` (
 
 LOCK TABLES `submissions` WRITE;
 /*!40000 ALTER TABLE `submissions` DISABLE KEYS */;
-INSERT INTO `submissions` VALUES (1,1,15,'uploads/WhatsApp Image 2024-10-15 at 09.17.10_87dd03ba.jpg','2024-10-27 17:20:57');
+INSERT INTO `submissions` VALUES (1,1,15,'uploads/WhatsApp Image 2024-10-15 at 09.17.10_87dd03ba.jpg','2024-10-27 17:20:57'),(2,1,15,'uploads/6.jpg','2024-10-29 12:18:26'),(3,2,15,'uploads/8.jpg','2024-10-30 12:18:18'),(4,1,15,'uploads/8.jpg','2024-10-31 09:52:36');
 /*!40000 ALTER TABLE `submissions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1591,4 +1651,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-28  6:00:04
+-- Dump completed on 2024-11-02 20:38:06

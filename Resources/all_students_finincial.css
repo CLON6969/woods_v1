@@ -1,0 +1,118 @@
+:root {
+    --primary-dark: #010d15;
+    --primary-accent: #09c561;
+    --neutral: #60676c;
+    --background: #1a1a1a;
+    --text-light: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: #2e2e2e;
+    --danger: #aa0505;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background);
+    color: var(--text-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: var(--primary-accent);
+    margin-bottom: 15px;
+}
+
+.search-card {
+    background: var(--primary-dark);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+    color: var(--text-light);
+}
+
+.results-card {
+    background: var(--primary-dark);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 98%;
+    margin-bottom: 20px;
+    color: var(--text-light);
+}
+
+.result-card {
+    background: var(--primary-dark);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 20px;
+    color: var(--text-light);
+}
+
+.progress-container {
+    margin-top: 20px;
+}
+
+.payment-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.payment-source {
+    margin-right: 5px;
+}
+
+.payment-percentage {
+    margin-left: 5px;
+}
+
+.progress-bar {
+    background-color: var(--neutral);
+    border-radius: 4px;
+    height: 10px;
+    width: 100%;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.progress {
+    background-color: var(--primary-accent);
+    height: 100%;
+    transition: width 0.5s;
+}
+
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+input[type="text"], select {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 10px;
+    flex: 1;
+}
+
+button {
+    background-color: var(--primary-accent);
+    color: var(--text-light);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0bba59;
+}

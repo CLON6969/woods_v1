@@ -58,7 +58,8 @@ $courses_result = $courses_query->get_result();
         <ul>
             <?php if ($courses_result->num_rows > 0): ?>
                 <?php while ($course = $courses_result->fetch_assoc()): ?>
-                    <a class="listcourses" href="?course_code=<?php echo htmlspecialchars($course['course_code']); ?>">
+                    <a class="listcourses" <?php echo (isset($_GET['course_code']) && $_GET['course_code'] == $course['course_code']) ? 'selected' : ''; ?>" 
+                       href="?course_code=<?php echo htmlspecialchars($course['course_code']); ?>">
                         <?php echo htmlspecialchars($course['course_name']); ?>
                     </a>
                 <?php endwhile; ?>
@@ -98,7 +99,8 @@ $courses_result = $courses_query->get_result();
                         <ul>
                             <?php while ($assignment = $assignments_result->fetch_assoc()): ?>
                                 <li>
-                                    <a class="listcourses" href="?course_code=<?php echo htmlspecialchars($course_code); ?>&assignment_id=<?php echo htmlspecialchars($assignment['assignment_id']); ?>">
+                                    <a class="listcourses <?php echo (isset($_GET['assignment_id']) && $_GET['assignment_id'] == $assignment['assignment_id']) ? 'selected' : ''; ?>" 
+                                       href="?course_code=<?php echo htmlspecialchars($course_code); ?>&assignment_id=<?php echo htmlspecialchars($assignment['assignment_id']); ?>">
                                         <?php echo htmlspecialchars($assignment['assignment_name']); ?>
                                         <p>Opening: <?php echo htmlspecialchars($assignment['open_date']); ?></p>
                                         <p class="closing">Closing: <?php echo htmlspecialchars($assignment['close_date']); ?></p>
@@ -119,6 +121,9 @@ $courses_result = $courses_query->get_result();
             <div class="assignment_box2">
                 <div class="assignment_box2_child1">
                     <?php
+                    // Get current date
+                    $current_date = date("Y-m-d");
+
                     // Check if assignment_id is set in URL to fetch specific assignment details
                     if (isset($_GET['assignment_id'])) {
                         $assignment_id = $_GET['assignment_id'];
@@ -139,7 +144,7 @@ $courses_result = $courses_query->get_result();
                             // Check if the student has already submitted the assignment
                             $submission_check_query = $conn->prepare("
                                 SELECT file_path 
-                                FROM  submissions
+                                FROM submissions
                                 WHERE student_id = ? AND assignment_id = ?
                             ");
 
@@ -165,25 +170,31 @@ $courses_result = $courses_query->get_result();
                                 </div>
                             <?php
                             endif;
+
+                            // Check if the current date is before the close date
+                            if ($current_date <= $assignment_detail['close_date']):
                             ?>
+                                <!-- Submission Form (only shown if current date is before close date) -->
+                                <div class="down_submitted">
+                                    <form action="submit_assignment.php" method="post" enctype="multipart/form-data">
+                                        <div class="file-upload-card input_field">
+                                            <label for="fileInput" class="file-upload-label">
+                                                <i class="fa fa-upload"></i> 
+                                                <span id="fileName">No file chosen</span>
+                                            </label>
+                                            <input type="file" name="fileInput" id="fileInput" accept="image/*">
+                                        </div>
 
-                            <!-- Submission Form -->
-                            <div class="down_submitted">
-                                <form action="submit_assignment.php" method="post" enctype="multipart/form-data">
-                                    <div class="file-upload-card input_field">
-                                        <label for="fileInput" class="file-upload-label">
-                                            <i class="fa fa-upload"></i> 
-                                            <span id="fileName">No file chosen</span>
-                                        </label>
-                                        <input type="file" name="fileInput" id="fileInput" accept="image/*">
-                                    </div>
+                                        <div class="container">
+                                            <input type="hidden" name="assignment_id" value="<?php echo $assignment_id; ?>">
+                                            <button class="btntxt" type="submit" name="assignment">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            <?php else: ?>
+                                <p>The submission deadline has passed for this assignment.</p>
+                            <?php endif; ?>
 
-                                    <div class="container">
-                                        <input type="hidden" name="assignment_id" value="<?php echo $assignment_id; ?>">
-                                        <button class="btntxt" type="submit" name="assignment">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
                         <?php else: ?>
                             <p>Assignment not found.</p>
                         <?php endif;
@@ -203,44 +214,7 @@ $courses_result = $courses_query->get_result();
 </div>
 
 </body>
-<script src="javascripts/fees_and_finicial_admin.js"></script>
 <script src="javascripts/assigments.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Part 1: Assignment Boxes - Check if assignments are open or closed
-    const assignmentBoxes = document.querySelectorAll('.assignment_box2_child1');
-
-    assignmentBoxes.forEach(box => {
-        const fileInput = box.querySelector('input[type="file"]');
-        const submitBtn = box.querySelector('button[type="submit"]');
-
-        // Disable upload options if the assignment is closed
-        if (fileInput && submitBtn && fileInput.disabled) {
-            submitBtn.disabled = true;
-            submitBtn.classList.add('disabled-btn');
-        }
-    });
-
-    // Part 2: Active Course Selection - Highlight selected course
-    const links = document.querySelectorAll('.listcourses');
-    const selectedCourse = localStorage.getItem('selectedCourse');
-
-    if (selectedCourse) {
-        const selectedLink = document.querySelector(`.listcourses[href='${selectedCourse}']`);
-        if (selectedLink) {
-            selectedLink.classList.add('selected');
-        }
-    }
-
-    links.forEach(link => {
-        link.addEventListener('click', function() {
-            links.forEach(link => link.classList.remove('selected'));
-            this.classList.add('selected');
-            localStorage.setItem('selectedCourse', this.getAttribute('href'));
-        });
-    });
-});
-</script>
 </html>
 
 <?php
