@@ -3,6 +3,7 @@
     --primary-accent: #09c561;
     --neutral: #60676c;
     --background: #1a1a1a;
+    --background2: #052339;
     --text-light: #ffffff;
     --text-secondary: #b0b0b0;
     --border-color: #2e2e2e;
@@ -11,7 +12,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--background);
+    background-color: var(--text-light);
     color: var(--text-light);
     display: flex;
     justify-content: center;
@@ -38,7 +39,7 @@ h1, h2 {
 }
 
 .results-card {
-    background: var(--primary-dark);
+    background:#010d1572;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -48,47 +49,47 @@ h1, h2 {
 }
 
 .result-card {
-    background: var(--primary-dark);
+    background: var(--background2);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.808);
     width: 100%;
-    max-width: 300px;
+    max-width: 365px;
     margin-bottom: 20px;
     color: var(--text-light);
+}
+.payment-info {
+    margin-bottom: 10px;
+}
+
+.payment-source {
+    font-weight: bold;
+}
+
+.payment-amount {
+    margin-left: 10px;
+    color: var(--primary-accent);
 }
 
 .progress-container {
     margin-top: 20px;
 }
 
-.payment-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.payment-source {
-    margin-right: 5px;
-}
-
-.payment-percentage {
-    margin-left: 5px;
+.progress-bar-container {
+    background-color: var(--neutral);
+    border-radius: 5px;
+    height: 10px;
+    margin-top: 5px;
 }
 
 .progress-bar {
-    background-color: var(--neutral);
-    border-radius: 4px;
-    height: 10px;
-    width: 100%;
-    margin-top: 5px;
-    overflow: hidden;
-}
-
-.progress {
     background-color: var(--primary-accent);
     height: 100%;
-    transition: width 0.5s;
+    border-radius: 5px;
+}
+
+.balance-red {
+    color: red; /* Add this line to make balance red */
 }
 
 .filter-container {
@@ -98,7 +99,7 @@ h1, h2 {
 
 input[type="text"], select {
     padding: 10px;
-    border: none;
+    border: var(--primary-accent);
     border-radius: 4px;
     margin-right: 10px;
     flex: 1;

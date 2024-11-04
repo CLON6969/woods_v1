@@ -1,0 +1,63 @@
+
+
+body {
+    background-color: #1b1b2f;
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+h2 {
+    color: #e0e0e0;
+    margin-bottom: 20px;
+}
+.chart-container {
+    width: 45%;
+    margin: 20px 0;
+}
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+}
+.chart-title {
+    font-size: 18px;
+    color: #c8c8ff;
+    margin-bottom: 10px;
+}
+.print-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.print-btn:hover {
+    background-color: #45a049;
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background-color: white;
+        color: black;
+    }
+    .print-btn {
+        display: none;
+    }
+    .chart-container {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+
+/* Additional style for the pie chart container */
+#paymentTypeChartContainer {
+width: 40%; /* Adjust this percentage to your desired size */
+}

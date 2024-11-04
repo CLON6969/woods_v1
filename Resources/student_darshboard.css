@@ -42,16 +42,23 @@ border-right: 2px solid #2e2e2e
     flex-direction: row;
 }
 
-
-.section1 .top .left .inside_left1_child1{
-    width: 30%;
-    height: 86%;
+.inside_left1_child1 {
+    width: 30%; /* Adjust as needed */
+    height: 86%; /* Adjust as needed */
     margin: 2% 0 0 4%;
-    border-radius: 10%;
-    background-color: #d0cfe0;
-    align-content: center;
-    text-align: center; 
-    }
+    border-radius: 50%; /* Makes the container circular */
+    overflow: hidden; /* Ensures content does not overflow */
+    display: flex; /* Centering the image */
+    justify-content: center; /* Centering the image */
+    align-items: center; /* Centering the image */
+    background-color: #d0cfe0; /* Background color for visibility */
+}
+
+.profile-picture {
+    width: 100%; /* Fill the container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Crop the image to fit the container */
+}
 
 .section1 .top .left .inside_left1_child1 i{
 font-size: 60px;

@@ -64,6 +64,9 @@
                 <li onclick="loadPage('cumpus_&_housing_admin.php')" class="logout"><i class="fa-solid fa-person-shelter"></i> <span class="nav-text">cumpus & housing</span></li>
 
                 <li onclick="loadPage('footer_admin.php')"><i class="fas fa-edit"></i> <span class="nav-text">footer</span></li>
+                <li onclick="loadPage('all_students_finincial.php')"><i class="fas fa-edit"></i> <span class="nav-text">Students payment info </span></li>
+                <li onclick="loadPage('payment_analysis.php')"><i class="fas fa-edit"></i> <span class="nav-text">payment anlysis</span></li>
+
             </ul>
         </div>
 

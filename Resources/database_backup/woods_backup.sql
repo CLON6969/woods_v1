@@ -324,6 +324,38 @@ INSERT INTO `certifications` VALUES (1,'Certificate'),(2,'Diploma'),(3,'Degree')
 UNLOCK TABLES;
 
 --
+-- Table structure for table `continuous_assessments`
+--
+
+DROP TABLE IF EXISTS `continuous_assessments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `continuous_assessments` (
+  `ca_id` int(11) NOT NULL AUTO_INCREMENT,
+  `student_id` int(11) NOT NULL,
+  `course_code` varchar(10) NOT NULL,
+  `assessment_name` varchar(100) NOT NULL,
+  `assessment_type` enum('assignment','Quiz','Test','Project') NOT NULL,
+  `weight` int(11) NOT NULL,
+  `due_date` date NOT NULL,
+  `marks` int(3) DEFAULT NULL,
+  PRIMARY KEY (`ca_id`),
+  KEY `student_id` (`student_id`),
+  CONSTRAINT `continuous_assessments_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `continuous_assessments`
+--
+
+LOCK TABLES `continuous_assessments` WRITE;
+/*!40000 ALTER TABLE `continuous_assessments` DISABLE KEYS */;
+INSERT INTO `continuous_assessments` VALUES (1,15,'CHE101','assignment 1','assignment',100,'2024-11-14',20);
+/*!40000 ALTER TABLE `continuous_assessments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `copyright`
 --
 
@@ -887,6 +919,34 @@ INSERT INTO `maritalstatus` VALUES (1,'Single'),(2,'Married'),(3,'Divorced'),(4,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `modules`
+--
+
+DROP TABLE IF EXISTS `modules`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `modules` (
+  `module_id` int(11) NOT NULL AUTO_INCREMENT,
+  `module_name` varchar(100) NOT NULL,
+  `course_code` varchar(20) NOT NULL,
+  `file_path` varchar(255) NOT NULL,
+  PRIMARY KEY (`module_id`),
+  KEY `course_code` (`course_code`),
+  CONSTRAINT `modules_ibfk_1` FOREIGN KEY (`course_code`) REFERENCES `courses` (`course_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `modules`
+--
+
+LOCK TABLES `modules` WRITE;
+/*!40000 ALTER TABLE `modules` DISABLE KEYS */;
+INSERT INTO `modules` VALUES (1,'CHE101','CHE101','Resources/wall papers/224.jpg');
+/*!40000 ALTER TABLE `modules` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `mood_of_study`
 --
 
@@ -945,7 +1005,7 @@ CREATE TABLE `payments` (
   `payment_id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) NOT NULL,
   `program_id` int(11) NOT NULL,
-  `payment_source` enum('Government','Loan','Student','Sponsor','Other') NOT NULL,
+  `payment_source` enum('Government','Loan','Self','Sponsor','Other') NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `payment_date` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`payment_id`),
@@ -953,7 +1013,7 @@ CREATE TABLE `payments` (
   KEY `program_id` (`program_id`),
   CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`),
   CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -962,7 +1022,7 @@ CREATE TABLE `payments` (
 
 LOCK TABLES `payments` WRITE;
 /*!40000 ALTER TABLE `payments` DISABLE KEYS */;
-INSERT INTO `payments` VALUES (1,15,1,'Government',3000.00,'2024-11-01 16:40:26'),(2,15,1,'Loan',10000.00,'2024-11-01 16:41:48');
+INSERT INTO `payments` VALUES (1,15,1,'Government',10060.00,'2024-11-01 16:40:26'),(2,15,1,'Self',1000.00,'2024-11-01 16:41:48'),(3,15,1,'Sponsor',7000.00,'2024-11-02 21:01:33');
 /*!40000 ALTER TABLE `payments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1398,7 +1458,7 @@ CREATE TABLE `student_address_table` (
 
 LOCK TABLES `student_address_table` WRITE;
 /*!40000 ALTER TABLE `student_address_table` DISABLE KEYS */;
-INSERT INTO `student_address_table` VALUES (6,15,'Brooklyn',3,'88888','11220','733 59th St','733 59th St');
+INSERT INTO `student_address_table` VALUES (6,15,'MONGU',3,'88888','11220','ddddd','ddddd');
 /*!40000 ALTER TABLE `student_address_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1498,7 +1558,7 @@ CREATE TABLE `student_details_table` (
 
 LOCK TABLES `student_details_table` WRITE;
 /*!40000 ALTER TABLE `student_details_table` DISABLE KEYS */;
-INSERT INTO `student_details_table` VALUES (15,'Erick','Ackim','maliko','erickmaliko69@gmail.com','2024-10-17','WhatsApp Image 2024-10-18 at 10.36.08_a5825da5.jpg','0977961230','0960421574',18,9,17,1,1,1);
+INSERT INTO `student_details_table` VALUES (15,'Erick','Ackim','maliko','erickmaliko69@gmail.com','2024-10-17','profile_15.jpg','0977961230','0977961231',18,9,15,1,1,1);
 /*!40000 ALTER TABLE `student_details_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1513,15 +1573,17 @@ CREATE TABLE `student_education_table` (
   `education_id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) NOT NULL,
   `school_name` varchar(100) NOT NULL,
-  `level_of_qualification` varchar(50) NOT NULL,
+  `level_of_qualification` int(11) DEFAULT NULL,
   `entry_date` date NOT NULL,
   `date_graduated` date NOT NULL,
   `school_address` varchar(255) NOT NULL,
   `qualification_document` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`education_id`),
   KEY `student_id` (`student_id`),
+  KEY `fk_level_of_qualification` (`level_of_qualification`),
+  CONSTRAINT `fk_level_of_qualification` FOREIGN KEY (`level_of_qualification`) REFERENCES `qualificationlevel` (`level_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `student_education_table_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1530,7 +1592,7 @@ CREATE TABLE `student_education_table` (
 
 LOCK TABLES `student_education_table` WRITE;
 /*!40000 ALTER TABLE `student_education_table` DISABLE KEYS */;
-INSERT INTO `student_education_table` VALUES (6,15,'MONGU TRADES SECONDARY SCHOOL','8','2024-10-13','2024-10-23','51610 LITOMA ROAD COLD','WhatsApp Image 2024-10-18 at 10.38.21_594c7f49.jpg');
+INSERT INTO `student_education_table` VALUES (7,15,'lllllllllllllll',1,'2024-11-13','2024-11-06','hhhhhhhhhhhhh','hhhhhhhhhhhhhhhh');
 /*!40000 ALTER TABLE `student_education_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1595,6 +1657,42 @@ INSERT INTO `submissions` VALUES (1,1,15,'uploads/WhatsApp Image 2024-10-15 at 0
 UNLOCK TABLES;
 
 --
+-- Table structure for table `timetables`
+--
+
+DROP TABLE IF EXISTS `timetables`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timetables` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `program_id` int(11) NOT NULL,
+  `certification_id` int(11) NOT NULL,
+  `year_id` int(11) NOT NULL,
+  `semester_id` int(11) NOT NULL,
+  `file_path` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `program_id` (`program_id`),
+  KEY `certification_id` (`certification_id`),
+  KEY `year_id` (`year_id`),
+  KEY `semester_id` (`semester_id`),
+  CONSTRAINT `timetables_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`),
+  CONSTRAINT `timetables_ibfk_2` FOREIGN KEY (`certification_id`) REFERENCES `certifications` (`certification_id`),
+  CONSTRAINT `timetables_ibfk_3` FOREIGN KEY (`year_id`) REFERENCES `year` (`year_id`),
+  CONSTRAINT `timetables_ibfk_4` FOREIGN KEY (`semester_id`) REFERENCES `semester` (`semester_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `timetables`
+--
+
+LOCK TABLES `timetables` WRITE;
+/*!40000 ALTER TABLE `timetables` DISABLE KEYS */;
+INSERT INTO `timetables` VALUES (2,1,1,1,1,'Resources/wall papers/224.jpg');
+/*!40000 ALTER TABLE `timetables` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `year`
 --
 
@@ -1651,4 +1749,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-02 20:38:06
+-- Dump completed on 2024-11-04 16:56:27

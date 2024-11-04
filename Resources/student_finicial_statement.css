@@ -1,0 +1,118 @@
+
+:root {
+    --primary-dark: #010d15;
+    --primary-accent: #09c561;
+    --neutral: #60676c;
+    --background: #f4f4f9; /* Light background for contrast */
+    --text-light: #333; /* Dark text for readability */
+    --border-radius: 8px;
+    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --padding: 20px;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+    padding: 40px 20px;
+    min-height: 90vh; /* Full viewport height */
+}
+
+.card {
+    background: white; /* White background for cards */
+    padding: var(--padding);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.02); /* Slightly enlarge card on hover */
+}
+
+h1, h2 {
+    margin-bottom: 15px;
+    color: var(--primary-dark); /* Dark headers */
+}
+
+.payment-info {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em; /* Slightly larger font */
+}
+
+.payment-source {
+    font-weight: bold;
+}
+
+.payment-amount {
+    margin-left: 10px;
+    color: var(--primary-accent);
+    font-weight: bold;
+}
+
+.progress-container {
+    margin-top: 20px;
+    background-color: #f9f9f9; /* Light background for the progress area */
+    padding: 10px;
+    border-radius: var(--border-radius);
+}
+
+.progress-bar-container {
+    background-color: var(--neutral);
+    border-radius: var(--border-radius);
+    height: 10px;
+    margin-top: 5px;
+    overflow: hidden; /* Ensure progress bar respects container */
+}
+
+.progress-bar {
+    background-color: var(--primary-accent);
+    height: 100%;
+    border-radius: var(--border-radius);
+    transition: width 0.3s ease; /* Smooth transition for progress */
+}
+
+.balance-red {
+    color: red; /* Balance amount in red */
+    font-weight: bold;
+}
+
+.balance-progress-bar {
+    background-color: var(--neutral);
+    border-radius: var(--border-radius);
+    height: 10px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.balance-progress {
+    background-color: red; /* Balance progress bar in red */
+    height: 100%;
+    border-radius: var(--border-radius);
+    transition: width 0.3s ease; /* Smooth transition for balance progress */
+}
+
+@media (max-width: 600px) {
+    .card {
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+
+    h1, h2 {
+        font-size: 1.5em; /* Responsive font size for headers */
+    }
+
+    .payment-info {
+        font-size: 1em; /* Responsive font size for payment info */
+    }
+}

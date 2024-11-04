@@ -200,11 +200,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Resources/all_students_finincial.css?v=<?php echo time(); ?>">
-    <title>Financial Statements</title>
+    <title>Student Payment Management</title>
 </head>
 <body>
 
-<div class="search-card">
+    <h1>Student Payment Management</h1>
+    <div class="search-card">
     <h1>Financial Information Search</h1>
     <form method="POST">
         <div class="filter-container">
@@ -222,48 +223,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
 </div>
 
-<div class="results-card">
-    <div class="grid-container">
-        <?php
-        // After fetching results, display them
-        if (!empty($results)) {
-            foreach ($results as $result) {
-                echo "<div class='result-card'>";
-                echo "<h2>Student: {$result['student_id']}</h2>";
-                echo "<p>Program Name: {$result['program_name']}</p>";
-                echo "<p>Certification Name: {$result['certification_name']}</p>";
-                echo "<p>Total Program Fee: Ksh " . number_format($result['total_amount'], 2) . "</p>";
-                echo "<p>Total Paid: Ksh " . number_format($result['total_paid'], 2) . "</p>";
-                echo "<p>Balance: Ksh " . number_format($result['balance'], 2) . "</p>";
+    <?php if (!empty($results)): ?>
+        <div class="results-card">
+            <?php foreach ($results as $result): ?>
+                <div class="result-card">
+                    <h2>Student ID: <?= htmlspecialchars($result['student_id']) ?></h2>
+                    <h3>Program: <?= htmlspecialchars($result['program_name']) ?> (<?= htmlspecialchars($result['certification_name']) ?>)</h3>
+                    <div>
+                        <strong>Total Amount:</strong> k<?= number_format($result['total_amount'], 2) ?><br>
+                        <strong>Total Paid:</strong> k<?= number_format($result['total_paid'], 2) ?><br>
+                    </div>
 
-                echo "<div class='progress-container'>";
-                echo "<h3>Payment Contributions</h3>";
-                foreach ($result['payments'] as $source => $amount) {
-                    $percentage = number_format($result['percentages'][$source], 2);
-                    echo "<div class='payment-info'>";
-                    echo "<span class='payment-source'>" . $source . ":</span> ";
-                    echo "<span class='payment-amount'>" . number_format($amount, 2) . "</span> ";
-                    echo "<span class='payment-percentage'>(" . $percentage . "%)</span>";
-                    echo "</div>";
-                    echo "<div class='progress-bar'>";
-                    echo "<div class='progress' style='width: {$percentage}%;'></div>";
-                    echo "</div>";
-                }
-                echo "</div>"; // Close progress-container
-                echo "</div>"; // Close result-card
-            }
-        } else {
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                echo "<p>No results found.</p>";
-            }
-        }
-        ?>
-    </div>
-</div>
+                    <div class="progress-container">
+                        <h3>Payment Contributions</h3>
+                        <?php foreach ($result['payments'] as $source => $amount): ?>
+                            <div class='payment-info'>
+                                <span class='payment-source'><?= htmlspecialchars($source) ?>:</span>
+                                <span class='payment-amount'>k<?= number_format($amount, 2) ?></span>
+                                <span class='payment-percentage'>(<?= number_format($result['percentages'][$source], 2) ?>%)</span>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: <?= number_format($result['percentages'][$source], 2) ?>%;"></div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                        <div class='payment-info'>
+                            <span class='payment-source'>Balance:</span>
+                            <span class='payment-amount balance-red'>k<?= number_format($result['balance'], 2) ?></span> <!-- Added class here -->
+                            <span class='payment-percentage'>(<?= number_format($result['percentages']['Balance'], 2) ?>%)</span>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" style="width: <?= number_format($result['percentages']['Balance'], 2) ?>%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 
-<?php
-// Close the connection
-$conn->close();
-?>
 </body>
 </html>
+
+<?php 
+$conn->close();
+?>

@@ -1,0 +1,212 @@
+
+:root {
+    --primary-dark: #010d15;
+    --primary-accent: #09c561;
+    --neutral: #60676c;
+    --background: linear-gradient(to right, #1a1a2e, #16213e);
+    --text-light: #ffffff; /* Light text for futuristic feel */
+    --border-radius: 10px;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --padding: 20px;
+    --transition: all 0.3s ease-in-out;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--background);
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+header {
+    background: rgba(2, 7, 14, 0.8);
+    color: white;
+    padding: var(--padding);
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    margin: 0;
+    font-size: 3em;
+    letter-spacing: 1.5px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: var(--padding);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+}
+
+.container:hover {
+    transform: scale(1.02);
+}
+
+.message {
+    font-size: 1.5em;
+    margin: 20px 0;
+    text-align: center;
+    opacity: 0.9;
+}
+
+a {
+    display: inline-block;
+    padding: 15px 30px;
+    margin: 20px 0;
+    text-decoration: none;
+    background: var(--primary-accent);
+    color: white;
+    border-radius: var(--border-radius);
+    transition: background 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    box-shadow: 0 5px 15px rgba(0, 156, 97, 0.5);
+}
+
+a:hover {
+    background: #218838;
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 156, 97, 0.7);
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background: rgba(2, 7, 14, 0.8);
+    color: white;
+    margin-top: auto;
+    position: relative;
+    z-index: 1;
+}
+
+footer p {
+    margin: 0;
+    opacity: 0.8;
+}
+
+
+.box3{
+    width: 95%;
+    margin: auto;
+    height: 37vh;
+    display: flex;
+    flex-direction: row;
+    background-color: #0201183e;
+    margin: 30px auto;
+    padding: var(--padding);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+
+
+/* this is what is inside the box3*/
+.calendar {
+    border-radius: 8px;
+    width: 65.92%; /* Set width to 67.92% */
+    height: 35vh; /* Updated height */
+    display: flex;
+    flex-direction: column;
+
+}
+
+.month {
+    color: #ffffff;
+    font-size: 20px; /* Font size for the month */
+    text-align: center;
+    margin-bottom: 2px; /* Reduced margin */
+    padding: 4px 0; /* Added padding for better spacing */
+}
+
+.weekdays {
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px; /* Font size for weekdays */
+}
+
+.days {
+    color: #ffffff;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    flex-grow: 1; /* Allow days to grow and fill available space */
+    flex-basis: 0;
+}
+
+.day {
+    color: #ffffff;
+    background-color: #4d4d4d23;
+    text-align: center;
+    padding: 15px; /* Adjusted padding */
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-size: 14px; /* Font size for days */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    
+}
+
+.day:hover {
+    background-color: #595959;
+}
+
+.current-day {
+    background-color: #ffffff;
+    color: #333;
+        box-shadow: 0 0 6px #05aa20, /* Horizontal and vertical shadow */
+    0 0 4px rgb(0, 204, 255); /* Second layer of shadow */
+}
+
+.opening_closing{
+    width:40%;
+    height: 30vh;
+    color: #ffffff;
+    text-align: center;
+
+
+/* this is what is inside  the opening_closing */
+.opening{
+    height: 45%;
+    padding: 20px;
+}
+
+.closing{
+        height: 45%;
+        padding: 20px;
+        align-content: end;
+        
+}
+
+.date{
+    width: fit-content;
+    color: #ffffff9f;
+    background-color: #6767754b;
+    margin: auto;
+    margin-top: 5%;
+    padding: 0 20Px 0 20px;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+}
+
+}
+
+}
+
+.box3:hover {
+    transform: scale(1.02);
+}

@@ -91,7 +91,6 @@ foreach ($payments as $source => $amount) {
     $percentages[$source] = ($total_amount > 0) ? ($amount / $total_amount) * 100 : 0;
 }
 $percentages['Balance'] = ($total_amount > 0) ? ($balance / $total_amount) * 100 : 0;
-
 ?>
 
 <!DOCTYPE html>
@@ -99,9 +98,7 @@ $percentages['Balance'] = ($total_amount > 0) ? ($balance / $total_amount) * 100
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-     <!--styles links-->
-   <link rel="stylesheet" href="Resources/student_finicial_statements.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="Resources/student_finicial_statement.css?v=<?php echo time(); ?>">
     <title>Payment Progress</title>
    
 </head>
@@ -109,20 +106,33 @@ $percentages['Balance'] = ($total_amount > 0) ? ($balance / $total_amount) * 100
 
 <div class="card">
     <h1>Payment Progress</h1>
-    <p class="payment-info">Program Fee: <strong>Ksh <?php echo number_format($total_amount, 2); ?></strong></p>
-    <p class="payment-info">Total Paid: <strong>Ksh <?php echo number_format($total_paid, 2); ?></strong></p>
-    <p class="payment-info">Balance: <strong>Ksh <?php echo number_format($balance, 2); ?></strong></p>
+    <p class="payment-info">Program Fee: <strong>k<?php echo number_format($total_amount, 2); ?></strong></p>
+    <p class="payment-info">Total Paid: <strong>k<?php echo number_format($total_paid, 2); ?></strong></p>
 
     <h2>Payment Contributions</h2>
     <div class="progress-container">
         <?php foreach ($payments as $source => $amount): ?>
-            <div class="progress">
-                <div class="progress-bar <?php echo strtolower($source); ?>" 
-                     style="width: <?php echo number_format($percentages[$source], 2); ?>%;">
-                    <?php echo $source . ": " . number_format($amount, 2) . " (" . number_format($percentages[$source], 2) . "%)"; ?>
+            <?php if ($amount > 0): // Only display contributions that have been paid ?>
+                <div class="payment-info">
+                    <span class="payment-source"><?= htmlspecialchars($source) ?>:</span>
+                    <span class="payment-amount">k<?= number_format($amount, 2) ?></span>
+                    <span class="payment-percentage">(<?= number_format($percentages[$source], 2) ?>%)</span>
                 </div>
-            </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: <?= number_format($percentages[$source], 2) ?>%;"></div>
+                </div>
+            <?php endif; ?>
         <?php endforeach; ?>
+    </div>
+
+    <h2>Balance</h2>
+    <div class="payment-info">
+        <span>Remaining Balance:</span>
+        <span class="balance-red">k<?= number_format($balance, 2) ?></span>
+        <span class='payment-percentage'>(<?= number_format($percentages['Balance'], 2) ?>%)</span>
+    </div>
+    <div class="balance-progress-bar">
+        <div class="balance-progress" style="width: <?= number_format($percentages['Balance'], 2) ?>%;"></div>
     </div>
 </div>
 
