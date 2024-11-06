@@ -41,11 +41,10 @@
 
                 <li onclick="loadPage('student_finicial_statement.php')" class="logout"><i class="fa-solid fa-wallet"></i> <span class="nav-text">Financial Statements</span></li>
                 
-                <li onclick="loadPage('student_profile.php')" class="logout"><i class="fas fa-address-card"></i> <span class="nav-text">Profile</span></li>
             </ul>
 
             <ul class="nav-list bottom">
-                <li onclick="loadPage('student_password_change.php')"><i class="fas fa-cogs"></i> <span class="nav-text">Settings</span></li>
+                <li onclick="loadPage('student_settings_page.php')"><i class="fas fa-cogs"></i> <span class="nav-text">Settings</span></li>
                  <li onclick="location.href='logout.php'" class="logout"><i class="fas fa-sign-out-alt"></i> <span class="nav-text">Logout</span></li>
             </ul>
         </div>

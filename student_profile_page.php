@@ -35,11 +35,11 @@ $address = $result_address->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-       <!--styles links-->
-   <link rel="stylesheet" href="Resources/student_profile_page.css?v=<?php echo time(); ?>">
     <title>Student Profile - Futuristic Design</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJc8c2+Jmj3AsK5i5XW+MopjGx6mF7At2lQDJsl1OY8AQKlPzFf2k/s+Gn2x3" crossorigin="anonymous">
+
+     <!--styles links-->
+   <link rel="stylesheet" href="Resources/student_profile_page.css?v=<?php echo time(); ?>">
    
 </head>
 <body>
@@ -47,53 +47,98 @@ $address = $result_address->fetch_assoc();
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-8 offset-md-2">
+
             <!-- Profile Card -->
-            <div class="profile-card glass">
-                <img src="<?php echo $student['profile_picture'] ? $student['profile_picture'] : 'default-profile.png'; ?>" alt="Profile Picture" class="profile-img">
-                <h2><?php echo $student['first_name'] . ' ' . $student['last_name']; ?></h2>
-                <p><?php echo $student['username']; ?></p>
-                <p>Date of Birth: <?php echo date("F j, Y", strtotime($student['date_of_birth'])); ?></p>
-                <p>Phone: <?php echo $student['phone_number']; ?></p>
-                <p>Emergency Phone: <?php echo $student['emergency_phone']; ?></p>
-                <p>Gender: <?php echo $student['gender'] == 1 ? 'Male' : 'Female'; ?></p>
+            <div class="profile-card glass ">
+                            <img src="<?php echo $student['profile_picture'] ? $student['profile_picture'] : 'default-profile.png'; ?>" alt="Profile Picture" class="profile-img">
+                            <h1><?php echo $student['first_name'] . ' ' . $student['last_name']; ?></h1>
+                       
+            <div class="profile-card2 glass">
+
+                <div class="profile">
+                <div class="section-title">profile</div>
+                <div class="contents">
+                    <p class="tittle"><strong>User: </strong></p>
+                    <p><?php echo $student['username']; ?></p>
+
+                    <p class="tittle"><strong>Date of Birth: </strong></p>
+                    <p> <?php echo date("F j, Y", strtotime($student['date_of_birth'])); ?></p>
+
+                    <p class="tittle"><strong>Phone:</strong> </p>
+                    <p><?php echo $student['phone_number']; ?></p>
+
+                    <p class="tittle"><strong>Emergency Phone:</strong></p>
+                    <p> <?php echo $student['emergency_phone']; ?></p>
+
+                    <p class="tittle"><strong>Gender:</strong></p>
+                    <p> <?php echo $student['gender'] == 1 ? 'Male' : 'Female'; ?></p>
+
+                </div>
+
+                </div>
+
+                <div class="profile edu">
+                <div class="section-title">Education</div>
+                <div class="contents">
+                    <p class="tittle"><strong>School Name:</strong></p>
+                    <p> <?php echo $education['school_name']; ?></p>
+
+                    <p class="tittle"><strong>Qualification level:</strong></p>
+                    <p> <?php echo $education['level_of_qualification']; ?></p>
+
+                    <p class="tittle"><strong>Entry Date:</strong> </p>
+                    <p> <?php echo date("F j, Y", strtotime($education['entry_date'])); ?></p>
+
+                    <p class="tittle"><strong> Graduation Date:</strong></p>
+                    <p> <?php echo date("F j, Y", strtotime($education['date_graduated'])); ?></p>
+
+                    <p class="tittle"><strong>School Address:</strong>  </p>
+                    <p><?php echo $education['school_address']; ?></p><p></p>
+
+                </div>
+
+                </div>
+
+
+                <div class="profile">
+                <div class="section-title">Address</div>
+                <div class="contents">
+                    <p class="tittle"><strong>City: </strong> </p>
+                    <p> <?php echo $address['city']; ?></p>
+
+                    <p class="tittle"><strong>Nationality:</strong> </p>
+                    <p><?php echo $address['nationality']; ?></p>
+
+                    <p class="tittle"><strong>National ID:</strong></p>
+                    <p> <?php echo $address['national_id_number']; ?></p>
+
+                    <p class="tittle"><strong> Address:</strong></p>
+                    <p> <?php echo $address['address_line1']; ?></p>
+
+                    <p class="tittle"><strong>Address 2:</strong> </p>
+                    <p> <?php echo $address['address_line2']; ?></p>
+                    
+                   <p class="tittle"><strong>Zipcode:</strong></p>
+                    <p> <?php echo $address['zipcode']; ?></p>
+
+                </div>
+                </div>
+
                 
             </div>
-
-            <!-- Education Section -->
-            <div class="section-title">Education</div>
-            <div class="card glass">
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $education['school_name']; ?></h5>
-                    <p class="card-text">
-                        Level of Qualification: <?php echo $education['level_of_qualification']; ?><br>
-                        Entry Date: <?php echo date("F j, Y", strtotime($education['entry_date'])); ?><br>
-                        Graduation Date: <?php echo date("F j, Y", strtotime($education['date_graduated'])); ?><br>
-                        School Address: <?php echo $education['school_address']; ?>
-                    </p>
-                </div>
             </div>
+
+         
+
 
             <!-- Address Section -->
-            <div class="section-title">Address</div>
-            <div class="card glass">
-                <div class="card-body">
-                    <p class="card-text">
-                        City: <?php echo $address['city']; ?><br>
-                        Nationality: <?php echo $address['nationality']; ?><br>
-                        National ID: <?php echo $address['national_id_number']; ?><br>
-                        Address: <?php echo $address['address_line1']; ?>, <?php echo $address['address_line2']; ?><br>
-                        Zipcode: <?php echo $address['zipcode']; ?>
-                    </p>
-                </div>
-            </div>
+           
+
         </div>
     </div>
 </div>
 
-<!-- Footer -->
-<div class="footer">
-    <p>&copy; 2024 Futuristic Designs. All rights reserved.</p>
-</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 

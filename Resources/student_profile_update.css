@@ -1,0 +1,59 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background: #0a0f1a; /* Dark background for a modern feel */
+    font-family: Arial, sans-serif;     
+}
+
+
+
+label{color: aliceblue;}
+
+label .logo{
+    color: #ffffff;
+    font-size:30px ;
+    width: 5%;
+    text-decoration: none;
+    line-height: 80px;
+    padding-left: 2px;
+    font-weight: 600;
+    position: relative;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    cursor: pointer;
+
+}
+
+h3{
+    color: aliceblue;
+    text-transform: uppercase;
+    font-weight: 800;
+    text-align: center;
+}
+
+
+/* Custom CSS for styling the form */
+.form-section {
+    display: none;
+}
+.form-section.active {
+    display: block;
+}
+.btn-secondary {
+    background-color: #09c561;
+    border-color: #09c561;
+}
+.btn-secondary:hover {
+    background-color: #078946;
+}
+.progress-bar {
+    background-color: #09c561;
+}
+.invalid-feedback {
+    display: none;
+}
+.is-invalid ~ .invalid-feedback {
+    display: block;
+}

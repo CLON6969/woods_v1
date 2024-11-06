@@ -149,7 +149,7 @@ $courses = $courses_result->fetch_all(MYSQLI_ASSOC);
                 <!-- Student Details -->
                 <ul class="inside_left1_child2">
                     <li class="name"><?php echo htmlspecialchars($student_data['name']); ?></li>
-                    <li class="birth"><?php echo htmlspecialchars($student_data['date_of_birth']); ?></li>
+                    
                     <li class="inside">
                         <div class="program"><?php echo htmlspecialchars($student_data['program']); ?></div>
                         <i class="fas fa-book"></i> 
