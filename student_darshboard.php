@@ -137,123 +137,134 @@ $courses = $courses_result->fetch_all(MYSQLI_ASSOC);
 </head>
 <body>
 
-<section class="section1">
-<div class="top">
-    <div class="left">
-        <div class="inside_left1">
-            <aside class="inside_left1_child1">
-                <img src="<?php echo htmlspecialchars($student_data['profile_picture'] ?? 'default.jpg'); ?>" alt="Profile Picture">
-            </aside>
-            <ul class="inside_left1_child2">
-                <li class="name"><?php echo htmlspecialchars($student_data['name']); ?></li>
-                <li class="birth"><?php echo htmlspecialchars($student_data['date_of_birth']); ?></li>
-                <li class="inside">
-                    <div class="program"><?php echo htmlspecialchars($student_data['program']); ?></div>
-                    <i class="fas fa-book"></i> 
-                </li>
-            </ul>
+<div class="section1">
+    <div class="top">
+        <div class="left">
+            <div class="inside_left1">
+                <!-- Profile Image -->
+                <aside class="inside_left1_child1">
+                    <img src="<?php echo htmlspecialchars($student_data['profile_picture'] ?? 'default.jpg'); ?>" alt="Profile Picture" class="profile-picture">
+                </aside>
+                
+                <!-- Student Details -->
+                <ul class="inside_left1_child2">
+                    <li class="name"><?php echo htmlspecialchars($student_data['name']); ?></li>
+                    <li class="birth"><?php echo htmlspecialchars($student_data['date_of_birth']); ?></li>
+                    <li class="inside">
+                        <div class="program"><?php echo htmlspecialchars($student_data['program']); ?></div>
+                        <i class="fas fa-book"></i> 
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Courses Display -->
+            <div class="inside_left2">
+                <span class="tittle">Courses <i class="fa-regular fa-bookmark"></i></span>
+                <ul class="inside_left2_child1">
+                    <?php if (!empty($courses)): ?>
+                        <?php foreach ($courses as $course): ?>
+                            <li><a class="listcourses <?php echo (isset($_GET['course_code']) && $_GET['course_code'] == $course['course_code']) ? 'selected' : ''; ?>" 
+                                   href="?course_code=<?php echo htmlspecialchars($course['course_code']); ?>">
+                                <?php echo htmlspecialchars($course['course_name']); ?>
+                            </a></li>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <li>No courses found for the selected program, year, and semester.</li>
+                    <?php endif; ?>
+                </ul>
+            </div>  
+
+            <!-- General Info (Contact) -->
+            <div class="inside_left4">
+                <span class="tittle">General <i class="fa-regular fa-bookmark"></i></span>
+                <ul class="inside_left4_child1">
+                    <li>Email: </li> <li class="list_back"><?php echo htmlspecialchars($student_data['username']); ?></li>
+                    <li>Phone: </li> <li class="list_back"><?php echo htmlspecialchars($student_data['phone_number']); ?></li>
+                    <li>Student ID: </li> <li class="list_back"><?php echo htmlspecialchars($student_data['student_id']); ?></li>            
+                    <li>Emergency Phone: </li> <li class="list_back"><?php echo htmlspecialchars($student_data['emergency_phone']); ?></li>
+                </ul>
+            </div> 
         </div>
 
-        <div class="inside_left2">
-            <span class="tittle"> Courses <i class="fa-regular fa-bookmark"></i></span>
-            <ul class="inside_left2_child1">
-                <?php if (!empty($courses)): ?>
+        <!-- Right Section (Assignments, Fees, Calendar) -->
+        <div class="right">
+            <!-- Assignments Section -->
+            <aside class="box1">
+                <h1>Assignments</h1>
+                <ul>
                     <?php foreach ($courses as $course): ?>
                         <li><a class="listcourses <?php echo (isset($_GET['course_code']) && $_GET['course_code'] == $course['course_code']) ? 'selected' : ''; ?>" 
                                href="?course_code=<?php echo htmlspecialchars($course['course_code']); ?>">
                             <?php echo htmlspecialchars($course['course_name']); ?>
                         </a></li>
                     <?php endforeach; ?>
-                <?php else: ?>
-                    <li>No courses found for the selected program, year, and semester.</li>
-                <?php endif; ?>
-            </ul>
-        </div>  
-
-        <div class="inside_left4">
-            <span class="tittle"> General <i class="fa-regular fa-bookmark"></i></span>
-            <ul class="inside_left4_child1">
-                <li>Email: </li> <li class="list_back"><?php echo htmlspecialchars($student_data['username']); ?></li>
-                <li>Phone: </li> <li class="list_back"><?php echo htmlspecialchars($student_data['phone_number']); ?></li>
-                <li>Student ID: </li> <li class="list_back"><?php echo htmlspecialchars($student_data['student_id']); ?></li>            
-                <li>Emergency Phone: </li> <li class="list_back"><?php echo htmlspecialchars($student_data['emergency_phone']); ?></li>
-            </ul>
-        </div> 
-    </div>
-
-    <div class="right">
-        <aside class="box1">
-            <h1>Assignments</h1>
-            <ul>
-                <?php foreach ($courses as $course): ?>
-                    <li><a class="listcourses <?php echo (isset($_GET['course_code']) && $_GET['course_code'] == $course['course_code']) ? 'selected' : ''; ?>" 
-                           href="?course_code=<?php echo htmlspecialchars($course['course_code']); ?>">
-                        <?php echo htmlspecialchars($course['course_name']); ?>
-                    </a></li>
-                <?php endforeach; ?>
-            </ul>
-        </aside>
-
-        <div class="box2">
-            <aside class="child1_box2">
-                <span> FEES</span>
-                <ul>
-                    <div class="financial2">
-                        <li class="name2">Self</li>
-                        <li class="progress"></li>
-                        <li class="percentage">100%</li>
-                    </div>
-                    <div class="financial2">
-                        <li class="name2">Loan</li>
-                        <li class="progress"></li>
-                        <li class="percentage">100%</li>
-                    </div>
-                    <div class="financial2">
-                        <li class="name2">Financial aid</li>
-                        <li class="progress"></li>
-                        <li class="percentage">100%</li>
-                    </div>
                 </ul>
             </aside>
 
-            <aside class="child2_box2">
-                <span> EVENTS </span>
-                <div class="event_box">
-                    coming soon...
+            <!-- Fees Section -->
+            <div class="box2">
+                <aside class="child1_box2">
+                    <span> FEES</span>
+                    <ul>
+                        <div class="financial2">
+                            <li class="name2">Self</li>
+                            <li class="progress"></li>
+                            <li class="percentage">100%</li>
+                        </div>
+                        <div class="financial2">
+                            <li class="name2">Loan</li>
+                            <li class="progress"></li>
+                            <li class="percentage">100%</li>
+                        </div>
+                        <div class="financial2">
+                            <li class="name2">Financial aid</li>
+                            <li class="progress"></li>
+                            <li class="percentage">100%</li>
+                        </div>
+                    </ul>
+                </aside>
+
+                <!-- Events Section -->
+                <aside class="child2_box2">
+                    <span> EVENTS </span>
+                    <div class="event_box">
+                        coming soon...
+                    </div>
+                </aside>
+            </div>
+
+            <!-- Calendar and Dates Section -->
+            <aside class="box3">
+                <div class="calendar" id="calendar">
+                    <div class="month" id="month"></div>
+                    <div class="weekdays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="days" id="days"></div>
+                </div>
+
+                <div class="opening_closing">
+                    <div class="opening">
+                        <div><?php echo htmlspecialchars($first_heading_date); ?></div>
+                        <div class="date"><?php echo htmlspecialchars($first_date); ?></div>
+                    </div>
+
+                    <div class="closing">
+                        <div><?php echo htmlspecialchars($second_heading_date); ?></div>
+                        <div class="date"><?php echo htmlspecialchars($second_date); ?></div>
+                    </div>
                 </div>
             </aside>
         </div>
-
-        <aside class="box3">
-            <div class="calendar" id="calendar">
-                <div class="month" id="month"></div>
-                <div class="weekdays">
-                    <div>Sun</div>
-                    <div>Mon</div>
-                    <div>Tue</div>
-                    <div>Wed</div>
-                    <div>Thu</div>
-                    <div>Fri</div>
-                    <div>Sat</div>
-                </div>
-                <div class="days" id="days"></div>
-            </div>
-
-            <div class="opening_closing">
-                <div class="opening">
-                    <div><?php echo htmlspecialchars($first_heading_date); ?></div>
-                    <div class="date"><?php echo htmlspecialchars($first_date); ?></div>
-                </div>
-
-                <div class="closing">
-                    <div><?php echo htmlspecialchars($second_heading_date); ?></div>
-                    <div class="date"><?php echo htmlspecialchars($second_date); ?></div>
-                </div>
-            </div>
-        </aside>
     </div>
-</div>
 </section>
+
 
 <script src="javascripts/calender.js"></script>
 

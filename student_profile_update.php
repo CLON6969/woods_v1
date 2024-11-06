@@ -88,7 +88,6 @@ $conn->close();
 <section class="container mt-2">
     <div class="row">
         <div class="col-md-12">
-            <label><a class="logo" href="index.php">WOODS</a></label>
             <div class="progress mb-4">
                 <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
             </div>

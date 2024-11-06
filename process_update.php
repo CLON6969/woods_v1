@@ -15,20 +15,39 @@ if ($conn->connect_error) {
 session_start();
 $student_id = $_SESSION['student_id'] ?? 15; // Use session or fallback
 
+// Fetch current profile picture file name
+$query = "SELECT profile_picture FROM student_details_table WHERE student_id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $student_id);
+$stmt->execute();
+$stmt->bind_result($currentProfilePicture);
+$stmt->fetch();
+$stmt->close();
+
 // Process profile picture upload
 if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
     $fileTmpPath = $_FILES['profile_picture']['tmp_name'];
     $fileName = $_FILES['profile_picture']['name'];
     $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-    $newFileName = "profile_$student_id.$fileExtension";
-    $uploadPath = "uploads/" . $newFileName;
-    move_uploaded_file($fileTmpPath, $uploadPath);
+    $newFileName = "profile_{$student_id}_" . time() . ".$fileExtension";
+    $uploadPath = "uploads/students/profile_picture/" . $newFileName;
 
-    // Update profile picture path in database
-    $stmt = $conn->prepare("UPDATE student_details_table SET profile_picture = ? WHERE student_id = ?");
-    $stmt->bind_param("si", $newFileName, $student_id);
-    $stmt->execute();
-    $stmt->close();
+    // Remove old profile picture if it exists
+    if (!empty($currentProfilePicture) && file_exists($currentProfilePicture)) {
+        unlink($currentProfilePicture);
+    }
+
+    // Move the new file and confirm it was successful
+    if (move_uploaded_file($fileTmpPath, $uploadPath)) {
+        // Update profile picture path in database with the full path
+        $stmt = $conn->prepare("UPDATE student_details_table SET profile_picture = ? WHERE student_id = ?");
+        $stmt->bind_param("si", $uploadPath, $student_id);
+        $stmt->execute();
+        $stmt->close();
+    } else {
+        // Log if file move failed
+        error_log("Failed to move uploaded file for student_id $student_id");
+    }
 }
 
 // Update student details
@@ -81,7 +100,9 @@ $stmt3->close();
 // Close the database connection
 $conn->close();
 
-// Redirect back to the profile page with a success message
-header("Location: student_profile.php?success=1");
+// Redirect back to the profile page with a success message and prevent caching issues
+header("Location: student_profile.php?success=1&t=" . time());
+header("Cache-Control: no-cache, must-revalidate");
+header("Pragma: no-cache");
 exit();
 ?>

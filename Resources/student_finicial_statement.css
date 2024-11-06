@@ -1,5 +1,6 @@
 
 :root {
+    --background22: #052339;
     --primary-dark: #010d15;
     --primary-accent: #09c561;
     --neutral: #60676c;
@@ -32,6 +33,7 @@ body {
     max-width: 700px;
     margin-bottom: 20px;
     transition: transform 0.2s;
+    
 }
 
 .card:hover {
