@@ -45,7 +45,7 @@ body {
     width: 100%;
     height: fit-content;
     margin: 15px;
-    background-color: #020118;
+    background-color:  var(--primary-dark);
 text-align: center;
 color: #ffffff;
 

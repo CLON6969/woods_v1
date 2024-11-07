@@ -47,17 +47,20 @@ border-right: 2px solid #2e2e2e
     height: 86%; /* Adjust as needed */
     margin: 2% 0 0 4%;
     border-radius: 50%; /* Makes the container circular */
+    border: 4px solid #fff;
     overflow: hidden; /* Ensures content does not overflow */
     display: flex; /* Centering the image */
     justify-content: center; /* Centering the image */
     align-items: center; /* Centering the image */
-    background-color: #d0cfe0; /* Background color for visibility */
+    background-color:#020118; /* Background color for visibility */
 }
 
-.profile-picture {
-    width: 100%; /* Fill the container */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: cover; /* Crop the image to fit the container */
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-bottom: 10px;
+   
 }
 
 .section1 .top .left .inside_left1_child1 i{
@@ -524,3 +527,4 @@ ul{
     font-weight: 800;
     text-align: center;
 }
+

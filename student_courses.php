@@ -64,7 +64,7 @@ $courses_result = $courses_query->get_result();
                     </a>
                 <?php endwhile; ?>
             <?php else: ?>
-                <li>No courses found for the selected program, year, and semester.</li>
+                <li>No courses found.</li>
             <?php endif; ?>
         </ul>
     </aside>

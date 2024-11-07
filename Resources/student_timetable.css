@@ -15,7 +15,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background: var(--background);
+    background: #010d15;
     color: var(--text-light);
     display: flex;
     flex-direction: column;
@@ -152,7 +152,7 @@ footer p {
     color: #ffffff;
     background-color: #4d4d4d23;
     text-align: center;
-    padding: 15px; /* Adjusted padding */
+    padding: 9px; /* Adjusted padding */
     border-radius: 4px;
     transition: background-color 0.3s;
     font-size: 14px; /* Font size for days */

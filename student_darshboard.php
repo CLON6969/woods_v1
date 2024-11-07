@@ -119,6 +119,11 @@ $courses_query->execute();
 $courses_result = $courses_query->get_result();
 $courses = $courses_result->fetch_all(MYSQLI_ASSOC);
 
+// Query to fetch student details
+$sql_details = "SELECT * FROM student_details_table WHERE student_id = $student_id";
+$result_details = $conn->query($sql_details);
+
+$student = $result_details->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -143,7 +148,9 @@ $courses = $courses_result->fetch_all(MYSQLI_ASSOC);
             <div class="inside_left1">
                 <!-- Profile Image -->
                 <aside class="inside_left1_child1">
-                    <img src="<?php echo htmlspecialchars($student_data['profile_picture'] ?? 'default.jpg'); ?>" alt="Profile Picture" class="profile-picture">
+                    
+                <img src="<?php echo $student['profile_picture'] ? $student['profile_picture'] : 'default-profile.png'; ?>" alt="Profile Picture" class="profile-img">
+               
                 </aside>
                 
                 <!-- Student Details -->
