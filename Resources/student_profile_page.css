@@ -1,133 +1,90 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-body {
-    background-color: #0a0f1a;
-    color: #fff;
-    font-family: 'Orbitron', sans-serif; /* Futuristic font */
-    margin: 0;
-    padding: 0;
-}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
+    body {
+        background-color: #0a0f1a;
+        color: #fff;
+        font-family: 'Orbitron', sans-serif; /* Futuristic font */
+    }
 
-/* Glassmorphism Effect */
-.glass {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-    padding: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    
-}
+    .glass {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        padding: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
 
-.profile-card {
-    justify-content: space-between;
-    background: linear-gradient(45deg, #00bcd4, #ff5722);
-    height: 98vh;
-    padding: 15px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
-    margin-bottom: 10px;
-    text-align: center;
-    transition: transform 0.3s ease;
-    
-}
+    .profile-card {
+        justify-content: space-between;
+        background: linear-gradient(45deg, #00bcd4, #ff5722);
+        height: 98vh;
+        padding: 15px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
 
-.profile{
-    width: 90%;
-    
-}
-.edu{
-    border-left: 2px solid #ffffff34;
-    border-right: 2px solid #ffffff34;
-}
+    .profile {
+        width: 90%;
+    }
 
-.profile-card2 {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background: linear-gradient(45deg, #00bcd4, #ff5722);
-    border-radius: 20px;
-    padding: 15px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
-    margin-bottom: 10px;
-    text-align: center;
-    transition: transform 0.3s ease;
-    
-}
+    .edu {
+        border-left: 2px solid #ffffff34;
+        border-right: 2px solid #ffffff34;
+    }
 
-p{
-    width: 100%;
-    text-align: start;
-    margin: 5.2px;
+    .profile-card2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background: linear-gradient(45deg, #00bcd4, #ff5722);
+        border-radius: 20px;
+        padding: 15px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
 
-}
-strong{
-    margin: 10px;
-    color: #00000065;
-    
-}
+    p {
+        text-align: start;
+        margin: 5.2px;
+    }
 
+    strong {
+        margin: 10px;
+        color: #00000065;
+    }
 
-.profile-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 5px solid #fff;
-    margin-bottom: 10px;
-   
-}
+    .profile-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid #fff;
+        margin-bottom: 10px;
+    }
 
+    .section-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #000000;
+        margin-top: 20px;
+        text-shadow: 0px 0px 10px rgba(0, 188, 212, 0.5);
+        text-transform: uppercase;
+    }
 
+    .contents {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 5px;
+    }
 
-.section-title {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #000000;
-    margin-top: 20px;
-    text-shadow: 0px 0px 10px rgba(0, 188, 212, 0.5);
-    text-transform: uppercase;
-   
-}
-
-.card {
-    background-color: #1f1f1f;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-    margin-bottom: 20px;
-    color: #fff;
-   
-}
-
-.card-title {
-    color: #00bcd4;
-    font-size: 1.3em;
-    text-transform: uppercase;
-   
-}
-
-.card-text {
-    font-size: 1em;
-    line-height: 1.6;
-
-   
-}
-
-.contents{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 5px;
-}
-
-.tittle{
-    text-align: start;
-    width: fit-content;
-}
-
-
-
-
+    .tittle {
+        text-align: start;
+        width: fit-content;
+    }

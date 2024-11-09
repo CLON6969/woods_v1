@@ -14,8 +14,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Assuming student ID is available from session or URL parameter
-$student_id = $_SESSION['student_id'] ?? 15; // Replace with actual student ID logic
+// Get student ID from session or set default value (ensure student is logged in)
+if (isset($_SESSION['student_id'])) {
+    $student_id = $_SESSION['student_id']; // Fetch student ID from session
+} else {
+    // If student ID is not set in the session, handle the error (e.g., redirect to login)
+    die("Student not logged in.");
+}
 
 // Fetch Programs
 $programs = [];
@@ -47,32 +52,34 @@ foreach ($options as $key => $sql) {
     }
 }
 
-// Fetch student details
+// Fetch student details using prepared statement
 $stmt = $conn->prepare("SELECT * FROM student_details_table WHERE student_id = ?");
-$stmt->bind_param("i", $student_id);
+$stmt->bind_param("i", $student_id); // Bind student_id to the query
 $stmt->execute();
 $student_result = $stmt->get_result();
 $student = $student_result->fetch_assoc();
 $stmt->close();
 
-// Fetch student address
+// Fetch student address using prepared statement
 $stmt2 = $conn->prepare("SELECT * FROM student_address_table WHERE student_id = ?");
-$stmt2->bind_param("i", $student_id);
+$stmt2->bind_param("i", $student_id); // Bind student_id to the query
 $stmt2->execute();
 $address_result = $stmt2->get_result();
 $address = $address_result->fetch_assoc();
 $stmt2->close();
 
-// Fetch student education
+// Fetch student education using prepared statement
 $stmt3 = $conn->prepare("SELECT * FROM student_education_table WHERE student_id = ?");
-$stmt3->bind_param("i", $student_id);
+$stmt3->bind_param("i", $student_id); // Bind student_id to the query
 $stmt3->execute();
 $education_result = $stmt3->get_result();
 $education = $education_result->fetch_assoc();
 $stmt3->close();
 
+// Close the database connection
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

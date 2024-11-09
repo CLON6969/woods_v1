@@ -1558,7 +1558,7 @@ CREATE TABLE `student_details_table` (
 
 LOCK TABLES `student_details_table` WRITE;
 /*!40000 ALTER TABLE `student_details_table` DISABLE KEYS */;
-INSERT INTO `student_details_table` VALUES (15,'Erick','Ackimtt','maliko','erickmaliko69@gmail.com','2024-10-17','uploads/students/profile_picture/profile_15_1730737426.png','0977961230','0977961231',18,9,15,1,1,1);
+INSERT INTO `student_details_table` VALUES (15,'Erick','Ackimtt','maliko','erickmaliko69@gmail.com','2024-10-17','uploads/students/profile_picture/profile_15_1730737426.png','0977961230','0977961231',18,9,15,10,1,1);
 /*!40000 ALTER TABLE `student_details_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1749,4 +1749,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-06 18:22:17
+-- Dump completed on 2024-11-07  6:00:03

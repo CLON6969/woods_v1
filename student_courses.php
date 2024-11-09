@@ -1,10 +1,19 @@
 <?php
+session_start(); // Start the session
+
+// Check if student_id is set in the session; show error or redirect if not
+if (!isset($_SESSION['student_id'])) {
+    die("User is not logged in. Please log in to view the course details.");
+}
+
+// Retrieve the student_id from the session
+$student_id = $_SESSION['student_id'];
+
 // Enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Static values for program, year, and term
-$student_id = 15; // Example Student ID for testing
+// Static values for year and term (these might come from the session or request as well)
 $year_id = 1; // Example Year ID
 $semester_id = 1; // Example Term ID
 

@@ -1,10 +1,20 @@
 <?php
+// Start the session to access session variables
+session_start();
+
 // Enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Static values for student, year, and semester for this example
-$student_id = 15; // Replace with actual session data
+// Retrieve the student_id from the session
+if (isset($_SESSION['student_id'])) {
+    $student_id = $_SESSION['student_id']; // Dynamically retrieve student_id from session
+} else {
+    // If no student_id is found in the session, redirect or handle the error
+    die("Student not logged in.");
+}
+
+// Static values for year and semester
 $year_id = 1; // Example year ID
 $semester_id = 1; // Example semester ID
 
@@ -28,9 +38,7 @@ $stmt->bind_param("i", $student_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
-
-
-// Fetch data from the accademic_table table
+// Fetch data from the academic table
 $accademic_table_query = "SELECT * FROM accademic_table LIMIT 1"; // Adjust the LIMIT or WHERE clause as needed
 $accademic_table_result = $conn->query($accademic_table_query);
 
@@ -48,8 +56,6 @@ if ($accademic_table_result->num_rows > 0) {
     $background_picture = $row['background_picture'] ?? "Default background picture";
 }
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -58,17 +64,16 @@ if ($accademic_table_result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Timetable</title>
-       <!--styles links-->
-   <link rel="stylesheet" href="Resources/student_timetable.css?v=<?php echo time(); ?>">
+    <!--styles links-->
+    <link rel="stylesheet" href="Resources/student_timetable.css?v=<?php echo time(); ?>">
 
-   <!--fontawsome links-->
-   <link rel="stylesheet" href="Resources/fontawesome/css/solid.css">
-   <link rel="stylesheet" href="Resources/fontawesome/webfonts/fa-solid-900.woff2">
-   <link rel="stylesheet" href="Resources/fontawesome/css/all.css">
-   <link rel="stylesheet" href="Resources/fontawesome/css/brands.css">
-   <link rel="stylesheet" href="Resources/fontawesome/css/fontawesome.css">
-   <link href="Resourses/fontawesome/css/solid.css" rel="stylesheet" />
-
+    <!--fontawsome links-->
+    <link rel="stylesheet" href="Resources/fontawesome/css/solid.css">
+    <link rel="stylesheet" href="Resources/fontawesome/webfonts/fa-solid-900.woff2">
+    <link rel="stylesheet" href="Resources/fontawesome/css/all.css">
+    <link rel="stylesheet" href="Resources/fontawesome/css/brands.css">
+    <link rel="stylesheet" href="Resources/fontawesome/css/fontawesome.css">
+    <link href="Resourses/fontawesome/css/solid.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -95,7 +100,6 @@ if ($accademic_table_result->num_rows > 0) {
             $file_path = $row['file_path'];
 
             // Provide a download link for the PDF file
-
             echo '<a href="' . htmlspecialchars($file_path) . '" download><i class="fas fa-download"></i> Download Timetable PDF</a>';
         } else {
             echo '<p class="message">No timetable found for the selected program, certification type, year, and semester.</p>';
@@ -109,39 +113,35 @@ if ($accademic_table_result->num_rows > 0) {
     ?>
 </div>
 
-
-
-
 <aside class="box3">
-            <div class="calendar" id="calendar">
-                <div class="month" id="month"></div>
-                <div class="weekdays">
-                    <div>Sun</div>
-                    <div>Mon</div>
-                    <div>Tue</div>
-                    <div>Wed</div>
-                    <div>Thu</div>
-                    <div>Fri</div>
-                    <div>Sat</div>
-                </div>
-                <div class="days" id="days"></div>
-            </div>
-
-            <div class="opening_closing">
-                <div class="opening">
-                    <div><?php echo htmlspecialchars($first_heading_date); ?></div>
-                    <div class="date"><?php echo htmlspecialchars($first_date); ?></div>
-                </div>
-
-                <div class="closing">
-                    <div><?php echo htmlspecialchars($second_heading_date); ?></div>
-                    <div class="date"><?php echo htmlspecialchars($second_date); ?></div>
-                </div>
-            </div>
-        </aside>
+    <div class="calendar" id="calendar">
+        <div class="month" id="month"></div>
+        <div class="weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="days" id="days"></div>
     </div>
-    <script src="javascripts/calender.js"></script>
 
+    <div class="opening_closing">
+        <div class="opening">
+            <div><?php echo htmlspecialchars($first_heading_date); ?></div>
+            <div class="date"><?php echo htmlspecialchars($first_date); ?></div>
+        </div>
+
+        <div class="closing">
+            <div><?php echo htmlspecialchars($second_heading_date); ?></div>
+            <div class="date"><?php echo htmlspecialchars($second_date); ?></div>
+        </div>
+    </div>
+</aside>
+
+<script src="javascripts/calender.js"></script>
 
 </body>
 </html>

@@ -313,61 +313,10 @@ ul{
 }
 
 
-.section1 .top .right .box2 .child1_box2{
-    width: 49.6%;
-    background-color: #020118;
-
-
-    text-align: center;
-    color: #ffffff;
-
-/* this is what is inside  the opening_closing */
-   span{
-    width: fit-content;
-    padding: 0 20% 0 20%;
-    background-color: #4d4d4db9;
-   }
-   
-   ul{
-    width: 95%;
-    margin: auto;
-    list-style: none;
-   }
-
-   
-.financial2{
-    width: 100%;
-    display:flex ;
-    flex-direction: row;
-    margin-top: 5%;
-    align-content: center;
-    justify-content: space-between;
-}
-
-.name2{
-  width: 24%;
-  background-color: #595959; 
-}
-
-.progress{
-    width: 60%;
-    border: 2px solid #9ca59f;
-    background-color: #02a834;
-}
-
-.percentage{
-    width: 14%;
-    color: #02a834;
-}
-
-
-
-
-}
 
 .section1 .top .right .box2 .child2_box2{
 
-    width: 49.6%;
+    width: 100%;
     background-color: #020118;
  
     text-align: center;

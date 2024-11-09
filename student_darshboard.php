@@ -1,4 +1,12 @@
 <?php
+session_start();  // Start the session to access session variables
+
+// Check if the student_id exists in the session
+if (!isset($_SESSION['student_id'])) {
+    // Redirect to login or error page if student_id is not found
+    die("Student not logged in. Please login first.");
+}
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -12,11 +20,14 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Static values for program, year, and term
-$student_id = 15; // Example Student ID for testing
+// Retrieve the student_id from the session
+$student_id = $_SESSION['student_id']; // Dynamically retrieve student_id from the session
+
+// Static values for year_id and semester_id (these can be dynamically set based on user input or defaults)
 $year_id = 1; // Example Year ID
 $semester_id = 1; // Example Term ID
 
+// Prepare SQL query to fetch student data
 $query = "
     SELECT 
         sd.student_id,
@@ -49,17 +60,15 @@ $query = "
     LEFT JOIN 
         certifications c ON sd.certification_type = c.certification_id
     WHERE 
-        sd.student_id = $student_id
+        sd.student_id = ?
 ";
 
-$results = $conn->query($query);
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $student_id);  // Bind the student_id parameter
+$stmt->execute();
+$results = $stmt->get_result();
 
-// Check for query execution errors
-if ($results === false) {
-    die("SQL Error: " . $conn->error);
-}
-
-$student_data = [];
+// Check if any student record was found
 if ($results->num_rows > 0) {
     $row = $results->fetch_assoc();
     $student_data = [
@@ -80,32 +89,35 @@ if ($results->num_rows > 0) {
 } else {
     echo "No student record found with ID $student_id.";
 }
+$stmt->close();
 
-// Fetch data from the accademic_table table
-$accademic_table_query = "SELECT * FROM accademic_table LIMIT 1"; // Adjust the LIMIT or WHERE clause as needed
+// Fetch data from the academic_table
+$accademic_table_query = "SELECT * FROM accademic_table LIMIT 1";  // Adjust LIMIT or WHERE as needed
 $accademic_table_result = $conn->query($accademic_table_query);
 
+// Fetch heading data for academic purposes
 if ($accademic_table_result->num_rows > 0) {
     $row = $accademic_table_result->fetch_assoc();
     $heading1 = $row['heading1'] ?? "Default Heading 1";
-    $heading2 = $row['heading2'] ?? "Default heading 2.";
+    $heading2 = $row['heading2'] ?? "Default Heading 2";
     $heading3 = $row['heading3'] ?? "Default Heading 3";
-    $first_heading_date = $row['first_heading_date'] ?? "Default first heading date";
-    $first_date = $row['first_date'] ?? "Default first date";
-    $second_heading_date = $row['second_heading_date'] ?? "Default second heading date";
-    $second_date = $row['second_date'] ?? "Default second date";
-    $buttun = $row['buttun'] ?? "Default button";
-    $buttun_url = $row['buttun_url'] ?? "Default button url";
-    $background_picture = $row['background_picture'] ?? "Default background picture";
+    $first_heading_date = $row['first_heading_date'] ?? "Default First Heading Date";
+    $first_date = $row['first_date'] ?? "Default First Date";
+    $second_heading_date = $row['second_heading_date'] ?? "Default Second Heading Date";
+    $second_date = $row['second_date'] ?? "Default Second Date";
+    $button = $row['button'] ?? "Default Button Text";
+    $button_url = $row['button_url'] ?? "Default Button URL";
+    $background_picture = $row['background_picture'] ?? "Default Background Picture";
 }
 
-// Get program ID for the student
+// Fetch program_id for the student
 $program_query = $conn->prepare("SELECT program_id FROM student_details_table WHERE student_id = ?");
-$program_query->bind_param("i", $student_id);
+$program_query->bind_param("i", $student_id);  // Bind the student_id
 $program_query->execute();
 $program_result = $program_query->get_result();
 $program_row = $program_result->fetch_assoc();
 $program_id = $program_row['program_id'];
+$program_query->close();
 
 // Fetch courses for the program, year, and semester
 $courses_query = $conn->prepare("
@@ -114,17 +126,25 @@ $courses_query = $conn->prepare("
     JOIN program_registration pr ON c.course_code = pr.course_code
     WHERE pr.program_id = ? AND pr.year_id = ? AND pr.semester_id = ?
 ");
-$courses_query->bind_param("iii", $program_id, $year_id, $semester_id);
+$courses_query->bind_param("iii", $program_id, $year_id, $semester_id);  // Bind program_id, year_id, and semester_id
 $courses_query->execute();
 $courses_result = $courses_query->get_result();
 $courses = $courses_result->fetch_all(MYSQLI_ASSOC);
+$courses_query->close();
 
 // Query to fetch student details
-$sql_details = "SELECT * FROM student_details_table WHERE student_id = $student_id";
-$result_details = $conn->query($sql_details);
-
+$sql_details = "SELECT * FROM student_details_table WHERE student_id = ?";
+$stmt_details = $conn->prepare($sql_details);
+$stmt_details->bind_param("i", $student_id);
+$stmt_details->execute();
+$result_details = $stmt_details->get_result();
 $student = $result_details->fetch_assoc();
+$stmt_details->close();
+
+// Close the database connection
+$conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -210,26 +230,7 @@ $student = $result_details->fetch_assoc();
 
             <!-- Fees Section -->
             <div class="box2">
-                <aside class="child1_box2">
-                    <span> FEES</span>
-                    <ul>
-                        <div class="financial2">
-                            <li class="name2">Self</li>
-                            <li class="progress"></li>
-                            <li class="percentage">100%</li>
-                        </div>
-                        <div class="financial2">
-                            <li class="name2">Loan</li>
-                            <li class="progress"></li>
-                            <li class="percentage">100%</li>
-                        </div>
-                        <div class="financial2">
-                            <li class="name2">Financial aid</li>
-                            <li class="progress"></li>
-                            <li class="percentage">100%</li>
-                        </div>
-                    </ul>
-                </aside>
+               
 
                 <!-- Events Section -->
                 <aside class="child2_box2">

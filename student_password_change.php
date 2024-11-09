@@ -1,5 +1,14 @@
 <?php
-session_start();
+session_start(); // Start session to access session variables
+
+if (isset($_SESSION['student_id'])) {
+    $student_id = $_SESSION['student_id']; // Dynamically retrieve student_id from session
+} else {
+    // If no student_id is found in the session, redirect or handle the error
+    die("Student not logged in.");
+}
+
+
 
 // Database connection
 $servername = "localhost";
@@ -8,17 +17,38 @@ $password = "";
 $dbname = "woods";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
+// Check the connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if the form was submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+// Fetch the student_id from session
+$student_id = $_SESSION['student_id']; // Dynamically retrieve student_id from session
+$login_id = $_SESSION['login_id'] ?? null;
+
+// Set default profile picture if none is found
+$profile_picture = 'default-profile.png';
+
+// Fetch the profile picture from the student_details_table if student_id is available
+if ($student_id !== null) {
+    $stmt = $conn->prepare("SELECT profile_picture FROM student_details_table WHERE student_id = ?");
+    $stmt->bind_param("i", $student_id);
+    $stmt->execute();
+    $stmt->bind_result($profile_picture_path);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Use the fetched profile picture path if it exists
+    if ($profile_picture_path) {
+        $profile_picture = $profile_picture_path;
+    }
+}
+
+// Handle password change
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && $login_id !== null) {
     $current_password = $_POST['current_password'];
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
-    $login_id = $_SESSION['login_id'];
 
     if ($new_password !== $confirm_password) {
         $error = "New password and confirmation do not match.";
@@ -45,6 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
+
+// Close the database connection
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -52,13 +85,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <!--styles links-->
- <link rel="stylesheet" href="Resources/student_password_change.css?v=<?php echo time(); ?>">
-    
+    <link rel="stylesheet" href="Resources/student_password_change.css?v=<?php echo time(); ?>">
     <title>Change Password</title>
-    
+    <style>
+        .profile-picture {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Password Change Form -->
     <div class="container">
         <h2>Change Password</h2>
 

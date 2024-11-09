@@ -1,4 +1,14 @@
-<?php 
+<?php
+session_start(); // Start the session
+
+// Check if student_id is set in the session, redirect or show an error if not
+if (!isset($_SESSION['student_id'])) {
+    die("User is not logged in. Please log in to view your payment progress.");
+}
+
+// Retrieve the student_id from the session
+$student_id = $_SESSION['student_id'];
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -11,9 +21,6 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
-// Example student ID
-$student_id = 15; // Change to the actual student ID
 
 // Fetch the program ID and certification ID for the student
 $program_query = $conn->prepare("SELECT program_id, certification_type FROM student_details_table WHERE student_id = ?");
@@ -100,7 +107,6 @@ $percentages['Balance'] = ($total_amount > 0) ? ($balance / $total_amount) * 100
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Resources/student_finicial_statement.css?v=<?php echo time(); ?>">
     <title>Payment Progress</title>
-   
 </head>
 <body>
 

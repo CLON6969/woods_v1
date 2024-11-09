@@ -1,13 +1,16 @@
 <?php
+// Start the session to retrieve logged-in user information
+session_start();
+
 // Enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Database connection
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "woods";
-
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
@@ -15,10 +18,31 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    // Redirect to login page if not logged in
+    header("Location: login.php");
+    exit();
+}
+
+// Get the logged-in student's ID from the student_login table
+$username = $_SESSION['username'];
+$query = "SELECT student_id FROM student_login WHERE username = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
+$user_data = $result->fetch_assoc();
+$student_id = $user_data['student_id'] ?? null;
+
+// Check if student_id was retrieved
+if (!$student_id) {
+    die("Error: Unable to retrieve student ID.");
+}
+
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['assignment'])) {
     $assignment_id = $_POST['assignment_id'];
-    $student_id = 15; // Replace with dynamic student ID as needed
     $upload_dir = 'uploads/'; // Ensure this directory is writable
 
     // Handle file upload
@@ -46,5 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['assignment'])) {
     }
 }
 
+// Close database connections
+$stmt->close();
 $conn->close();
 ?>

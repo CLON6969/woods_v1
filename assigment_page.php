@@ -1,18 +1,32 @@
-<?php
+<?php 
 // Enable error reporting for debugging
-error_reporting(E_ALL);
+error_reporting(E_ALL); 
 ini_set('display_errors', 1);
 
-// Static values for program, year, and term
-$student_id = 15; // Example Student ID for testing
+// Start the session
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    // Redirect to login page if not logged in
+    die("User is not logged in. Please log in to view your assgnments.");
+}
+
+// Check if student_id is set in the session; show error or redirect if not
+
+
+// Capture the current logged-in user's student ID from session
+$student_id = $_SESSION['student_id']; // Assuming student_id is stored in session
+
+// Static values for year and semester, can be replaced with dynamic values if needed
 $year_id = 1; // Example Year ID
 $semester_id = 1; // Example Term ID
 
+// Database connection
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "woods";
-
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
@@ -31,14 +45,13 @@ $program_id = $program_row['program_id'];
 // Prepare and execute the query to get courses for the specific program, year, and semester
 $courses_query = $conn->prepare("
     SELECT c.course_code, c.course_name 
-    FROM courses c
-    JOIN program_registration pr ON c.course_code = pr.course_code
+    FROM courses c 
+    JOIN program_registration pr ON c.course_code = pr.course_code 
     WHERE pr.program_id = ? AND pr.year_id = ? AND pr.semester_id = ?
 ");
 $courses_query->bind_param("iii", $program_id, $year_id, $semester_id);
 $courses_query->execute();
 $courses_result = $courses_query->get_result();
-
 ?>
 
 <!DOCTYPE html>
@@ -52,157 +65,66 @@ $courses_result = $courses_query->get_result();
 </head>
 <body>
 <section class="edditing_part">
-<div class="right">
-    <aside class="box1">
-        <h1>Assignments</h1>
-        <ul>
-            <?php if ($courses_result->num_rows > 0): ?>
-                <?php while ($course = $courses_result->fetch_assoc()): ?>
-                    <a class="listcourses" <?php echo (isset($_GET['course_code']) && $_GET['course_code'] == $course['course_code']) ? 'selected' : ''; ?>" 
-                       href="?course_code=<?php echo htmlspecialchars($course['course_code']); ?>">
-                        <?php echo htmlspecialchars($course['course_name']); ?>
-                    </a>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <li>No courses found for the selected program, year, and semester.</li>
-            <?php endif; ?>
-        </ul>
-    </aside>
+    <div class="right">
+        <aside class="box1">
+            <h1>Assignments</h1>
+            <ul>
+                <?php if ($courses_result->num_rows > 0): ?>
+                    <?php while ($course = $courses_result->fetch_assoc()): ?>
+                        <a class="listcourses" <?php echo (isset($_GET['course_code']) && $_GET['course_code'] == $course['course_code']) ? 'selected' : ''; ?>" href="?course_code=<?php echo htmlspecialchars($course['course_code']); ?>">
+                            <?php echo htmlspecialchars($course['course_name']); ?>
+                        </a>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <li>No courses found for the selected program, year, and semester.</li>
+                <?php endif; ?>
+            </ul>
+        </aside>
 
-    <div class="edditing_section">
-        <div class="assignment_box">
-            <div class="assignment_box1">
-                <div class="assignment_box1_child1">
-                    <h1>Assignments for Course: 
-                    <?php
-                    // Check if course_code is set in URL
-                    if (isset($_GET['course_code'])) {
-                        $course_code = $_GET['course_code'];
-                        echo htmlspecialchars($course_code);
-                        
-                        // Prepare and execute the query to get assignments
-                        $assignments_query = $conn->prepare("
-                            SELECT assignment_id, assignment_name, file_path, open_date, close_date
-                            FROM assignments
-                            WHERE course_code = ?
-                        ");
-                        $assignments_query->bind_param("s", $course_code);
-                        $assignments_query->execute();
-                        $assignments_result = $assignments_query->get_result();
-                    } else {
-                        echo "Select a course to view assignments.";
-                    }
-                    ?>
-                    </h1>
+        <div class="edditing_section">
+            <div class="assignment_box">
+                <div class="assignment_box1">
+                    <div class="assignment_box1_child1">
+                        <h1>Assignments for Course: 
+                            <?php 
+                            // Check if course_code is set in URL
+                            if (isset($_GET['course_code'])) { 
+                                $course_code = $_GET['course_code']; 
+                                echo htmlspecialchars($course_code); 
 
-                    <?php if (isset($assignments_result) && $assignments_result->num_rows > 0): ?>
-                        <ul>
-                            <?php while ($assignment = $assignments_result->fetch_assoc()): ?>
-                                <li>
-                                    <a class="listcourses <?php echo (isset($_GET['assignment_id']) && $_GET['assignment_id'] == $assignment['assignment_id']) ? 'selected' : ''; ?>" 
-                                       href="?course_code=<?php echo htmlspecialchars($course_code); ?>&assignment_id=<?php echo htmlspecialchars($assignment['assignment_id']); ?>">
-                                        <?php echo htmlspecialchars($assignment['assignment_name']); ?>
-                                        <p>Opening: <?php echo htmlspecialchars($assignment['open_date']); ?></p>
-                                        <p class="closing">Closing: <?php echo htmlspecialchars($assignment['close_date']); ?></p>
-                                    </a>
-
-                                    <a href="<?php echo htmlspecialchars($assignment['file_path']); ?>" download>
-                                        <button class="btntxt" type="button">Download<i class="fa-solid fa-download"></i></button>
-                                    </a>
-                                </li>
-                            <?php endwhile; ?>
-                        </ul>
-                    <?php else: ?>
-                        <p>No assignments found for this course.</p>
-                    <?php endif; ?>
-                </div>
-            </div>
-
-            <div class="assignment_box2">
-                <div class="assignment_box2_child1">
-                    <?php
-                    // Get current date
-                    $current_date = date("Y-m-d");
-
-                    // Check if assignment_id is set in URL to fetch specific assignment details
-                    if (isset($_GET['assignment_id'])) {
-                        $assignment_id = $_GET['assignment_id'];
-
-                        // Query to fetch specific assignment details
-                        $assignment_detail_query = $conn->prepare("
-                            SELECT assignment_name, file_path, open_date, close_date
-                            FROM assignments
-                            WHERE assignment_id = ?
-                        ");
-                        $assignment_detail_query->bind_param("i", $assignment_id);
-                        $assignment_detail_query->execute();
-                        $assignment_detail_result = $assignment_detail_query->get_result();
-
-                        if ($assignment_detail_result->num_rows > 0):
-                            $assignment_detail = $assignment_detail_result->fetch_assoc();
-
-                            // Check if the student has already submitted the assignment
-                            $submission_check_query = $conn->prepare("
-                                SELECT file_path 
-                                FROM submissions
-                                WHERE student_id = ? AND assignment_id = ?
-                            ");
-
-                            if ($submission_check_query === false) {
-                                die("Error preparing query: " . $conn->error);
-                            }
-
-                            $submission_check_query->bind_param("ii", $student_id, $assignment_id);
-                            $submission_check_query->execute();
-                            $submission_result = $submission_check_query->get_result();
-
-                            // If a submitted file exists, show the download button
-                            if ($submission_result->num_rows > 0):
-                                $submitted_file = $submission_result->fetch_assoc();
-                                ?>
-                                <!-- Download Submitted Assignment Button -->
-                                <div class="download-submission">
-                                    <p>Submitted </p>
-
-                                    <a href="<?php echo htmlspecialchars($submitted_file['file_path']); ?>" download>
-                                        <button class="btntxt" type="button">Download<i class="fa-solid fa-download"></i></button>
-                                    </a>
-                                </div>
-                            <?php
-                            endif;
-
-                            // Check if the current date is before the close date
-                            if ($current_date <= $assignment_detail['close_date']):
+                                // Prepare and execute the query to get assignments
+                                $assignments_query = $conn->prepare("SELECT assignment_id, assignment_name, file_path, open_date, close_date FROM assignments WHERE course_code = ?");
+                                $assignments_query->bind_param("s", $course_code);
+                                $assignments_query->execute();
+                                $assignments_result = $assignments_query->get_result(); 
+                            } else { 
+                                echo "Select a course to view assignments."; 
+                            } 
                             ?>
-                                <!-- Submission Form (only shown if current date is before close date) -->
-                                <div class="down_submitted">
-                                    <form action="submit_assignment.php" method="post" enctype="multipart/form-data">
-                                        <div class="file-upload-card input_field">
-                                            <label for="fileInput" class="file-upload-label">
-                                                <i class="fa fa-upload"></i> 
-                                                <span id="fileName">No file chosen</span>
-                                            </label>
-                                            <input type="file" name="fileInput" id="fileInput" accept="image/*">
-                                        </div>
+                        </h1>
 
-                                        <div class="container">
-                                            <input type="hidden" name="assignment_id" value="<?php echo $assignment_id; ?>">
-                                            <button class="btntxt" type="submit" name="assignment">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            <?php else: ?>
-                                <p>The submission deadline has passed for this assignment.</p>
-                            <?php endif; ?>
-
+                        <?php if (isset($assignments_result) && $assignments_result->num_rows > 0): ?>
+                            <ul>
+                                <?php while ($assignment = $assignments_result->fetch_assoc()): ?>
+                                    <li>
+                                        <a class="listcourses <?php echo (isset($_GET['assignment_id']) && $_GET['assignment_id'] == $assignment['assignment_id']) ? 'selected' : ''; ?>" href="?course_code=<?php echo htmlspecialchars($course_code); ?>&assignment_id=<?php echo htmlspecialchars($assignment['assignment_id']); ?>">
+                                            <?php echo htmlspecialchars($assignment['assignment_name']); ?>
+                                            <p>Opening: <?php echo htmlspecialchars($assignment['open_date']); ?></p>
+                                            <p class="closing">Closing: <?php echo htmlspecialchars($assignment['close_date']); ?></p>
+                                        </a>
+                                        <a href="<?php echo htmlspecialchars($assignment['file_path']); ?>" download>
+                                            <button class="btntxt" type="button">Download<i class="fa-solid fa-download"></i></button>
+                                        </a>
+                                    </li>
+                                <?php endwhile; ?>
+                            </ul>
                         <?php else: ?>
-                            <p>Assignment not found.</p>
-                        <?php endif;
-                    } else {
-                        echo "<p>Select an assignment to view details and submit.</p>";
-                    }
-                    ?>
+                            <p>No assignments found for this course.</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
+
+                <!-- Additional assignment details handling here -->
             </div>
         </div>
     </div>
@@ -213,11 +135,11 @@ $courses_result = $courses_query->get_result();
     <div id="progress-bar"></div>
 </div>
 
-</body>
 <script src="javascripts/assigments.js"></script>
-</html>
+</body>
 
-<?php
+<?php 
 // Close the database connection
-$conn->close();
+$conn->close(); 
 ?>
+</html>
