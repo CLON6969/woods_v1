@@ -87,7 +87,7 @@ CREATE TABLE `accepted_applications` (
   `status` enum('Pending','Accepted','Rejected') DEFAULT 'Pending',
   `submission_date` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`accepted_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +96,7 @@ CREATE TABLE `accepted_applications` (
 
 LOCK TABLES `accepted_applications` WRITE;
 /*!40000 ALTER TABLE `accepted_applications` DISABLE KEYS */;
-INSERT INTO `accepted_applications` VALUES (6,22,'Erick','Ackim','maliko','erickmaliko69@gmail.com','2024-10-18','12.png','0977961230','0977961230',18,9,16,13,10,6,'733 59th St','733 59th St','Brooklyn','NY','11220',213,3,'12.png','gggggghhhhhhhh',213,'2024-10-10','2024-10-18','Accepted','2024-10-20 17:50:09');
+INSERT INTO `accepted_applications` VALUES (6,22,'Erick','Ackim','maliko','erickmaliko69@gmail.com','2024-10-18','12.png','0977961230','0977961230',18,9,16,13,10,6,'733 59th St','733 59th St','Brooklyn','NY','11220',213,3,'12.png','gggggghhhhhhhh',213,'2024-10-10','2024-10-18','Accepted','2024-10-20 17:50:09'),(7,23,'Erick','tttt','maliko','erickworkspace6969@gmail.com','2024-11-22','6.png','0977961230','0977502853',17,9,16,14,10,9,'51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','MONGU','NY','1111111',210,2,'10.png','gggggghhhhhhhh',211,'2024-11-24','2024-11-23','Accepted','2024-11-12 14:10:10'),(8,24,'Erick','tttt','maliko','erickworkspace6969@gmail.com','2024-11-17','12.png','0977961230','0977867201',17,10,17,4,1,1,'733 59th St','733 59th St','Brooklyn','NY','11220',209,10,'12.png','gggggghhhhhhhh',210,'2024-11-16','2024-11-22','Accepted','2024-11-12 14:51:16'),(12,26,'Erick','tttt','maliko','erickmaliko69@gmail.com','2024-11-22','12.png','0977867201','0977867201',17,10,17,4,10,9,'51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','MONGU','NY','33333',212,4,'13.jpg','gggggghhhhhhhh',211,'2024-11-23','2024-11-21','Accepted','2024-11-12 15:06:18');
 /*!40000 ALTER TABLE `accepted_applications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +119,7 @@ CREATE TABLE `address` (
   PRIMARY KEY (`address_id`),
   KEY `staff_id` (`staff_id`),
   CONSTRAINT `address_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +128,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (34,40,'733 59th St','733 59th St','Brooklyn','NY','11220',213);
+INSERT INTO `address` VALUES (40,5,'51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','51610 LITOMA ROAD COLD\r\nESCO MONGU TRADES ROAD\r\nOLD SHOPRITE','MONGU','NY','33333',212);
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,7 +351,6 @@ CREATE TABLE `continuous_assessments` (
 
 LOCK TABLES `continuous_assessments` WRITE;
 /*!40000 ALTER TABLE `continuous_assessments` DISABLE KEYS */;
-INSERT INTO `continuous_assessments` VALUES (1,15,'CHE101','assignment 1','assignment',100,'2024-11-14',20);
 /*!40000 ALTER TABLE `continuous_assessments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -549,10 +548,10 @@ DROP TABLE IF EXISTS `departments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `departments` (
-  `department_id` int(11) NOT NULL AUTO_INCREMENT,
+  `department_id` int(11) NOT NULL,
   `department_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`department_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -575,13 +574,19 @@ DROP TABLE IF EXISTS `employment`;
 CREATE TABLE `employment` (
   `employment_id` int(11) NOT NULL AUTO_INCREMENT,
   `staff_id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `employment_status_id` int(11) NOT NULL,
-  `department_id` int(11) NOT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  `employment_status_id` int(11) DEFAULT NULL,
+  `department_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`employment_id`),
   KEY `staff_id` (`staff_id`),
-  CONSTRAINT `employment_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `role_id` (`role_id`),
+  KEY `employment_status_id` (`employment_status_id`),
+  KEY `department_id` (`department_id`),
+  CONSTRAINT `employment_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE,
+  CONSTRAINT `employment_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`) ON DELETE SET NULL,
+  CONSTRAINT `employment_ibfk_3` FOREIGN KEY (`employment_status_id`) REFERENCES `employment_status` (`employment_status_id`) ON DELETE SET NULL,
+  CONSTRAINT `employment_ibfk_4` FOREIGN KEY (`department_id`) REFERENCES `departments` (`department_id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -590,7 +595,7 @@ CREATE TABLE `employment` (
 
 LOCK TABLES `employment` WRITE;
 /*!40000 ALTER TABLE `employment` DISABLE KEYS */;
-INSERT INTO `employment` VALUES (34,40,13,10,6);
+INSERT INTO `employment` VALUES (5,5,4,10,9);
 /*!40000 ALTER TABLE `employment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -602,10 +607,10 @@ DROP TABLE IF EXISTS `employment_status`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employment_status` (
-  `employment_status_id` int(11) NOT NULL AUTO_INCREMENT,
+  `employment_status_id` int(11) NOT NULL,
   `status_name` varchar(100) NOT NULL,
   PRIMARY KEY (`employment_status_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -895,6 +900,33 @@ INSERT INTO `intake` VALUES (1,'January'),(2,'May'),(3,'September');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `lecturer_modules`
+--
+
+DROP TABLE IF EXISTS `lecturer_modules`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lecturer_modules` (
+  `staff_id` int(11) NOT NULL,
+  `module_id` int(11) NOT NULL,
+  PRIMARY KEY (`staff_id`,`module_id`),
+  KEY `module_id` (`module_id`),
+  CONSTRAINT `lecturer_modules_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE,
+  CONSTRAINT `lecturer_modules_ibfk_2` FOREIGN KEY (`module_id`) REFERENCES `modules` (`module_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lecturer_modules`
+--
+
+LOCK TABLES `lecturer_modules` WRITE;
+/*!40000 ALTER TABLE `lecturer_modules` DISABLE KEYS */;
+INSERT INTO `lecturer_modules` VALUES (5,1);
+/*!40000 ALTER TABLE `lecturer_modules` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `maritalstatus`
 --
 
@@ -927,7 +959,6 @@ DROP TABLE IF EXISTS `modules`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `modules` (
   `module_id` int(11) NOT NULL AUTO_INCREMENT,
-  `module_name` varchar(100) NOT NULL,
   `course_code` varchar(20) NOT NULL,
   `file_path` varchar(255) NOT NULL,
   PRIMARY KEY (`module_id`),
@@ -942,7 +973,7 @@ CREATE TABLE `modules` (
 
 LOCK TABLES `modules` WRITE;
 /*!40000 ALTER TABLE `modules` DISABLE KEYS */;
-INSERT INTO `modules` VALUES (1,'CHE101','CHE101','Resources/wall papers/224.jpg');
+INSERT INTO `modules` VALUES (1,'CHE101','Resources/wall papers/224.jpg');
 /*!40000 ALTER TABLE `modules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1002,7 +1033,7 @@ DROP TABLE IF EXISTS `payments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `payments` (
-  `payment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `payment_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `program_id` int(11) NOT NULL,
   `payment_source` enum('Government','Loan','Self','Sponsor','Other') NOT NULL,
@@ -1010,10 +1041,8 @@ CREATE TABLE `payments` (
   `payment_date` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`payment_id`),
   KEY `student_id` (`student_id`),
-  KEY `program_id` (`program_id`),
-  CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`),
-  CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1022,7 +1051,6 @@ CREATE TABLE `payments` (
 
 LOCK TABLES `payments` WRITE;
 /*!40000 ALTER TABLE `payments` DISABLE KEYS */;
-INSERT INTO `payments` VALUES (1,15,1,'Government',10060.00,'2024-11-01 16:40:26'),(2,15,1,'Self',1000.00,'2024-11-01 16:41:48'),(3,15,1,'Sponsor',7000.00,'2024-11-02 21:01:33');
 /*!40000 ALTER TABLE `payments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1201,7 +1229,7 @@ CREATE TABLE `qualification` (
   PRIMARY KEY (`qualification_id`),
   KEY `staff_id` (`staff_id`),
   CONSTRAINT `qualification_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1210,7 +1238,7 @@ CREATE TABLE `qualification` (
 
 LOCK TABLES `qualification` WRITE;
 /*!40000 ALTER TABLE `qualification` DISABLE KEYS */;
-INSERT INTO `qualification` VALUES (34,40,3,'12.png','gggggghhhhhhhh',213,'2024-10-10','2024-10-18');
+INSERT INTO `qualification` VALUES (40,5,4,'13.jpg','gggggghhhhhhhh',211,'2024-11-23','2024-11-21');
 /*!40000 ALTER TABLE `qualification` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1270,11 +1298,11 @@ DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `roles` (
-  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) NOT NULL,
   `role_name` varchar(50) NOT NULL,
   `description` text DEFAULT NULL,
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1333,7 +1361,7 @@ CREATE TABLE `staff` (
   `religion_id` int(11) NOT NULL,
   PRIMARY KEY (`staff_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1342,7 +1370,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES (40,'Erick','Ackim','maliko','erickmaliko69@gmail.com','2024-10-18','12.png','0977961230','0977961230',18,9,16);
+INSERT INTO `staff` VALUES (5,'Erick','tttt','maliko','erickmaliko69@gmail.com','2024-11-22','12.png','0977867201','0977867201',17,10,17);
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1384,7 +1412,7 @@ CREATE TABLE `staff_application` (
   `status` enum('Pending','Accepted','Rejected') DEFAULT 'Pending',
   `submission_date` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`application_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1415,7 +1443,7 @@ CREATE TABLE `staff_login` (
   UNIQUE KEY `username` (`username`),
   KEY `staff_id` (`staff_id`),
   CONSTRAINT `staff_login_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1424,8 +1452,35 @@ CREATE TABLE `staff_login` (
 
 LOCK TABLES `staff_login` WRITE;
 /*!40000 ALTER TABLE `staff_login` DISABLE KEYS */;
-INSERT INTO `staff_login` VALUES (26,40,'erickmaliko69@gmail.com','$2y$10$bqrwYlrAEUskN/vrAkQnRuu6HBTjmt9hJDX19kf3cJ9OvjhP.7z4e',0,'da678e307d45d3bd01afb2713c6a51ae1764b16c55ee0ab13995bd859953e0b5e3f8dc5ba2909d8cd6342d205a5af031f044','2024-10-20 21:25:16');
+INSERT INTO `staff_login` VALUES (28,0,'erickworkspace6969@gmail.com','$2y$10$UZRiqc1KOrtVZEXMgOBPVepYs.wMc93MZDq0CJmIMk5MbHzNADPf.',0,NULL,NULL),(32,5,'erickmaliko69@gmail.com','$2y$10$pw04qfXS3nestZqbLjFYHuk9ydreum.ydyqC/nhrJEfvbIsrdNTtS',0,NULL,NULL);
 /*!40000 ALTER TABLE `staff_login` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `staff_roles`
+--
+
+DROP TABLE IF EXISTS `staff_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `staff_roles` (
+  `staff_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  PRIMARY KEY (`staff_id`,`role_id`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `staff_roles_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`) ON DELETE CASCADE,
+  CONSTRAINT `staff_roles_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `staff_roles`
+--
+
+LOCK TABLES `staff_roles` WRITE;
+/*!40000 ALTER TABLE `staff_roles` DISABLE KEYS */;
+INSERT INTO `staff_roles` VALUES (5,4);
+/*!40000 ALTER TABLE `staff_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1449,7 +1504,7 @@ CREATE TABLE `student_address_table` (
   KEY `fk_nationality` (`nationality`),
   CONSTRAINT `fk_nationality` FOREIGN KEY (`nationality`) REFERENCES `nationality` (`nationality_id`),
   CONSTRAINT `student_address_table_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1458,7 +1513,7 @@ CREATE TABLE `student_address_table` (
 
 LOCK TABLES `student_address_table` WRITE;
 /*!40000 ALTER TABLE `student_address_table` DISABLE KEYS */;
-INSERT INTO `student_address_table` VALUES (6,15,'MONGU',76,'88888','11220','ddddd','ddddd');
+INSERT INTO `student_address_table` VALUES (7,16,'Brooklyn',3,'88888','11220','733 59th St','733 59th St');
 /*!40000 ALTER TABLE `student_address_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1500,7 +1555,7 @@ CREATE TABLE `student_application` (
   `application_status` varchar(20) DEFAULT 'Pending',
   PRIMARY KEY (`application_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1549,7 +1604,7 @@ CREATE TABLE `student_details_table` (
   CONSTRAINT `fk_marital_status` FOREIGN KEY (`marital_status`) REFERENCES `maritalstatus` (`status_id`),
   CONSTRAINT `fk_religion` FOREIGN KEY (`religion`) REFERENCES `religion` (`religion_id`),
   CONSTRAINT `student_details_table_ibfk_1` FOREIGN KEY (`program_id`) REFERENCES `programs` (`program_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1558,7 +1613,7 @@ CREATE TABLE `student_details_table` (
 
 LOCK TABLES `student_details_table` WRITE;
 /*!40000 ALTER TABLE `student_details_table` DISABLE KEYS */;
-INSERT INTO `student_details_table` VALUES (15,'Erick','Ackimtt','maliko','erickmaliko69@gmail.com','2024-10-17','uploads/students/profile_picture/profile_15_1730737426.png','0977961230','0977961231',18,9,15,10,1,1);
+INSERT INTO `student_details_table` VALUES (16,'Erick','Ackim','maliko','erickmaliko69@gmail.com','2024-11-21','Resources/wall papers/230.jpg','0977961230','0977867201',15,9,17,16,1,1);
 /*!40000 ALTER TABLE `student_details_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1583,7 +1638,7 @@ CREATE TABLE `student_education_table` (
   KEY `fk_level_of_qualification` (`level_of_qualification`),
   CONSTRAINT `fk_level_of_qualification` FOREIGN KEY (`level_of_qualification`) REFERENCES `qualificationlevel` (`level_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `student_education_table_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1592,7 +1647,7 @@ CREATE TABLE `student_education_table` (
 
 LOCK TABLES `student_education_table` WRITE;
 /*!40000 ALTER TABLE `student_education_table` DISABLE KEYS */;
-INSERT INTO `student_education_table` VALUES (7,15,'yyyyy',1,'2024-11-13','2024-11-06','hhhhhhhhhhhhh','hhhhhhhhhhhhhhhh');
+INSERT INTO `student_education_table` VALUES (8,16,'MONGU TRADES SECONDARY SCHOOL',4,'2024-11-14','2024-11-15','51610 LITOMA ROAD COLD','6.png');
 /*!40000 ALTER TABLE `student_education_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1614,7 +1669,7 @@ CREATE TABLE `student_login` (
   PRIMARY KEY (`login_id`),
   KEY `student_id` (`student_id`),
   CONSTRAINT `student_login_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student_details_table` (`student_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1623,7 +1678,7 @@ CREATE TABLE `student_login` (
 
 LOCK TABLES `student_login` WRITE;
 /*!40000 ALTER TABLE `student_login` DISABLE KEYS */;
-INSERT INTO `student_login` VALUES (6,15,'erickmaliko69@gmail.com','$2y$10$sD5HImaFD4TJJQ1qaa6GOeLI8KnBjgl6alJn9NOMlieAWyfCCikNi',1,NULL,NULL);
+INSERT INTO `student_login` VALUES (7,16,'erickmaliko69@gmail.com','$2y$10$aJ3yllx5m34g2p5H6ifiBOxqvamJWSZfdaZ90kvx78GSzt1hI6kYi',1,NULL,NULL);
 /*!40000 ALTER TABLE `student_login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1749,4 +1804,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-07  6:00:03
+-- Dump completed on 2024-11-13  6:00:04

@@ -8,7 +8,7 @@
 
 body {
     height: min-content;
-    background-color: #010d15;;
+    background-color: #010d15;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -27,6 +27,8 @@ width: 29.8%;
 height: 100%;
 background-color: #020118;
 
+
+
 border-right: 2px solid #2e2e2e
 ;
 }
@@ -40,16 +42,26 @@ border-right: 2px solid #2e2e2e
     flex-direction: row;
 }
 
-
-.section1 .top .left .inside_left1_child1{
-    width: 30%;
-    height: 86%;
+.inside_left1_child1 {
+    width: 30%; /* Adjust as needed */
+    height: 86%; /* Adjust as needed */
     margin: 2% 0 0 4%;
-    border-radius: 10%;
-    background-color: #d0cfe0;
-    align-content: center;
-    text-align: center; 
-    }
+    border-radius: 50%; /* Makes the container circular */
+    border: 4px solid #fff;
+    overflow: hidden; /* Ensures content does not overflow */
+    display: flex; /* Centering the image */
+    justify-content: center; /* Centering the image */
+    align-items: center; /* Centering the image */
+    background-color:#020118; /* Background color for visibility */
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-bottom: 10px;
+   
+}
 
 .section1 .top .left .inside_left1_child1 i{
 font-size: 60px;
@@ -112,6 +124,9 @@ font-weight: 800;
         text-align: center;
       }
 
+    /* this deals with the the courses view(courses-display)*/
+
+   
     /* this deals with the the courses view(courses-display)*/
 
    
@@ -189,33 +204,17 @@ font-weight: 800;
         justify-content: space-between;
     }
 
-    .inside_left3_child1 li{
-        width: fit-content;
-        margin: auto;
-        margin: 1% 1% 0 0;
-        padding: 2%;
-        color: #ffffff;
-        background-color: #4d4d4d44;
-        text-align: center;
-        border-radius: 4px;
-        transition: background-color 0.3s;
-        font-size: 14px;
-        
-    }
-
-.inside_left4_child1 li  {
+    .inside_left3_child1 li,.inside_left4_child1 li  {
         display: inline-block;
         width: calc(35% - 8px); /* Adjust the width as needed */
         margin: 2% 0 0 2%;
         color: #ffffff;
         background-color: #676775;
-        border-radius: 3px;
+        border-radius: 15px;
         font-size: 16px;
         font-weight: 600;
         align-content: center;
         text-align: center;
-
-        
     }
 
     .inside_left4_child1 li  {
@@ -251,18 +250,6 @@ font-weight: 800;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 .section1 .top .right{
     width: 69.8%;
     height: 100%;
@@ -277,6 +264,8 @@ font-weight: 800;
     height: 35.33vh;
     background-color: #020118;
 
+
+
 text-align: center;
 color: #ffffff;
 
@@ -289,7 +278,7 @@ margin: auto;
 }
 
 ul{
-    width: 95%;
+    width: 100%;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
@@ -297,48 +286,25 @@ ul{
    justify-content: center;
 
    /* this is what is inside  the ul */
-
-
    
-.financial2{
-    width: 100%;
-    display:flex ;
-    flex-direction: row;
-    margin-top: 1%;
-    align-content: center;
-    justify-content: space-between;
+    li{
+        width: fit-content;
+        margin: auto;
+        margin: 1% 1% 0 0;
+        padding: 2.6%;
+        color: #ffffff;
+        background-color: #4d4d4d44;
+        text-align: center;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        font-size: 14px; /* Font size for days */
+    }
+    
+    li:hover {
+        background-color: #595959;
+        border:1px solid #02a834;
+    }
 }
-
-.name2{
-  width: 34%;
-  cursor: pointer;
-  background-color: #4d4d4d98;
-  text-align: center;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-.name2:hover {
-    background-color: #6b6767;
-    border:1px solid #02a834;
-}
-
-.progress{
-    width: 50%;
-    border: 2px solid #9ca59f;
-    background-color: #02a834;
-}
-
-.percentage{
-    width: 14%;
-    color: #02a834;
-}
-
-
-
-
-}
-
 
 
 }
@@ -355,85 +321,12 @@ ul{
 }
 
 
-.section1 .top .right .box2 .child1_box2{
-    width: 49.6%;
-    background-color: #020118;
-    text-align: center;
-    color: #ffffff;
-
-/* this is what is inside  the opening_closing */
-   span{
-    width: fit-content;
-    padding: 0 20% 0 20%;
-    background-color: #4d4d4db9;
-   }
-   
-   ul{
-    width: 95%;
-    height: fit-content;
-    margin:auto;
-    display: flex;
-    flex-wrap:wrap;
-    list-style: none;
-    justify-content: space-between;
-   }
-
-   
-li{
-    display: inline-block;
-    width: calc(40% - 10px); /* Adjust the width as needed */
-    margin: 2.3% 0 0 2%;
-    color: #ffffff;
-    background-color: #676775;
-    border-radius: 3px;
-    font-size: 14px;
-    font-weight: 600;
-    align-content: center;
-    text-align: center;
-}
-
-.last_line{
-    margin: 2% 0 2.7% 2%;
-}
-
-.split{
-    display: flex;
-    justify-content: space-between;
-    background: none;
-    
- /* this is what is inside  the split */
-
-.available,.allowed{
-width: 40%;
-height: 100%;
-margin: auto;
-border-radius: 3px;
-}
-
-.available{
-    background: #02a834;
-    border: 2px solid rgb(5, 71, 14);
-}
-
-.allowed{
-    background: #55555546;
-    color:  rgba(250, 247, 247, 0.527);
-    border: 2px solid rgba(250, 247, 247, 0.274);
-}
-
-}
-
-}
-
-
-
 
 .section1 .top .right .box2 .child2_box2{
 
-    width: 49.6%;
+    width: 100%;
     background-color: #020118;
-   
-;
+ 
     text-align: center;
     color: #ffffff;
 
@@ -456,9 +349,6 @@ border-radius: 3px;
     
 }
 
-
-
-
 /* this is what is  the box3*/
 
 .section1 .top .right .box3{
@@ -467,10 +357,10 @@ border-radius: 3px;
     display: flex;
     flex-direction: row;
     background-color: #020118;
-    border-top: 2px solid #2e2e2e
-;
-/* this is what is inside the box3*/
+    border-top: 2px solid #2e2e2e;
 
+
+/* this is what is inside the box3*/
 .calendar {
     border-radius: 8px;
     width: 67.92%; /* Set width to 67.92% */
@@ -483,7 +373,7 @@ border-radius: 3px;
     color: #ffffff;
     font-size: 20px; /* Font size for the month */
     text-align: center;
-    margin-bottom: 5px; /* Reduced margin */
+    margin-bottom: 2px; /* Reduced margin */
     padding: 2px 0; /* Added padding for better spacing */
 }
 
@@ -511,6 +401,7 @@ border-radius: 3px;
     border-radius: 4px;
     transition: background-color 0.3s;
     font-size: 14px; /* Font size for days */
+    
 }
 
 .day:hover {
@@ -520,12 +411,9 @@ border-radius: 3px;
 .current-day {
     background-color: #ffffff;
     color: #333;
-    border: 2px solid #05aa20;
+        box-shadow: 0 0 6px #05aa20, /* Horizontal and vertical shadow */
+    0 0 4px rgb(0, 204, 255); /* Second layer of shadow */
 }
-
-
-
-
 
 .opening_closing{
     width:40%;
@@ -535,9 +423,6 @@ border-radius: 3px;
 
 
 /* this is what is inside  the opening_closing */
-
-
-
 .opening{
     height: 45%;
     padding: 20px;
@@ -560,9 +445,43 @@ border-radius: 3px;
 
 }
 
-
-
-
 }
 
 }
+
+.listcourses {
+    width: fit-content;
+    text-decoration: none;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s;
+    font-size: 14px;
+    border: 1px solid transparent;
+}
+
+
+
+.profile-picture {
+    width: 100%; /* Fill the container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Crop the image to fit the container */
+}
+
+.inside_left1_child2 .name {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.inside_left1_child2 .program {
+    padding: 4px;
+    background-color: #676775;
+    color: #ffffff;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+}
+

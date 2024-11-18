@@ -42,15 +42,7 @@ $student = $result_details->fetch_assoc();
     <link rel="stylesheet" href="Resources/fontawesome/css/solid.css">
     <link rel="stylesheet" href="Resources/fontawesome/css/all.css">
     <title>WOODS TRAINING INSTITUTE</title>
-    <style>
-    .profile-img {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid #fff;
-    }
-    </style>
+
 </head>
 <body>
 <section class="third_part">
@@ -60,15 +52,15 @@ $student = $result_details->fetch_assoc();
                 <button id="menuToggle" class="menu-toggle"><i class="fas fa-bars"></i></button>
             </div>
             <ul class="nav-list">
-                <li onclick="loadPage('student_darshboard.php')"><i class="fas fa-tachometer-alt"></i> <span class="nav-text">Dashboard</span></li>
-                <li onclick="loadPage('student_courses.php')"><i class="fas fa-layer-group"></i> <span class="nav-text">Courses</span></li>  
-                <li onclick="loadPage('assigment_page.php')"><i class="fas fa-edit"></i> <span class="nav-text">Assignments</span></li>
-                <li onclick="loadPage('student_ca.php')"><i class="fas fa-book-open"></i> <span class="nav-text">CA</span></li>
-                <li onclick="loadPage('student_timetable.php')"><i class="fas fa-calendar-alt"></i> <span class="nav-text">Timetables</span></li>
-                <li onclick="loadPage('student_finicial_statement.php')"><i class="fa-solid fa-wallet"></i> <span class="nav-text">Financial Statements</span></li>
+                <li onclick="loadPage('student_darshboard.php', event)"><i class="fas fa-tachometer-alt"></i> <span class="nav-text">Dashboard</span></li>
+                <li onclick="loadPage('student_courses.php', event)"><i class="fas fa-layer-group"></i> <span class="nav-text">Courses & modules</span></li>  
+                <li onclick="loadPage('assigment_page.php', event)"><i class="fas fa-edit"></i> <span class="nav-text">Assignments</span></li>
+                <li onclick="loadPage('student_ca.php', event)"><i class="fas fa-book-open"></i> <span class="nav-text">CA</span></li>
+                <li onclick="loadPage('student_timetable.php', event)"><i class="fas fa-calendar-alt"></i> <span class="nav-text">Timetables</span></li>
+                <li onclick="loadPage('student_finicial_statement.php', event)"><i class="fa-solid fa-wallet"></i> <span class="nav-text">Financial Statements</span></li>
             </ul>
             <ul class="nav-list bottom">
-                <li onclick="loadPage('student_settings_page.php')"><i class="fas fa-cogs"></i> <span class="nav-text">Settings</span></li>
+                <li onclick="loadPage('student_settings_page.php', event)"><i class="fas fa-cogs"></i> <span class="nav-text">Settings</span></li>
                 <li onclick="location.href='logout.php'" class="logout"><i class="fas fa-sign-out-alt"></i> <span class="nav-text">Logout</span></li>
             </ul>
         </div>
@@ -92,8 +84,19 @@ $student = $result_details->fetch_assoc();
             <iframe id="contentFrame" src="student_darshboard.php" frameborder="0"></iframe>
         </div>
     </div>
-    
     <script src="javascripts/admin_profile.js"></script>
+
+    <script>
+        function loadPage(page, event) {
+            // Set the iframe source
+            document.getElementById('contentFrame').src = page;
+
+            // Highlight the clicked menu item
+            const navItems = document.querySelectorAll('.nav-list li');
+            navItems.forEach(item => item.classList.remove('highlighted')); // Remove highlight from all items
+            event.currentTarget.classList.add('highlighted'); // Highlight the clicked item
+        }
+    </script>
 </section>
 </body>
 </html>

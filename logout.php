@@ -14,6 +14,7 @@ if (ini_get("session.use_cookies")) {
         $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
 }
 
+
 // Redirect to index.php and refresh the page
 header("Location: index.php"); 
 exit(); // Ensure no further code is executed after redirection
